@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da5f2d173cb3487a90250bdd0e127a8, type: 3}
+  m_Name: SceneState
+  m_EditorClassIdentifier: 
+  OnSpawnNewObject: {fileID: 11400000, guid: 25793f735e4bc4bf8994307bc32bfd69, type: 2}
+  Prefabs:
+  - Type: 0
+    Prefab: {fileID: 1631692480568668531, guid: 2702d0ecb67364b42b62698a019e748f, type: 3}
+  - Type: 1
+    Prefab: {fileID: 2786070892462994056, guid: c5c282c704229504c89bbb5bfa453aa3, type: 3}
+  - Type: 2
+    Prefab: {fileID: 8056473390765758645, guid: 8bbde298614ee4f4e829b1487d93c8f5, type: 3}
+  PlaneTracked: {fileID: 11400000, guid: cd3167584f96998408a8553156239725, type: 2}

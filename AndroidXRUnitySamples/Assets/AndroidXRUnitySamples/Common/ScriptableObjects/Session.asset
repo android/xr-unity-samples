@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b90e5e33ef5a1409d844c1c5828bc7c3, type: 3}
+  m_Name: Session
+  m_EditorClassIdentifier: 
+  CurrentRoom: {fileID: 11400000, guid: 60b431208df5d4596a05db205802a5b0, type: 2}
+  SceneLoadingState: {fileID: 11400000, guid: 70665a33f30c44b8f8cfb4b1181a934c, type: 2}
+  ImmersiveLobby: {fileID: 11400000, guid: 39483cfb4343e4fdc813ea60017598b7, type: 2}
+  CurrentTable: {fileID: 11400000, guid: fb0895a8522ca450395d05e97c63e44a, type: 2}
+  DebugMode: {fileID: 11400000, guid: 4b3e18b0deff847c1a168829f03cf05a, type: 2}

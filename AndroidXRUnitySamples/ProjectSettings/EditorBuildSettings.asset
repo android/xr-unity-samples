@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/AndroidXRUnitySamples/Home/Scenes/Home.unity
+    guid: e249c469754aa49d796f3f7083ba297e
+  - enabled: 1
+    path: Assets/AndroidXRUnitySamples/TabletopMess/Scenes/TabletopMess.unity
+    guid: b846ae2b1c83943de828ec68dfbbe969
+  - enabled: 1
+    path: Assets/AndroidXRUnitySamples/GazeAndPinch/Scenes/GazeAndPinch.unity
+    guid: aadac53c1b4604fa0af143e1e8ed5a20
+  - enabled: 1
+    path: Assets/AndroidXRUnitySamples/SurfaceCanvas/Scenes/SurfaceCanvas.unity
+    guid: a0196ad3df1914180b5765c4280ec892
+  - enabled: 1
+    path: Assets/AndroidXRUnitySamples/GestureRun/Scenes/GestureRun.unity
+    guid: fd7e1d191d4fb4674b9640a8248db4d3
+  - enabled: 1
+    path: Assets/AndroidXRUnitySamples/SoundArena/Scenes/SoundArena.unity
+    guid: fa9d2912b25e4436bb70a8f85b16d029
+  - enabled: 1
+    path: Assets/AndroidXRUnitySamples/ScreenWiper/Scenes/ScreenWiper.unity
+    guid: 65aee41e871b9434f90047f055a7c91a
+  - enabled: 1
+    path: Assets/AndroidXRUnitySamples/DeviceDetector/Scenes/DeviceDetector.unity
+    guid: cb4153d548e4049b094c1418ad1448e5
+  - enabled: 1
+    path: Assets/AndroidXRUnitySamples/CreatureGaze/Scenes/CreatureGaze.unity
+    guid: ba3db9b3886e0e142a2caf1bbe7a77c4
+  - enabled: 1
+    path: Assets/AndroidXRUnitySamples/TapeMeasure/Scenes/TapeMeasure.unity
+    guid: 0ffe8bb0d187c45c7aa11b9e9030f374
+  - enabled: 1
+    path: Assets/AndroidXRUnitySamples/PaintSplash/Scenes/PaintSplash.unity
+    guid: a7da5a4703e8d41c8bbaecb34286fd40
+  - enabled: 1
+    path: Assets/AndroidXRUnitySamples/TalkingObjects/Scenes/TalkingObjects.unity
+    guid: 680363c92e623462dbd6ea11d2c63787
+  - enabled: 1
+    path: Assets/AndroidXRUnitySamples/Drone/Scenes/Drone.unity
+    guid: ae23d360e041445c7ac0c06532ad51da
+  m_configObjects:
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 0f4fe700a3c1a492aab1525ba55eccd0, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3b3280e934783f7b4bfc0708d249b47f, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 8ec08f4f27e4e1fb1b02318de852624e, type: 2}
+  m_UseUCBPForAssetBundles: 0

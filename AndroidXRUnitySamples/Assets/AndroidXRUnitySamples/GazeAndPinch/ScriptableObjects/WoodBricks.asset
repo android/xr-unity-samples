@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b434158a4cc03404b87c74b722ecd0b6, type: 3}
+  m_Name: WoodBricks
+  m_EditorClassIdentifier: 
+  Health: 250
+  DamagedThreshold: 0.8
+  SeverelyDamagedThreshold: 0.3
+  FullHealthMaterial: {fileID: 2100000, guid: 5d776ee515cb54ed78eed447719f9084, type: 2}
+  DamagedHealthMaterial: {fileID: 2100000, guid: 5d776ee515cb54ed78eed447719f9084, type: 2}
+  SeverelyDamagedHealthMaterial: {fileID: 2100000, guid: 78fdc3be085f64e8caf510aada107549, type: 2}

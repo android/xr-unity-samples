@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c077b62843248ae818e0f49d0febe8, type: 3}
+  m_Name: TabletopMess
+  m_EditorClassIdentifier: 
+  ExperienceName: Tabletop Mess
+  ExperienceGroup: Mixed Reality
+  Icon: {fileID: 21300000, guid: 7828650fd557b0b48a546ac3d2b81da3, type: 3}
+  Sprite: {fileID: 21300000, guid: dad17f21bc89e4955bf5d66716630778, type: 3}
+  Description: 'Use plane tracking to visualize planes around the user, which allows
+    dropping visual items onto them. Can enable passthrough on the planes.
+
+'
+  ScenePath: Assets/AndroidXRUnitySamples/TabletopMess/Scenes/TabletopMess.unity
+  SupportedInputModes: 0100000002000000

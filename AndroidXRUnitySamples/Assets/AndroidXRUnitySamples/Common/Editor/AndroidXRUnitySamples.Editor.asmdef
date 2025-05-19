@@ -1,0 +1,22 @@
+{
+    "name": "AndroidXRUnitySamples.Editor",
+    "rootNamespace": "AndroidXRUnitySamples.Editor",
+    "references": [
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:6546d7765b4165b40850b3667f981c26",
+        "GUID:832e5a2e453d14ca0addde5383df62b6",
+        "GUID:e36f1c49cf7894eb98083565e125bd33",
+        "GUID:7b347739e24cf4adf8cacb8122d210fd"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

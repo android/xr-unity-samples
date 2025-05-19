@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b434158a4cc03404b87c74b722ecd0b6, type: 3}
+  m_Name: GreenBricks
+  m_EditorClassIdentifier: 
+  Health: 220
+  DamagedThreshold: 0.8
+  SeverelyDamagedThreshold: 0.3
+  FullHealthMaterial: {fileID: 2100000, guid: dd319a4769cab4363a30c2c0c457b1cd, type: 2}
+  DamagedHealthMaterial: {fileID: 2100000, guid: dd319a4769cab4363a30c2c0c457b1cd, type: 2}
+  SeverelyDamagedHealthMaterial: {fileID: 2100000, guid: b86f39177bf644446852b1d97b66ec9c, type: 2}

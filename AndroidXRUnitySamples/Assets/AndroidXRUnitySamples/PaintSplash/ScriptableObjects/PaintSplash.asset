@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c077b62843248ae818e0f49d0febe8, type: 3}
+  m_Name: PaintSplash
+  m_EditorClassIdentifier: 
+  ExperienceName: Paint Splash
+  ExperienceGroup: Environment Depth
+  Icon: {fileID: 21300000, guid: 052e8ee5d633db14a834c7ef27628d0d, type: 3}
+  Sprite: {fileID: 21300000, guid: 9d752525f7fe39b45b4674f9ed10877c, type: 3}
+  Description: Throw paint balls at the environment which splash on collision (wip).
+  ScenePath: Assets/AndroidXRUnitySamples/PaintSplash/Scenes/PaintSplash.unity
+  SupportedInputModes: 0100000002000000
+  ForceDisable: 1

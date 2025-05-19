@@ -1,0 +1,18 @@
+{
+    "name": "AndroidXRUnitySamples.ScreenWiper",
+    "rootNamespace": "AndroidXRUnitySamples.ScreenWiper",
+    "references": [
+        "GUID:832e5a2e453d14ca0addde5383df62b6",
+        "GUID:26b64c39d1e7b4b3a913ea62ccbe4ded",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

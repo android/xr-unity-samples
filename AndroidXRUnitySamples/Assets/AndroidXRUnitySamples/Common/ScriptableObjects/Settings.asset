@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b725607de9d54764b2f051d5992597b, type: 3}
+  m_Name: Settings
+  m_EditorClassIdentifier: 
+  HomeScenePath: Assets/AndroidXRUnitySamples/Home/Scenes/Home.unity
+  Experiences:
+  - {fileID: 11400000, guid: 5063c639704814447ae763ba0b16e6dd, type: 2}
+  - {fileID: 11400000, guid: bbf7bf5cd383e4246b8dd171ccf2c458, type: 2}
+  - {fileID: 11400000, guid: 972e14929babe4ef69c26e3a7c0e1532, type: 2}
+  - {fileID: 11400000, guid: 25b45e41db91346aca658e55ffd3f590, type: 2}
+  - {fileID: 11400000, guid: 4053207134ce94060a11976608e8c126, type: 2}
+  - {fileID: 11400000, guid: d5e97ff283a6ee541aa3337a2bd83788, type: 2}
+  - {fileID: 11400000, guid: 325005072c85d462b820c695837ec240, type: 2}
+  - {fileID: 11400000, guid: a2652ae60c7eb4e46bc0c6ee23c87b97, type: 2}
+  - {fileID: 11400000, guid: 0111081e11a49451bb1be92f5d7b1487, type: 2}
+  - {fileID: 11400000, guid: 85d8863a2b21b48ee8e3c7be9d79496d, type: 2}
+  - {fileID: 11400000, guid: 430ca6766b17e43d882446d1aa5878b1, type: 2}
+  - {fileID: 11400000, guid: 1e6be419a726b439e8a8d13caf999dec, type: 2}
+  - {fileID: 11400000, guid: e0389c9b4a838524e8bd1ab9e312782a, type: 2}

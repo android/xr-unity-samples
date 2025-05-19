@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb2e281b48ae8431d83ecefb9cac6d56, type: 3}
+  m_Name: SceneState
+  m_EditorClassIdentifier: 
+  KeyboardTracked: {fileID: 11400000, guid: cf8578110e3dbb644947651406e38488, type: 2}
+  KeyboardPos: {fileID: 11400000, guid: 31954d2fc5f9d5348bd99d9a47f72ce8, type: 2}
+  KeyboardRot: {fileID: 11400000, guid: 044272c59e79beb4ebc9a85dd6b7e4e9, type: 2}
+  KeyboardExtents: {fileID: 11400000, guid: a209e5afec410434e9b3bedb8c38fc5c, type: 2}

@@ -1,0 +1,23 @@
+{
+    "name": "AndroidXRUnitySamples.DeviceDetector",
+    "rootNamespace": "AndroidXRUnitySamples.DeviceDetector",
+    "references": [
+        "GUID:4847341ff46394e83bb78fbd0652937e",
+        "GUID:a03b7e20e6b9d48799e1df082f6a82c3",
+        "GUID:832e5a2e453d14ca0addde5383df62b6",
+        "GUID:fe685ec1767f73d42b749ea8045bfe43",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:a9420e37d7990b54abdef6688edbe313",
+        "GUID:92703082f92b41ba80f0d6912de66115"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
