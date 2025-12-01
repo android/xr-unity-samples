@@ -1219,7 +1219,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 8698394983664732783, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 8698394983664732783, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
   _rightHandAction:
     m_UseReference: 1
     m_Action:
@@ -1231,11 +1231,11 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 3722374480662372165, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  _leftHandPositionAxis: {fileID: -2496076053284925795, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  _leftHandRotationAxis: {fileID: 7149951272733842039, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  _rightHandPositionAxis: {fileID: 9126875591944302883, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  _rightHandRotationAxis: {fileID: -3870559572202308136, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 3722374480662372165, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
+  _leftHandPositionAxis: {fileID: -2496076053284925795, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
+  _leftHandRotationAxis: {fileID: 7149951272733842039, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
+  _rightHandPositionAxis: {fileID: 9126875591944302883, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
+  _rightHandRotationAxis: {fileID: -3870559572202308136, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
 --- !u!1 &6533609933955122997
 GameObject:
   m_ObjectHideFlags: 0

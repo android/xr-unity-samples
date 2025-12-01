@@ -130,10 +130,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1279254736770318905}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -186,7 +186,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _soundVelocityRange: {x: 0.5, y: 1.5}
   _collisionClip:
-    Clip: {fileID: 8300000, guid: 98a9aaccf76f76147a579db66562ae5d, type: 3}
+    Clips:
+    - {fileID: 8300000, guid: 80ab75c0ee7296e44834ecc3f072925d, type: 3}
+    - {fileID: 8300000, guid: bce82f173197dce4782e4e850815b67b, type: 3}
+    - {fileID: 8300000, guid: 679b92a11fba88a40ad18f0249164fd4, type: 3}
+    - {fileID: 8300000, guid: a19e4dde21db399428c1dbf153935a22, type: 3}
+    - {fileID: 8300000, guid: 198dbd454e20d844ea43abcdaea7a0a1, type: 3}
+    - {fileID: 8300000, guid: fcf8c7aea69322647965de70703ed617, type: 3}
+    - {fileID: 8300000, guid: 1791645e961e5d04f86e0e554d660ddb, type: 3}
+    - {fileID: 8300000, guid: 930540caf4d2d344689896fec5f277bf, type: 3}
+    - {fileID: 8300000, guid: 337b6fc1ce6559c4e884adac587805c2, type: 3}
+    - {fileID: 8300000, guid: f7d10cf02056641479085998bfcd1996, type: 3}
+    - {fileID: 8300000, guid: 4521ddc6ed06c9c4aaf3f90c59c9230c, type: 3}
+    - {fileID: 8300000, guid: 0697a517dfed0eb498639ead7e0bc929, type: 3}
     PitchRange: {x: 0.75, y: 1}
     VolumeRange: {x: 0.75, y: 1}
     MinRetrigger: 0.1

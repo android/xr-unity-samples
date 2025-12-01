@@ -28,22 +28,48 @@ namespace AndroidXRUnitySamples.MenusAndUI
     /// A shadow button.
     /// </summary>
     public class ShadowButton : MonoBehaviour,
-        IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+                                IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler,
+                                IPointerExitHandler,
+                                IBeginDragHandler, IEndDragHandler
     {
         /// <summary>The press event.</summary>
         public Button.ButtonClickedEvent OnPress;
 
-        [SerializeField] private float _animateSpeed;
-        [SerializeField] private CanvasGroup _hoverGroup;
-        [SerializeField] private CanvasGroup _innerShadows;
-        [SerializeField] private CanvasGroup _outerShadows;
-        [SerializeField] private Transform _iconParent;
-        [SerializeField] private Image _iconImage;
-        [SerializeField] private TMP_Text _iconText;
-        [SerializeField] private Vector3 _iconShift;
-        [SerializeField] private Color _iconBaseColor;
-        [SerializeField] private Color _iconPressColor;
-        [SerializeField] private Color _iconDisabledColor;
+        [SerializeField]
+        private float _animateSpeed;
+
+        [SerializeField]
+        private CanvasGroup _hoverGroup;
+
+        [SerializeField]
+        private CanvasGroup _innerShadows;
+
+        [SerializeField]
+        private CanvasGroup _outerShadows;
+
+        [SerializeField]
+        private Transform _iconParent;
+
+        [SerializeField]
+        private Image _iconImage;
+
+        [SerializeField]
+        private TMP_Text _iconText;
+
+        [SerializeField]
+        private Vector3 _iconShift;
+
+        [SerializeField]
+        private Color _iconBaseColor;
+
+        [SerializeField]
+        private Color _iconPressColor;
+
+        [SerializeField]
+        private Color _iconDisabledColor;
+
+        [SerializeField]
+        private float _dragThreshold = 10f;
 
         private bool _pressed;
         private float _pressValue;
@@ -51,28 +77,21 @@ namespace AndroidXRUnitySamples.MenusAndUI
         private float _hoverValue;
         private bool _disabled;
         private Vector3 _iconLocalPos;
+        private bool _pressStarted;
+        private bool _pressedInside;
+        private Vector2 _pressStartPos;
+        private bool _dragging = false;
 
-        /// <summary>Handler for when there is a click on this.</summary>
-        /// <param name="eventData">Info about the event.</param>
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            if (!_disabled)
-            {
-                _pressed = true;
-            }
-        }
+        private Coroutine _pressTimeout;
 
-        /// <summary>Handler for when there is a click release on this.</summary>
-        /// <param name="eventData">Info about the event.</param>
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            _pressed = false;
-        }
-
-        /// <summary>Handler for when the pointer enters this.</summary>
-        /// <param name="eventData">Info about the event.</param>
+        /// <inheritdoc />
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if (_dragging)
+            {
+                return;
+            }
+
             if (!_disabled)
             {
                 _hover = true;
@@ -80,11 +99,82 @@ namespace AndroidXRUnitySamples.MenusAndUI
             }
         }
 
-        /// <summary>Handler for when the pointer exits this.</summary>
-        /// <param name="eventData">Info about the event.</param>
+        /// <inheritdoc />
         public void OnPointerExit(PointerEventData eventData)
         {
             _hover = false;
+            _pressedInside = false;
+            _pressed = false;
+        }
+
+        /// <inheritdoc />
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (_dragging)
+            {
+                return;
+            }
+
+            if (!_disabled)
+            {
+                _pressStarted = true;
+                _pressedInside = true;
+                _pressed = true;
+                _pressStartPos = eventData.position;
+                _pressValue = 1.0f;
+                RefreshShadowVisuals();
+                SetIconOffset(_pressValue);
+            }
+        }
+
+        /// <inheritdoc />
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            if (_dragging || !_pressed)
+            {
+                CleanupVisuals();
+                return;
+            }
+
+            bool releasedInside = RectTransformUtility.RectangleContainsScreenPoint(
+                    transform as RectTransform,
+                    eventData.position,
+                    eventData.enterEventCamera);
+
+            if (_pressStarted && _pressedInside && releasedInside)
+            {
+                TriggerPress();
+            }
+
+            CleanupVisuals();
+
+            _pressed = false;
+            _dragging = false;
+            _pressStarted = false;
+            _pressedInside = false;
+        }
+
+        /// <inheritdoc />
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            if (!_pressed)
+            {
+                return;
+            }
+
+            float dist = Vector2.Distance(_pressStartPos, eventData.position);
+            if (dist > _dragThreshold)
+            {
+                CancelPress(); // switch to scroll mode
+                _dragging = true;
+            }
+        }
+
+        /// <inheritdoc />
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            _dragging = false;
+            CleanupVisuals();
         }
 
         /// <summary>Function to set the button's caption.</summary>
@@ -148,6 +238,8 @@ namespace AndroidXRUnitySamples.MenusAndUI
             _pressValue = 0.0f;
             _hover = false;
             _hoverValue = 0.0f;
+            _pressStarted = false;
+            _pressedInside = false;
             RefreshShadowVisuals();
             SetShadowHoverProperties();
             SetIconOffset(0.0f);
@@ -166,18 +258,22 @@ namespace AndroidXRUnitySamples.MenusAndUI
             Singleton.Instance.Audio.PlayButtonHover(transform.position);
         }
 
-        void Awake()
+        private void Awake()
         {
-            _iconLocalPos = _iconParent.localPosition;
+            if (_iconParent != null)
+            {
+                _iconLocalPos = _iconParent.localPosition;
+            }
+
             Reset();
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             Reset();
         }
 
-        void Update()
+        private void Update()
         {
             bool buttonIsPressed = ButtonIsPressed();
 
@@ -214,7 +310,7 @@ namespace AndroidXRUnitySamples.MenusAndUI
                 RefreshShadowVisuals();
                 if (prevValue < 0.5f && _pressValue >= 0.5f)
                 {
-                    TriggerPress();
+                    // Do not call TriggerPress here
                 }
 
                 SetIconOffset(_pressValue);
@@ -228,13 +324,20 @@ namespace AndroidXRUnitySamples.MenusAndUI
             }
         }
 
-        void RefreshShadowVisuals()
+        private void RefreshShadowVisuals()
         {
-            _innerShadows.alpha = Mathf.Max(_pressValue - 0.5f) * 2.0f;
-            _outerShadows.alpha = 1.0f - (Mathf.Min(_pressValue, 0.5f) * 2.0f);
+            if (_innerShadows != null)
+            {
+                _innerShadows.alpha = Mathf.Max(_pressValue - 0.5f) * 2.0f;
+            }
+
+            if (_outerShadows != null)
+            {
+                _outerShadows.alpha = 1.0f - (Mathf.Min(_pressValue, 0.5f) * 2.0f);
+            }
         }
 
-        void SetIconOffset(float percent)
+        private void SetIconOffset(float percent)
         {
             if (_iconParent != null)
             {
@@ -257,9 +360,23 @@ namespace AndroidXRUnitySamples.MenusAndUI
             }
         }
 
-        void SetShadowHoverProperties()
+        private void SetShadowHoverProperties()
         {
-            _hoverGroup.alpha = _hoverValue;
+            if (_hoverGroup != null)
+            {
+                _hoverGroup.alpha = _hoverValue;
+            }
+        }
+
+        private void CancelPress()
+        {
+            _pressed = false;
+        }
+
+        private void CleanupVisuals()
+        {
+            _pressed = false;
+            _dragging = false;
         }
     }
 }

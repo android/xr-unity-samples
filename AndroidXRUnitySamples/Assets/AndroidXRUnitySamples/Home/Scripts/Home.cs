@@ -18,8 +18,8 @@
 // ----------------------------------------------------------------------
 
 using System.Collections;
+using AndroidXRUnitySamples.MenusAndUI;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace AndroidXRUnitySamples.Home
 {
@@ -31,8 +31,8 @@ namespace AndroidXRUnitySamples.Home
         [SerializeField] private Session _session;
         [SerializeField] private GameObject _menuTutorialPrefab;
         [SerializeField] private float _menuTutorialSpawnDelay;
-        [SerializeField] private InputActionProperty _menuSummonInputAction;
         [SerializeField] private Animator _statusDashboard;
+        [SerializeField] private DominantHandManager _dominantHandManager;
 
         private void Start()
         {
@@ -81,7 +81,7 @@ namespace AndroidXRUnitySamples.Home
             float delay = _menuTutorialSpawnDelay;
             while (delay > 0.0f)
             {
-                if (_menuSummonInputAction.action.WasPressedThisFrame())
+                if (_dominantHandManager.GetMenuButtonPressedThisFrame())
                 {
                     // The user knows what they're doing. Don't bother showing the tutorial.
                     yield break;
@@ -91,7 +91,11 @@ namespace AndroidXRUnitySamples.Home
                 yield return null;
             }
 
-            Instantiate(_menuTutorialPrefab);
+            GameObject menuTutorial = Instantiate(_menuTutorialPrefab);
+            if (menuTutorial.TryGetComponent<MenuTutorial>(out var tutorial))
+            {
+                tutorial.DominantHandManager = _dominantHandManager;
+            }
         }
     }
 }

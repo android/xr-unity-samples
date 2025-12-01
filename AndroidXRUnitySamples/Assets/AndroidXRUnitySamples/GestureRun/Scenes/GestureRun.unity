@@ -458,7 +458,7 @@ MonoBehaviour:
         m_Action: Left Pinch
         m_Flags: 0
       m_Flags: 0
-    m_Reference: {fileID: 8698394983664732783, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 8698394983664732783, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
   _rightPinchAction:
     m_UseReference: 1
     m_Action:
@@ -478,7 +478,7 @@ MonoBehaviour:
         m_Action: Right Pinch
         m_Flags: 0
       m_Flags: 0
-    m_Reference: {fileID: 3722374480662372165, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 3722374480662372165, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
   _leftGraspAction:
     m_UseReference: 1
     m_Action:
@@ -498,7 +498,7 @@ MonoBehaviour:
         m_Action: Left Grasp
         m_Flags: 0
       m_Flags: 0
-    m_Reference: {fileID: -628542489006750270, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: -628542489006750270, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
   _rightGraspAction:
     m_UseReference: 1
     m_Action:
@@ -518,7 +518,7 @@ MonoBehaviour:
         m_Action: Right Grasp
         m_Flags: 0
       m_Flags: 0
-    m_Reference: {fileID: -709356482371810990, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: -709356482371810990, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
 --- !u!1001 &1622439887
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5182,7 +5182,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 8698394983664732783, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 8698394983664732783, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
   - m_UseReference: 1
     m_Action:
       m_Name: Element 0
@@ -5193,7 +5193,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 3722374480662372165, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 3722374480662372165, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
   _initialDelay: 2
 --- !u!114 &7670877782408848015
 MonoBehaviour:

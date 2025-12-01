@@ -18,11 +18,13 @@
 // ----------------------------------------------------------------------
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using AndroidXRUnitySamples.Variables;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
@@ -58,7 +60,6 @@ namespace AndroidXRUnitySamples.SurfaceCanvas
         private BoolVariable _appMenuIsOpen;
 
         private bool _initialized;
-        private bool _passthroughInitialState;
         private InputMode.XruiInputMode _lastInputMode;
 
         /// <summary>
@@ -174,7 +175,6 @@ namespace AndroidXRUnitySamples.SurfaceCanvas
 
         private void Start()
         {
-            _passthroughInitialState = _passthroughEnabled.Value;
             _lastInputMode = InputMode.XruiInputMode.HandsOnly;
             _eyesGazeInteractor.uiPressInput.inputActionPerformed = _pinchInputAction.action;
             _eyesGazeInteractor.selectInput.inputActionPerformed = _pinchInputAction.action;
@@ -209,15 +209,6 @@ namespace AndroidXRUnitySamples.SurfaceCanvas
             _appMenuIsOpen.RemoveListener(SwitchInputModesForAppMenu);
 
             _initialized = false;
-        }
-
-        private void OnDestroy()
-        {
-            _passthroughEnabled.RemoveListener(TogglePassthrough);
-            _inputMode.RemoveListener(SetInputMode);
-
-            SetInputModeHandsOnly();
-            EnablePassthrough(_passthroughInitialState);
         }
     }
 }

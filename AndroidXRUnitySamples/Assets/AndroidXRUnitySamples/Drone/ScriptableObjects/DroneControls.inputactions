@@ -55,6 +55,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "538d607b-fa76-41d4-9447-9445346e6a74",
+                    "path": "<Gamepad>/rightStick/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeAltitude",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "1D Axis",
                     "id": "bbea22a8-1ee4-4ec6-ba37-8ba44abd9278",
                     "path": "1DAxis",
@@ -91,6 +102,17 @@
                     "name": "",
                     "id": "8e571ad2-2c2f-4310-ae46-6fdded1c5d0d",
                     "path": "<OculusTouchController>{LeftHand}/thumbstick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FlyDirection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cfffee03-f5f6-4240-8932-6bec7761f274",
+                    "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -165,6 +187,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "0d41881a-b006-4897-8a94-37bfc46c9d06",
+                    "path": "<Gamepad>/rightStick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeYaw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "1D Axis",
                     "id": "868cecd9-fec4-432e-be33-f1b528bfc792",
                     "path": "1DAxis",
@@ -201,6 +234,17 @@
                     "name": "",
                     "id": "19622fd7-19ec-49c3-985b-f0b1e7169dbc",
                     "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ResetDrone",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "debc5f95-3b72-4fd1-8bbb-26f3032bed77",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

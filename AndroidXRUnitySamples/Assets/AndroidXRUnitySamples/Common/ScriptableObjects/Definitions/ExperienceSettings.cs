@@ -69,6 +69,11 @@ namespace AndroidXRUnitySamples
         public List<XRInputModalityManager.InputMode> SupportedInputModes;
 
         /// <summary>
+        /// Feature tags for highlighting on the experience UI popup.
+        /// </summary>
+        public List<FeatureTagCatalog.Feature> Features;
+
+        /// <summary>
         /// Flag to force disable experience in the main menu.
         /// </summary>
         public bool ForceDisable;

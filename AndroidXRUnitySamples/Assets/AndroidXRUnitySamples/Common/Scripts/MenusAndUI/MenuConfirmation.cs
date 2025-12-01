@@ -17,6 +17,7 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -38,6 +39,11 @@ namespace AndroidXRUnitySamples.MenusAndUI
         [SerializeField] private TMP_Text _titleText;
         [SerializeField] private TMP_Text _descriptionText;
         [SerializeField] private Image _image;
+
+        [Header("Feature tags")]
+        [SerializeField] private FeatureTagCatalog _featureTagCatalog;
+        [SerializeField] private RectTransform _featureParent;
+        [SerializeField] private GameObject _featurePrefab;
 
         [Header("Tunables")]
         [SerializeField] private float _animSpeed;
@@ -67,6 +73,19 @@ namespace AndroidXRUnitySamples.MenusAndUI
         public void SetImage(Sprite sp)
         {
             _image.sprite = sp;
+        }
+
+        /// <summary>Adds feature tag visuals to the popup.</summary>
+        /// <param name="features">A list of feature enums.</param>
+        public void AddFeatures(List<FeatureTagCatalog.Feature> features)
+        {
+            for (int i = 0; i < features.Count; ++i)
+            {
+                GameObject go = Instantiate(_featurePrefab, _featureParent);
+                FeatureTagVisuals ftv = go.GetComponent<FeatureTagVisuals>();
+                ftv.Background.color = _featureTagCatalog.Tags[(int)features[i]].TagColor;
+                ftv.Name.text = _featureTagCatalog.Tags[(int)features[i]].FeatureName;
+            }
         }
 
         /// <summary>Adds a callback to the approve button.</summary>

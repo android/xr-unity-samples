@@ -20,4 +20,5 @@ MonoBehaviour:
     in a dark environment.
   ScenePath: Assets/AndroidXRUnitySamples/SoundArena/Scenes/SoundArena.unity
   SupportedInputModes: 0100000002000000
+  Features: 0a000000
   ForceDisable: 0

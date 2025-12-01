@@ -33,7 +33,9 @@ namespace AndroidXRUnitySamples.TabletopMess
 
         private void Start()
         {
+            Debug.Assert(_collisionClip != null, $"No audio clip data on {gameObject.name}");
             _baseVolumeRange = _collisionClip.VolumeRange;
+            Debug.Assert(_collisionClip.Clips.Length > 0, $"No audio clips on {gameObject.name}");
         }
 
         private void OnCollisionEnter(Collision collision)

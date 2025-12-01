@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using AndroidXRUnitySamples.Variables;
 using TMPro;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Inputs;
@@ -30,14 +31,11 @@ namespace AndroidXRUnitySamples.MenusAndUI
     /// </summary>
     public class ExperienceButton : MonoBehaviour
     {
-        [SerializeField]
-        private ShadowButton _shadowButton;
-        [SerializeField]
-        private GameObject _inputModeErrorOverlay;
-        [SerializeField]
-        private TMP_Text _inputModeErrorOverlayCaption;
-        [SerializeField]
-        private GameObject _disabledOverlay;
+        [SerializeField] private ShadowButton _shadowButton;
+        [SerializeField] private GameObject _inputModeErrorOverlay;
+        [SerializeField] private TMP_Text _inputModeErrorOverlayCaption;
+        [SerializeField] private GameObject _disabledOverlay;
+        [SerializeField] private InputModeVariable _inputMode;
 
         private ExperienceSettings _experience;
         private MenuManager _parentMenu;
@@ -81,10 +79,21 @@ namespace AndroidXRUnitySamples.MenusAndUI
         /// experience's supported input modes.
         /// </summary>
         /// <param name="inputMode">The new input mode.</param>
-        public void HandleInputModeChange(XRInputModalityManager.InputMode inputMode)
+        private void HandleInputModeChange(XRInputModalityManager.InputMode inputMode)
         {
             DisableButton(_experience.ForceDisable,
                 !_experience.SupportedInputModes.Contains(inputMode));
+        }
+
+        private void Start()
+        {
+            _inputMode.AddListener(HandleInputModeChange);
+            HandleInputModeChange(_inputMode.Value);
+        }
+
+        private void OnDestroy()
+        {
+            _inputMode.RemoveListener(HandleInputModeChange);
         }
 
         private void DisableButton(bool forceDisable, bool inputError)

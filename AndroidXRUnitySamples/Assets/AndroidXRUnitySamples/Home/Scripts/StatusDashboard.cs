@@ -17,9 +17,13 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using AndroidXRUnitySamples.Variables;
 using Google.XR.Extensions;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
 using UnityEngine.XR.ARFoundation;
@@ -46,12 +50,16 @@ namespace AndroidXRUnitySamples.Home
         [SerializeField] private StatusItem _planeDetectionStatus;
         [SerializeField] private StatusItem _objectTrackingStatus;
         [SerializeField] private StatusItem _depthTextureStatus;
+        [SerializeField] private StatusItem _sceneMeshStatus;
 
         [SerializeField] private XRFaceTrackingFeature _faceTrackingFeature;
         [SerializeField] private XRFaceTrackingManager _faceManager;
         [SerializeField] private ARPlaneManager _planeManager;
         [SerializeField] private ARTrackedObjectManager _objectManager;
         [SerializeField] private XRReferenceObjectLibrary _objectReferenceLibrary;
+        [SerializeField] private ARMeshManager _meshManager;
+        [SerializeField] private MeshFilter _meshManagerMeshPrefab;
+        [SerializeField] private InputModeVariable _inputMode;
 
         private InputAction _headPositionAction = new InputAction();
         private InputAction _headRotationAction = new InputAction();
@@ -61,6 +69,80 @@ namespace AndroidXRUnitySamples.Home
         private bool _gesturesEverBeenReady = false;
         private bool _anyPlaneDetected = false;
         private bool _anyObjectDetected = false;
+        private bool _anySceneMeshChangesDetected = false;
+        private HashSet<AndroidXRPermission> _grantedPermissions =
+            new HashSet<AndroidXRPermission>();
+
+        /// <summary>
+        /// Requests the specified permissions and then calls CheckForPermissionsUpdate.
+        /// </summary>
+        /// <param name="permissions">The permissions to request.</param>
+        public void RequestUserPermissions(AndroidXRPermission[] permissions)
+        {
+            var missingPermissions = new List<string>();
+            foreach (var permission in permissions)
+            {
+                string permissionString = permission.ToPermissionString();
+                if (!Permission.HasUserAuthorizedPermission(permissionString))
+                {
+                    missingPermissions.Add(permissionString);
+                }
+            }
+
+            if (missingPermissions.Count != 0)
+            {
+                var callbacks = new PermissionCallbacks();
+                callbacks.PermissionDenied += permission =>
+                {
+                    Debug.Log("Permission denied: " + permission);
+                    CheckForPermissionsUpdate();
+                };
+
+                callbacks.PermissionGranted += permission =>
+                {
+                    Debug.Log("Permission granted: " + permission);
+                    CheckForPermissionsUpdate();
+                };
+
+                Permission.RequestUserPermissions(missingPermissions.ToArray(), callbacks);
+            }
+            else
+            {
+                CheckForPermissionsUpdate();
+            }
+        }
+
+        /// <summary>
+        /// Checks for all necessary permissions and enables or disables systems based on which
+        /// permissions are granted.
+        /// </summary>
+        public void CheckForPermissionsUpdate()
+        {
+            _grantedPermissions.Clear();
+            AndroidXRPermission[] allPermissions =
+              (AndroidXRPermission[])Enum.GetValues(typeof(AndroidXRPermission));
+            foreach (var permission in allPermissions)
+            {
+                if (Permission.HasUserAuthorizedPermission(permission.ToPermissionString()))
+                {
+                    _grantedPermissions.Add(permission);
+                }
+            }
+
+#if !UNITY_EDITOR
+            _faceManager.enabled = _grantedPermissions.Contains(AndroidXRPermission.FaceTracking);
+#endif // !UNITY_EDITOR
+            Singleton.Instance.OriginManager.EnableFaceManager = _grantedPermissions.Contains(
+                AndroidXRPermission.EyeTrackingCoarse);
+            Singleton.Instance.OriginManager.EnablePlaneDetection = _grantedPermissions.Contains(
+                AndroidXRPermission.SceneUnderstandingCoarse);
+            Singleton.Instance.OriginManager.EnableObjectTracking = _grantedPermissions.Contains(
+                AndroidXRPermission.SceneUnderstandingCoarse);
+            Singleton.Instance.OriginManager.EnableDepthTexture = _grantedPermissions.Contains(
+                AndroidXRPermission.SceneUnderstandingFine);
+            Singleton.Instance.OriginManager.EnableMeshManager = _grantedPermissions.Contains(
+                AndroidXRPermission.SceneUnderstandingFine);
+        }
 
         private void Start()
         {
@@ -77,35 +159,32 @@ namespace AndroidXRUnitySamples.Home
             _etState.AddBinding("<EyeGaze>/pose/trackingState");
             _etState.Enable();
 
-#if !UNITY_EDITOR
-            _faceManager.enabled = true;
-#endif  // UNITY_EDITOR
-
             Singleton.Instance.OriginManager.PlanePrefab = null;
-            Singleton.Instance.OriginManager.EnablePlaneDetection = true;
 
             Singleton.Instance.OriginManager.ObjectTrackingReferenceLibrary =
                 _objectReferenceLibrary;
             Singleton.Instance.OriginManager.ObjectTrackingObjectPrefab = null;
-            Singleton.Instance.OriginManager.EnableObjectTracking = true;
 
-            Singleton.Instance.OriginManager.EnableFaceManager = true;
+            Singleton.Instance.OriginManager.MeshManagerMeshPrefab = _meshManagerMeshPrefab;
 
-            Singleton.Instance.OriginManager.EnableDepthTexture = true;
-
-            XRInputModalityManager.currentInputMode.SubscribeAndUpdate(UpdateInputModeState);
+            CheckForPermissionsUpdate();
+            UpdateInputModeState(_inputMode.Value);
         }
 
         private void OnEnable()
         {
             _planeManager.trackablesChanged.AddListener(OnPlaneDetected);
             _objectManager.trackablesChanged.AddListener(OnObjectDetected);
+            _meshManager.meshesChanged += OnMeshesChanged;
+            _inputMode.AddListener(UpdateInputModeState);
         }
 
         private void OnDisable()
         {
             _planeManager.trackablesChanged.RemoveListener(OnPlaneDetected);
             _objectManager.trackablesChanged.RemoveListener(OnObjectDetected);
+            _meshManager.meshesChanged -= OnMeshesChanged;
+            _inputMode.RemoveListener(UpdateInputModeState);
         }
 
         private void Update()
@@ -120,6 +199,7 @@ namespace AndroidXRUnitySamples.Home
             UpdatePlaneDetectionState();
             UpdateObjectTrackingState();
             UpdateDepthTextureState();
+            UpdateSceneMeshState();
         }
 
         private void UpdatePassthroughState()
@@ -153,6 +233,8 @@ namespace AndroidXRUnitySamples.Home
 
         private void UpdateHandTrackingState()
         {
+            _handTrackingStatus.StartButtonActive =
+                !_grantedPermissions.Contains(AndroidXRPermission.HandTracking);
             XRHandSubsystem system = XRGeneralSettings.Instance?.Manager?.activeLoader
                                              ?.GetLoadedSubsystem<XRHandSubsystem>();
 
@@ -180,6 +262,8 @@ namespace AndroidXRUnitySamples.Home
 
         private void UpdateGesturesState()
         {
+            _gesturesStatus.StartButtonActive =
+                !_grantedPermissions.Contains(AndroidXRPermission.HandTracking);
             _gesturesEverBeenReady = _gesturesEverBeenReady ||
                 (_pinchStateLeft.IsPressed() || _pinchStateRight.IsPressed());
             _gesturesStatus.UpdateStatus(_gesturesEverBeenReady.ToString(), _gesturesEverBeenReady);
@@ -187,6 +271,8 @@ namespace AndroidXRUnitySamples.Home
 
         private void UpdateEyeTrackingState()
         {
+            _eyeTrackingStatus.StartButtonActive =
+                !_grantedPermissions.Contains(AndroidXRPermission.EyeTrackingFine);
             InputTrackingState state = (InputTrackingState)_etState.ReadValue<int>();
             _eyeTrackingStatus.UpdateStatus(state.ToString(), state != InputTrackingState.None);
         }
@@ -201,9 +287,13 @@ namespace AndroidXRUnitySamples.Home
             {
                 _inputModeStatus.UpdateStatus("Hands", true);
             }
-            else
+            else if (inputMode == XRInputModalityManager.InputMode.MotionController)
             {
                 _inputModeStatus.UpdateStatus("Controller", true);
+            }
+            else
+            {
+                _inputModeStatus.UpdateStatus("Unknown", true);
             }
         }
 
@@ -216,6 +306,7 @@ namespace AndroidXRUnitySamples.Home
             }
 
             ARFaceManager faceManager = Singleton.Instance.OriginManager.ARFaceManager;
+            _faceSystemStatus.StartButtonActive = !faceManager.enabled;
 
             if (faceManager.trackables.count == 0)
             {
@@ -234,7 +325,9 @@ namespace AndroidXRUnitySamples.Home
                 _faceTrackingStatus.UpdateStatus("Feature not found", false);
                 return;
             }
-            else if (!_faceTrackingFeature.enabled)
+
+            _faceTrackingStatus.StartButtonActive = !_faceTrackingFeature.enabled;
+            if (!_faceTrackingFeature.enabled)
             {
                 _faceTrackingStatus.UpdateStatus("Feature not enabled", false);
                 return;
@@ -254,11 +347,15 @@ namespace AndroidXRUnitySamples.Home
 
         private void UpdatePlaneDetectionState()
         {
+            _planeDetectionStatus.StartButtonActive =
+                !Singleton.Instance.OriginManager.EnablePlaneDetection;
             _planeDetectionStatus.UpdateStatus(_anyPlaneDetected.ToString(), _anyPlaneDetected);
         }
 
         private void UpdateObjectTrackingState()
         {
+            _objectTrackingStatus.StartButtonActive =
+                !Singleton.Instance.OriginManager.EnableObjectTracking;
             _objectTrackingStatus.UpdateStatus(_anyObjectDetected.ToString(), _anyObjectDetected);
         }
 
@@ -274,6 +371,8 @@ namespace AndroidXRUnitySamples.Home
 
         private void UpdateDepthTextureState()
         {
+            _depthTextureStatus.StartButtonActive =
+                !Singleton.Instance.OriginManager.EnableDepthTexture;
             XROcclusionSubsystem subsystem =
                 Singleton.Instance.OriginManager.AROcclusionManager.subsystem;
 
@@ -317,6 +416,47 @@ namespace AndroidXRUnitySamples.Home
             int height = descriptors[0].height;
             _depthTextureStatus.UpdateStatus(
                 $"Available ({descriptors.Length}x{width}x{height})", true);
+        }
+
+        private void UpdateSceneMeshState()
+        {
+            _sceneMeshStatus.StartButtonActive =
+                !Singleton.Instance.OriginManager.EnableMeshManager;
+            XRMeshSubsystem subsystem =
+                Singleton.Instance.OriginManager.ARMeshManager.subsystem;
+
+            if (subsystem == null)
+            {
+                _sceneMeshStatus.UpdateStatus("Not supported", false);
+                return;
+            }
+
+            if (!subsystem.running)
+            {
+                _sceneMeshStatus.UpdateStatus("Not running", false);
+                return;
+            }
+
+            _sceneMeshStatus.UpdateStatus(
+                _anySceneMeshChangesDetected.ToString(), _anySceneMeshChangesDetected);
+        }
+
+        private void OnMeshesChanged(ARMeshesChangedEventArgs eventArgs)
+        {
+            XRMeshSubsystem subsystem =
+                Singleton.Instance.OriginManager.ARMeshManager.subsystem;
+
+            // Check to see if any meshes were updated which have the Scene Mesh id.
+            foreach (var meshFilter in eventArgs.updated)
+            {
+                TrackableId trackableId = HandMeshController.ConvertARMeshNameToTrackableId(
+                    meshFilter);
+
+                if (subsystem.IsSceneMeshId(trackableId))
+                {
+                    _anySceneMeshChangesDetected = true;
+                }
+            }
         }
     }
 }

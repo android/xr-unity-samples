@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: PaintSplash
   m_EditorClassIdentifier: 
   ExperienceName: Paint Splash
-  ExperienceGroup: Environment Depth
+  ExperienceGroup: Environment Mesh
   Icon: {fileID: 21300000, guid: 052e8ee5d633db14a834c7ef27628d0d, type: 3}
   Sprite: {fileID: 21300000, guid: 9d752525f7fe39b45b4674f9ed10877c, type: 3}
-  Description: Throw paint balls at the environment which splash on collision (wip).
+  Description: Throw paint balls which splash on collision with the world.
   ScenePath: Assets/AndroidXRUnitySamples/PaintSplash/Scenes/PaintSplash.unity
   SupportedInputModes: 0100000002000000
-  ForceDisable: 1
+  Features: 04000000
+  ForceDisable: 0

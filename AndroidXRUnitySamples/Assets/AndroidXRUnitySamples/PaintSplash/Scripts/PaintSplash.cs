@@ -17,7 +17,6 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
-using AndroidXRUnitySamples.Variables;
 using UnityEngine;
 
 namespace AndroidXRUnitySamples.PaintSplash
@@ -27,50 +26,13 @@ namespace AndroidXRUnitySamples.PaintSplash
     /// </summary>
     public class PaintSplash : MonoBehaviour
     {
-        [SerializeField]
-        private DepthFrameVariable _depthFrame;
-        [SerializeField]
-        private Launcher[] _launchers;
-
-        private void OnEnable()
-        {
-            if (_depthFrame == null)
-            {
-                Debug.LogError("Occlusion Manager is not set.");
-                enabled = false;
-                return;
-            }
-
-            _depthFrame.AddListener(OnDepthFrameReceived);
-        }
-
-        private void OnDisable()
-        {
-            _depthFrame.RemoveListener(OnDepthFrameReceived);
-        }
+        [SerializeField] private MeshFilter _sceneMeshPrefab;
 
         private void Start()
         {
-            Singleton.Instance.OriginManager.EnablePassthrough = true;
-            Singleton.Instance.OriginManager.EnableDepthTexture = true;
             Singleton.Instance.OriginManager.EnableShaderOcclusion = true;
-
-            // Disable launchers until the depth texture is ready.
-            foreach (var launcher in _launchers)
-            {
-                launcher.enabled = false;
-            }
-        }
-
-        private void OnDepthFrameReceived(DepthFrame depthFrame)
-        {
-            // Enable launchers once the depth texture is ready.
-            foreach (var launcher in _launchers)
-            {
-                launcher.enabled = true;
-            }
-
-            _depthFrame.RemoveListener(OnDepthFrameReceived);
+            Singleton.Instance.OriginManager.MeshManagerMeshPrefab = _sceneMeshPrefab;
+            Singleton.Instance.OriginManager.EnableMeshManager = true;
         }
     }
 }

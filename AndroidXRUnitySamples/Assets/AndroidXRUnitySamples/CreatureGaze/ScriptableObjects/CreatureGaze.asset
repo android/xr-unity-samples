@@ -19,3 +19,5 @@ MonoBehaviour:
   Description: Friendly creatures mimic your head and eye motions.
   ScenePath: Assets/AndroidXRUnitySamples/CreatureGaze/Scenes/CreatureGaze.unity
   SupportedInputModes: 0100000002000000
+  Features: 02000000
+  ForceDisable: 0

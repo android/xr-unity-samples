@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a2af86de0c9e4ac6be4842ee36397c3, type: 3}
+  m_Name: Tuna
+  m_EditorClassIdentifier: 
+  BodyColor: {r: 0.37254903, g: 0.45882353, b: 0.6666667, a: 1}
+  Pattern: 0
+  PatternColor: {r: 0.06666667, g: 0.06666667, b: 0.06666667, a: 1}
+  BodyLength: 15
+  BodyHeight: 2.8
+  TailSize: 2.5
+  DorsalFinSize: 2

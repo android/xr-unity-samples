@@ -17,15 +17,28 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
+// The shader provides the following features:
+// 1. Make the object totally transparent.
+// 2. Receive soft shadow (with partially transparent edges).
+// 3. Occlude opaque objects behind (at pixels where other objects have larger z values).
+// 4. Provide an input argument to shrink the object (the _InwardOffset input) before applying
+//    occlusion and receiving shadow.
 Shader "AndroidXRUnitySamples/SimpleShadows"
 {
+    Properties
+    {
+        // Shrink the surface inward by an offset along the negative vertex normal directions.
+        _InwardOffset ("Inward Offset (meters)", Float) = 0
+    }
+
     // Based on https://docs.unity3d.com/6000.0/Documentation/Manual/urp/use-built-in-shader-methods-shadows.html
     SubShader
     {
 
         Tags { "Queue"="Transparent" "RenderType" = "Transparent" "RenderPipeline" = "UniversalPipeline" }
         ZWrite Off
-        Blend SrcAlpha OneMinusSrcAlpha
+        Cull Back   // Only render the front-facing faces.
+        Blend SrcAlpha Zero // Discard background color to achieve occlusion effect.
 
         Pass
         {
@@ -40,9 +53,14 @@ Shader "AndroidXRUnitySamples/SimpleShadows"
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
+            CBUFFER_START(UnityPerMaterial)
+                float _InwardOffset;
+            CBUFFER_END
+
             struct Attributes
             {
                 float4 positionOS  : POSITION;
+                float3 normalOS   : NORMAL;
             };
 
             struct Varyings
@@ -55,8 +73,12 @@ Shader "AndroidXRUnitySamples/SimpleShadows"
             {
                 Varyings OUT;
 
-                OUT.positionCS = TransformObjectToHClip(IN.positionOS.xyz);
-                OUT.positionWS = TransformObjectToWorld(IN.positionOS.xyz);
+                // Calculate the offset vertex position by moving it along the negative vertex
+                // normal direction in the object space by an amount specified by an input argument.
+                float3 offsetPositionOS = IN.positionOS.xyz - _InwardOffset * IN.normalOS.xyz;
+
+                OUT.positionCS = TransformObjectToHClip(offsetPositionOS);
+                OUT.positionWS = TransformObjectToWorld(offsetPositionOS);
 
                 return OUT;
             }

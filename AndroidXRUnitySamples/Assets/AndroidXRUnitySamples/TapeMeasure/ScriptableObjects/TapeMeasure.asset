@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: TapeMeasure
   m_EditorClassIdentifier: 
   ExperienceName: Tape Measure
-  ExperienceGroup: Environment Depth
+  ExperienceGroup: Environment Mesh
   Icon: {fileID: 21300000, guid: a0ef2e7c18293884d95e3ce0c4b22d0c, type: 3}
   Sprite: {fileID: 21300000, guid: 1c7b3364800b16048bc6a86bdebcb05f, type: 3}
-  Description: Use Depth Texture to measure distances in the real world.
+  Description: Use environment meshes to measure distances in the real world.
   ScenePath: Assets/AndroidXRUnitySamples/TapeMeasure/Scenes/TapeMeasure.unity
   SupportedInputModes: 0100000002000000
-  ForceDisable: 1
+  Features: 04000000
+  ForceDisable: 0

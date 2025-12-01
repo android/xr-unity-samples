@@ -18,6 +18,7 @@
 // ----------------------------------------------------------------------
 
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Pool;
@@ -29,6 +30,7 @@ namespace AndroidXRUnitySamples.PaintSplash
     /// Triggers sound and instantiates a prefab when a collision occurs.
     /// </summary>
     [RequireComponent(typeof(MeshCollider))]
+    [RequireComponent(typeof(MeshFilter))]
     public class EnvironmentCollisionHandler : MonoBehaviour
     {
         /// <summary>
@@ -53,14 +55,21 @@ namespace AndroidXRUnitySamples.PaintSplash
         [Space]
         public GameObject ImpactEffectPrefab;
 
-        /// <summary>
-        /// A decal manager to generate a decal when a collision occurs.
-        /// </summary>
-        public DecalManager DecalManager;
-
         private const string _kColorParam = "_BaseColor";
         private ObjectPool<AudioSource> _audioSourcePool;
         private ObjectPool<GameObject> _effectPool;
+
+        [Space]
+
+        [SerializeField] private GameObject _decalPrefab;
+        [SerializeField] private float _decalScale = 0.3f;
+
+        /// <summary>
+        /// The facing direction of the previously created decal.
+        /// Use the previous facing direction in case the calculated decal
+        /// facing direction at the current collision is a zero vector.
+        /// </summary>
+        private Vector3 _previousDecalFacingDirection = Vector3.up;
 
         private void Start()
         {
@@ -137,16 +146,9 @@ namespace AndroidXRUnitySamples.PaintSplash
                 StartCoroutine(ReleaseEffectAfterLifetime(particles[0]));
             }
 
-            if (DecalManager != null)
-            {
-                Vector3 randomUp = Random.insideUnitSphere;
-                randomUp.z = 0.0f;
-
-                Quaternion orientation =
-                    Quaternion.LookRotation(collision.impulse.normalized, randomUp.normalized);
-
-                DecalManager.GenerateDecal(collision.contacts[0].point, orientation, particleColor);
-            }
+            // Create a decal game object at the collision point.
+            GenerateDecal(collision.contacts[0].point, CalculateDecalOrientation(collision),
+                          particleColor);
         }
 
         private IEnumerator ReleaseAudioSourceAfterPlaying(AudioSource audioSource)
@@ -159,6 +161,87 @@ namespace AndroidXRUnitySamples.PaintSplash
         {
             yield return new WaitWhile(() => effect.isPlaying);
             _effectPool.Release(effect.transform.parent.gameObject);
+        }
+
+        /// <summary>
+        /// Calculate the orientation of a decal to be created at collision.
+        /// </summary>
+        /// <param name="collision">The collision info.</param>
+        /// <returns>The orientation of a decal to be created at the collision point.</returns>
+        private Quaternion CalculateDecalOrientation(Collision collision)
+        {
+            // Randomly decide the upward direction for LookRotation().
+            Vector3 randomUp = Random.insideUnitSphere.normalized;
+
+            // Use the collision impulse direction as the forward direction
+            // for LookRotation(). It will be the direction where the decal
+            // will be facing.
+            Vector3 decalFacingDirection = collision.impulse.normalized;
+            if (decalFacingDirection == Vector3.zero)
+            {
+                // The impulse vector can be zero if colliding at a boundary of the mesh.
+                // Use the previously stored non-zero value instead as a workaround.
+                decalFacingDirection = _previousDecalFacingDirection;
+            }
+            else
+            {
+                // Store the current non-zero value of the facing direction.
+                _previousDecalFacingDirection = decalFacingDirection;
+            }
+
+            // Return the decal orientation.
+            return Quaternion.LookRotation(decalFacingDirection, randomUp);
+        }
+
+        /// <summary>
+        /// Generates a decal the specified position and orientation onto the depth mesh.
+        /// </summary>
+        /// <param name="position">Position to place the decal.</param>
+        /// <param name="orientation">Orientation to place the decal.</param>
+        /// <param name="color">Color of the decal.</param>
+        private void GenerateDecal(Vector3 position, Quaternion orientation, Color color)
+        {
+            // A projectile can hit near to mesh borders. Need to collect and
+            // combine nearby meshes first, and then generate a decal mesh from
+            // the combined mesh.
+
+            // Collect nearby meshes.
+            // About the radius of the overlap sphere:
+            // DecalMesh.CreateFromMesh() uses a unit bound scaled by the input
+            // scale to filter triangles. Thus here use a unit shpere scaled by
+            // the same scale to cover the whole filtering bound.
+            Collider[] hitColliders = Physics.OverlapSphere(position, _decalScale);
+            List<MeshFilter> hitMeshFilters = new List<MeshFilter>();
+            foreach (var hitCollider in hitColliders)
+            {
+                if (hitCollider.TryGetComponent<MeshFilter>(out var hitMeshFilter))
+                {
+                    hitMeshFilters.Add(hitMeshFilter);
+                }
+            }
+
+            // Prepare to combine the collected meshes.
+            CombineInstance[] combineInstances = new CombineInstance[hitMeshFilters.Count];
+            for (int i = 0; i < combineInstances.Length; ++i)
+            {
+                combineInstances[i].mesh = hitMeshFilters[i].mesh;
+                combineInstances[i].transform = hitMeshFilters[i].transform.localToWorldMatrix;
+            }
+
+            // Combine the meshes.
+            Mesh combinedMesh = new Mesh();
+            combinedMesh.CombineMeshes(combineInstances, true, true);
+
+            // Instantiate a decal prefab, and create the decal mesh from the
+            // combined mesh.
+            GameObject decal = Instantiate(_decalPrefab, transform.root);
+            var decalMesh = decal.GetComponent<DecalMesh>();
+            decalMesh.CreateFromMesh(combinedMesh, Matrix4x4.identity, position, orientation,
+                                     _decalScale * Vector3.one);
+            decalMesh.GetComponent<MeshRenderer>().material.SetColor(_kColorParam, color);
+
+            // Destroy the procedurally generated combined mesh.
+            Destroy(combinedMesh);
         }
     }
 }

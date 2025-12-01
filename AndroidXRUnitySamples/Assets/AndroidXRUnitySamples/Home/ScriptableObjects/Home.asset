@@ -18,6 +18,8 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: d693187f2818b9e4ba338fc7c787e601, type: 3}
   Description: '
 
-    Return to Home experience.'
+    Return to the Home experience.'
   ScenePath: Assets/AndroidXRUnitySamples/Home/Scenes/Home.unity
   SupportedInputModes: 0100000002000000
+  Features: 
+  ForceDisable: 0

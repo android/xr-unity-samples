@@ -74,8 +74,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279539199
-  m_fontColor: {r: 1, g: 0.5862095, b: 0.07843137, a: 1}
+    rgba: 4279523327
+  m_fontColor: {r: 1, g: 0.34117648, b: 0.07843137, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -287,7 +287,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4279539199
-  m_fontColor: {r: 1, g: 0.5862095, b: 0.07843137, a: 1}
+  m_fontColor: {r: 1, g: 0.34117648, b: 0.07843137, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -674,6 +674,7 @@ MonoBehaviour:
   _inputModeErrorOverlay: {fileID: 3076356685996496804}
   _inputModeErrorOverlayCaption: {fileID: 941140258692540766}
   _disabledOverlay: {fileID: 7027660041571707012}
+  _inputMode: {fileID: 11400000, guid: d3173b72e07f743b69eda709dcaaf926, type: 2}
 --- !u!114 &5893190572998021734 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7846262197811783342, guid: 637067d08a03dc241be2271ad8cdcdb2, type: 3}

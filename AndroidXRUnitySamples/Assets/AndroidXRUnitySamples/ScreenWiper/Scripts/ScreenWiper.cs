@@ -109,8 +109,6 @@ namespace AndroidXRUnitySamples.ScreenWiper
 
             _debugPointBounds = new Vector3[4];
 
-            Singleton.Instance.OriginManager.EnablePassthrough = true;
-
             _rightHandRayPosition.action.Enable();
             _rightHandRayRotation.action.Enable();
             _leftHandRayPosition.action.Enable();

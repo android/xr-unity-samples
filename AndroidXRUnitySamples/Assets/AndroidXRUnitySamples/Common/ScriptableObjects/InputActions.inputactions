@@ -2836,6 +2836,65 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "XRI Hand Interaction",
+            "id": "6b787239-48ee-45af-adaf-21716c9a2650",
+            "actions": [
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "1adda170-23ff-49e8-a596-fe83913873db",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectValue",
+                    "type": "Value",
+                    "id": "d2adc5cb-8286-4008-b32d-421bb56e8a83",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fa361b77-b4e8-4921-a3e0-cbf834a04fe5",
+                    "path": "<XRController>/gripPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Generic XR Controller",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2f37f99c-5ed1-417f-ac79-306cb6d74895",
+                    "path": "<HandInteraction>/pinchValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "549453f4-aa84-427a-b537-670019ddf59e",
+                    "path": "<HandInteraction>/pinchValue",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectValue",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

@@ -70,8 +70,6 @@ namespace AndroidXRUnitySamples.TalkingObjects
 
         private void Start()
         {
-            Singleton.Instance.OriginManager.EnablePassthrough = true;
-
             _nextPuppet.OnPress.AddListener(NextPuppet);
             _prevPuppet.OnPress.AddListener(PreviousPuppet);
 

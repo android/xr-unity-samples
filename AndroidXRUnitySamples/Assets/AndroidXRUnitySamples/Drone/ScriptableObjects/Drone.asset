@@ -16,8 +16,9 @@ MonoBehaviour:
   ExperienceGroup: Input
   Icon: {fileID: 21300000, guid: e6f0ef6dd6aede24eb54a9c807840ecd, type: 3}
   Sprite: {fileID: 21300000, guid: 8ffa20487d37f184f80570d5a470bae7, type: 3}
-  Description: Control a flying drone using controllers. Try to avoid hitting real
-    world obstacles.
+  Description: Control a flying drone using controllers or a gamepad. Try to avoid
+    hitting real world obstacles.
   ScenePath: Assets/AndroidXRUnitySamples/Drone/Scenes/Drone.unity
-  SupportedInputModes: 02000000
-  ForceDisable: 1
+  SupportedInputModes: 0100000002000000
+  Features: 0500000004000000
+  ForceDisable: 0

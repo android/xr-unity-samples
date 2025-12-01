@@ -19,3 +19,5 @@ MonoBehaviour:
   Description: Use Eye Tracking + Pinch gestures to fire projectiles at virtual structures.
   ScenePath: Assets/AndroidXRUnitySamples/GazeAndPinch/Scenes/GazeAndPinch.unity
   SupportedInputModes: 01000000
+  Features: 02000000
+  ForceDisable: 0

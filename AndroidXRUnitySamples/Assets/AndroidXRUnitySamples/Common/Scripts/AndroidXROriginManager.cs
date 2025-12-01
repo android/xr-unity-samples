@@ -18,6 +18,8 @@
 // ----------------------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.XR.OpenXR.NativeTypes;
@@ -83,6 +85,21 @@ namespace AndroidXRUnitySamples
         /// ARShaderOcclusion on the camera.
         /// </summary>
         public ARShaderOcclusion ARShaderOcclusion;
+
+        /// <summary>
+        /// ARMeshManager on a child of the origin.
+        /// </summary>
+        public ARMeshManager ARMeshManager;
+
+        /// <summary>
+        /// HandMeshController on the origin.
+        /// </summary>
+        public HandMeshController HandMeshController;
+
+        /// <summary>
+        /// ARHumanBodyManager on the origin.
+        /// </summary>
+        public ARHumanBodyManager ARHumanBodyManager;
 
         private bool _passthroughEnabled;
 
@@ -206,6 +223,19 @@ namespace AndroidXRUnitySamples
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether mesh colliders on hands are enabled or not.
+        /// </summary>
+        public bool EnableHandColliders
+        {
+            get =>
+                    HandMeshController.EnableHandColliders;
+
+            // TODO: this only works for Hand Mesh. Need to also support Hand Visualizer.
+            set =>
+                    HandMeshController.EnableHandColliders = value;
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether object detection is enabled.
         /// </summary>
         public bool EnableObjectTracking
@@ -303,10 +333,8 @@ namespace AndroidXRUnitySamples
             get =>
                     AROcclusionManager.enabled;
 
-            set
-            {
-                AROcclusionManager.enabled = value;
-            }
+            set =>
+                    AROcclusionManager.enabled = value;
         }
 
         /// <summary>
@@ -317,10 +345,56 @@ namespace AndroidXRUnitySamples
             get =>
                     ARShaderOcclusion.enabled;
 
-            set
-            {
-                ARShaderOcclusion.enabled = value;
-            }
+            set =>
+                    ARShaderOcclusion.enabled = value;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the mesh manager is enabled.
+        /// </summary>
+        public bool EnableMeshManager
+        {
+            get =>
+                    ARMeshManager.gameObject.activeSelf;
+
+            set =>
+                    ARMeshManager.gameObject.SetActive(value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating the mesh prefab to use for the mesh manager.
+        /// </summary>
+        public MeshFilter MeshManagerMeshPrefab
+        {
+            get =>
+                    ARMeshManager.meshPrefab;
+
+            set =>
+                    ARMeshManager.meshPrefab = value;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether body tracking is enabled.
+        /// </summary>
+        public bool EnableBodyManager
+        {
+            get =>
+                    ARHumanBodyManager.enabled;
+
+            set =>
+                    ARHumanBodyManager.enabled = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the render scale.
+        /// </summary>
+        public float RenderScale
+        {
+            get => (GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset)
+                       .renderScale;
+
+            set => (GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset)
+                       .renderScale = value;
         }
 
         private void UpdateSessionEnabled()

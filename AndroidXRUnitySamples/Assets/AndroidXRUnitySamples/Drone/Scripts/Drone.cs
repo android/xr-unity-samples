@@ -18,6 +18,7 @@
 // ----------------------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace AndroidXRUnitySamples.Drone
 {
@@ -26,14 +27,80 @@ namespace AndroidXRUnitySamples.Drone
     /// </summary>
     public class Drone : MonoBehaviour
     {
+        [SerializeField] private MeshFilter _sceneMeshPrefab;
+        [SerializeField] private DronePhysics _drone;
+        [SerializeField] private GameObject _howToPlayPanelPrefab;
+        [SerializeField] private float _howToPlayMinShowDuration;
+        [SerializeField] private InputActionReference _resetDroneAction;
+
+        private GameObject _howToPlayPanel;
+        private float _howToPlayTimer;
+        private State _currentState;
+
+        private enum State
+        {
+            Intro,
+            Standard,
+        }
+
         private void Start()
         {
-            Singleton.Instance.OriginManager.EnablePassthrough = true;
-            Singleton.Instance.OriginManager.EnableDepthTexture = true;
+            Singleton.Instance.OriginManager.MeshManagerMeshPrefab = _sceneMeshPrefab;
+            Singleton.Instance.OriginManager.EnableMeshManager = true;
+            _howToPlayTimer = _howToPlayMinShowDuration;
         }
 
         private void Update()
         {
+            switch (_currentState)
+            {
+            case State.Intro:
+                UpdateIntro();
+                break;
+            case State.Standard:
+                UpdateStandard();
+                break;
+            }
+        }
+
+        private void UpdateIntro()
+        {
+            // Hide the "how to play" message when the main menu is active.
+            if (Singleton.Instance.Menu.Active)
+            {
+                if (_howToPlayPanel != null)
+                {
+                    _howToPlayPanel.GetComponent<ScaleOnEnable>().ScaleDownAndDestroy();
+                    _howToPlayPanel = null;
+                }
+            }
+            else
+            {
+                if (_howToPlayPanel == null)
+                {
+                    _howToPlayPanel = Instantiate(_howToPlayPanelPrefab);
+                }
+
+                _howToPlayTimer -= Time.deltaTime;
+                if (_howToPlayTimer <= 0.0f)
+                {
+                    if (_resetDroneAction.action.triggered)
+                    {
+                        _drone.ResetDrone();
+                        _howToPlayPanel.GetComponent<ScaleOnEnable>().ScaleDownAndDestroy();
+                        _howToPlayPanel = null;
+                        _currentState = State.Standard;
+                    }
+                }
+            }
+        }
+
+        private void UpdateStandard()
+        {
+            if (_resetDroneAction.action.triggered)
+            {
+                _drone.ResetDrone();
+            }
         }
     }
 }

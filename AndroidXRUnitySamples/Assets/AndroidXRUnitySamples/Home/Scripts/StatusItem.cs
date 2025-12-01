@@ -17,6 +17,7 @@
 // </copyright>
 // ----------------------------------------------------------------------
 
+using AndroidXRUnitySamples.MenusAndUI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,6 +36,21 @@ namespace AndroidXRUnitySamples.Home
         [SerializeField] private Sprite _invalidIcon;
         [SerializeField] private Color _goodStatusColor;
         [SerializeField] private Color _badStatusColor;
+        [SerializeField] private ShadowButton _startSystemButton;
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the start system button is active.
+        /// </summary>
+        public bool StartButtonActive
+        {
+            get => _startSystemButton.gameObject.activeSelf;
+            set
+            {
+                _startSystemButton.gameObject.SetActive(value);
+                _valueText.gameObject.SetActive(!value);
+                _image.gameObject.SetActive(!value);
+            }
+        }
 
         /// <summary>
         /// Function for updating text and image icon.

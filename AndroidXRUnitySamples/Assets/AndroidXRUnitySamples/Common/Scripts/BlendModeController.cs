@@ -19,9 +19,7 @@
 
 using System.Collections;
 using Google.XR.Extensions;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.XR.OpenXR;
 using UnityEngine.XR.OpenXR.NativeTypes;
 
 namespace AndroidXRUnitySamples
@@ -58,6 +56,12 @@ namespace AndroidXRUnitySamples
         {
             yield return new WaitForSeconds(0.1f);
             BlendFeature.RequestedEnvironmentBlendMode = mode;
+        }
+
+        private void Start()
+        {
+            SetBlendMode(XrEnvironmentBlendMode.AlphaBlend);
+            Singleton.Instance.Camera.clearFlags = CameraClearFlags.SolidColor;
         }
     }
 }

@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc21006a4bce2b44d8de3f5f06f1bf0e, type: 3}
+  m_Name: FeatureTagCatalog
+  m_EditorClassIdentifier: 
+  Tags:
+  - FeatureName: Body Tracking
+    TagColor: {r: 1, g: 0.7094771, b: 0.5019608, a: 1}
+  - FeatureName: Face Tracking
+    TagColor: {r: 1, g: 0.9169935, b: 0.5019608, a: 1}
+  - FeatureName: Eye Tracking
+    TagColor: {r: 0.8754902, g: 1, b: 0.5019608, a: 1}
+  - FeatureName: Keyboard Tracking
+    TagColor: {r: 0.6679738, g: 1, b: 0.5019608, a: 1}
+  - FeatureName: Scene Mesh
+    TagColor: {r: 0.5019608, g: 1, b: 0.54346406, a: 1}
+  - FeatureName: Controller Support
+    TagColor: {r: 0.5019608, g: 1, b: 0.7509804, a: 1}
+  - FeatureName: Gemini
+    TagColor: {r: 0.5019608, g: 1, b: 0.95849663, a: 1}
+  - FeatureName: Hand Gestures
+    TagColor: {r: 0.5019608, g: 0.8339869, b: 1, a: 1}
+  - FeatureName: Hand Tracking
+    TagColor: {r: 0.5019608, g: 0.6264706, b: 1, a: 1}
+  - FeatureName: Marker Tracking
+    TagColor: {r: 0.58496726, g: 0.5019608, b: 1, a: 1}
+  - FeatureName: Passthrough
+    TagColor: {r: 0.79248375, g: 0.5019608, b: 1, a: 1}
+  - FeatureName: Plane Tracking
+    TagColor: {r: 1, g: 0.5019608, b: 1, a: 1}
+  - FeatureName: QR Code Reader
+    TagColor: {r: 1, g: 0.5019608, b: 0.7924835, a: 1}
+  - FeatureName: Depth Texture
+    TagColor: {r: 1, g: 0.5019608, b: 0.5849675, a: 1}

@@ -23,3 +23,5 @@ MonoBehaviour:
 '
   ScenePath: Assets/AndroidXRUnitySamples/GestureRun/Scenes/GestureRun.unity
   SupportedInputModes: 01000000
+  Features: 07000000
+  ForceDisable: 0

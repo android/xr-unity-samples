@@ -20,3 +20,5 @@ MonoBehaviour:
     highlights one way to blend virtual worlds with the real world.\r"
   ScenePath: Assets/AndroidXRUnitySamples/ScreenWiper/Scenes/ScreenWiper.unity
   SupportedInputModes: 0100000002000000
+  Features: 0a000000
+  ForceDisable: 0

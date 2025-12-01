@@ -127,7 +127,7 @@ namespace AndroidXRUnitySamples.TalkingObjects
                 {
                     FaceSnapshot newSnapshot = new FaceSnapshot();
                     newSnapshot.TimeStamp = _recordingTime;
-                    newSnapshot.Params = new float[(int)Face.UpperLipRaiserR + 1];
+                    newSnapshot.Params = new float[(int)Face.TongueDown + 1];
                     for (int i = 0; i < _faceManager.Face.Parameters.Length; ++i)
                     {
                         newSnapshot.Params[i] = _faceManager.Face.Parameters[i];
@@ -171,15 +171,21 @@ namespace AndroidXRUnitySamples.TalkingObjects
             {
                 for (int i = 0; i < _faceManager.Face.Parameters.Length; ++i)
                 {
-                    _skinnedMeshRenderer.SetBlendShapeWeight(
-                        _mirrorIndexes[i], data[i] * _liveDataWeight);
+                    if (i < _skinnedMeshRenderer.sharedMesh.blendShapeCount)
+                    {
+                        _skinnedMeshRenderer.SetBlendShapeWeight(
+                            _mirrorIndexes[i], data[i] * _liveDataWeight);
+                    }
                 }
             }
             else
             {
                 for (int i = 0; i < _faceManager.Face.Parameters.Length; ++i)
                 {
-                    _skinnedMeshRenderer.SetBlendShapeWeight(i, data[i] * _liveDataWeight);
+                    if (i < _skinnedMeshRenderer.sharedMesh.blendShapeCount)
+                    {
+                        _skinnedMeshRenderer.SetBlendShapeWeight(i, data[i] * _liveDataWeight);
+                    }
                 }
             }
         }
@@ -204,7 +210,7 @@ namespace AndroidXRUnitySamples.TalkingObjects
             }
             else
             {
-                for (index = 0; index < _recordedSnapshots.Count - 1; ++index)
+                for (index = 0; index < _recordedSnapshots.Count - 2; ++index)
                 {
                     if (time >= _recordedSnapshots[index].TimeStamp &&
                         time <= _recordedSnapshots[index + 1].TimeStamp)
@@ -229,7 +235,7 @@ namespace AndroidXRUnitySamples.TalkingObjects
 
         private void CreateMirrorIndexes()
         {
-            _mirrorIndexes = new int[(int)Face.UpperLipRaiserR + 1];
+            _mirrorIndexes = new int[(int)Face.TongueDown + 1];
             _mirrorIndexes[(int)Face.BrowLowererL] = (int)Face.BrowLowererR;
             _mirrorIndexes[(int)Face.BrowLowererR] = (int)Face.BrowLowererL;
             _mirrorIndexes[(int)Face.CheekPuffL] = (int)Face.CheekPuffR;
@@ -293,6 +299,11 @@ namespace AndroidXRUnitySamples.TalkingObjects
             _mirrorIndexes[(int)Face.UpperLidRaiserR] = (int)Face.UpperLidRaiserL;
             _mirrorIndexes[(int)Face.UpperLipRaiserL] = (int)Face.UpperLipRaiserR;
             _mirrorIndexes[(int)Face.UpperLipRaiserR] = (int)Face.UpperLipRaiserL;
+            _mirrorIndexes[(int)Face.TongueOut] = (int)Face.TongueOut;
+            _mirrorIndexes[(int)Face.TongueLeft] = (int)Face.TongueRight;
+            _mirrorIndexes[(int)Face.TongueRight] = (int)Face.TongueLeft;
+            _mirrorIndexes[(int)Face.TongueUp] = (int)Face.TongueUp;
+            _mirrorIndexes[(int)Face.TongueDown] = (int)Face.TongueDown;
         }
 
         private class FaceSnapshot

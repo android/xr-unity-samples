@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1105 &110500000
+HumanTemplate:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: XRAvatarModel
+  m_BoneTemplate:
+    Chest: cn_spine_jnt
+    Head: cn_head_jnt
+    Hips: cn_pelvis_jnt
+    Left Index Distal: lf_index02_jnt
+    Left Index Intermediate: lf_index01_jnt
+    Left Index Proximal: lf_index00_jnt
+    Left Little Distal: lf_pinky02_jnt
+    Left Little Intermediate: lf_pinky01_jnt
+    Left Little Proximal: lf_pinky00_jnt
+    Left Middle Distal: lf_middle02_jnt
+    Left Middle Intermediate: lf_middle01_jnt
+    Left Middle Proximal: lf_middle00_jnt
+    Left Ring Distal: lf_ring02_jnt
+    Left Ring Intermediate: lf_ring01_jnt
+    Left Ring Proximal: lf_ring00_jnt
+    Left Thumb Distal: lf_thumb03_jnt
+    Left Thumb Intermediate: lf_thumb02_jnt
+    Left Thumb Proximal: lf_thumb01_jnt
+    LeftEye: lf_eye_jnt
+    LeftFoot: lf_ankle_jnt
+    LeftHand: lf_wrist_jnt
+    LeftLowerArm: lf_elbow_jnt
+    LeftLowerLeg: lf_knee_jnt
+    LeftShoulder: lf_clavicle_jnt
+    LeftToes: lf_ball_jnt
+    LeftUpperArm: lf_shoulder_jnt
+    LeftUpperLeg: lf_hip_jnt
+    Neck: cn_neckBase_jnt
+    Right Index Distal: rt_index02_jnt
+    Right Index Intermediate: rt_index01_jnt
+    Right Index Proximal: rt_index00_jnt
+    Right Little Distal: rt_pinky02_jnt
+    Right Little Intermediate: rt_pinky01_jnt
+    Right Little Proximal: rt_pinky00_jnt
+    Right Middle Distal: rt_middle02_jnt
+    Right Middle Intermediate: rt_middle01_jnt
+    Right Middle Proximal: rt_middle00_jnt
+    Right Ring Distal: rt_ring02_jnt
+    Right Ring Intermediate: rt_ring01_jnt
+    Right Ring Proximal: rt_ring00_jnt
+    Right Thumb Distal: rt_thumb03_jnt
+    Right Thumb Intermediate: rt_thumb02_jnt
+    Right Thumb Proximal: rt_thumb01_jnt
+    RightEye: rt_eye_jnt
+    RightFoot: rt_ankle_jnt
+    RightHand: rt_wrist_jnt
+    RightLowerArm: rt_elbow_jnt
+    RightLowerLeg: rt_knee_jnt
+    RightShoulder: rt_clavicle_jnt
+    RightToes: rt_ball_jnt
+    RightUpperArm: rt_shoulder_jnt
+    RightUpperLeg: rt_hip_jnt
+    Spine: cn_waist_jnt
+    UpperChest: cn_chest_jnt

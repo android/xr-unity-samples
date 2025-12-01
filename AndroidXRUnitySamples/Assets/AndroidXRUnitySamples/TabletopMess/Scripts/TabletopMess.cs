@@ -49,6 +49,8 @@ namespace AndroidXRUnitySamples.TabletopMess
         {
             Singleton.Instance.OriginManager.EnablePlaneDetection = true;
             Singleton.Instance.OriginManager.PlanePrefab = _planePrefab;
+            Singleton.Instance.OriginManager.PlaneDetectionMode =
+                UnityEngine.XR.ARSubsystems.PlaneDetectionMode.Horizontal;
 
             _sceneState.OnSpawnNewObject.AddListener(HandleSpawnNewObject);
 

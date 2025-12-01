@@ -35,7 +35,6 @@ namespace AndroidXRUnitySamples.SoundArena
 
         private void Start()
         {
-            Singleton.Instance.OriginManager.EnablePassthrough = true;
             _dimAmount = 0.0f;
         }
 

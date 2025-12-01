@@ -29,11 +29,9 @@ namespace AndroidXRUnitySamples.TapeMeasure
     /// </summary>
     public class TapeMeasure : MonoBehaviour
     {
-        [SerializeField] private InputActionProperty _headPositionAction;
-        [SerializeField] private InputActionProperty _headRotationAction;
-        [SerializeField] private InputActionProperty _selectActionLeft;
+        [SerializeField] private InputActionProperty _handPositionAction;
+        [SerializeField] private InputActionProperty _handRotationAction;
         [SerializeField] private InputActionProperty _selectActionRight;
-        [SerializeField] private DepthProvider _depthProvider;
         [SerializeField] private GameObject _measurementPrefab;
         [SerializeField] private GameObject _markerVisual;
         [SerializeField] private AnimationCurve _markerVisualHideCurve;
@@ -41,8 +39,20 @@ namespace AndroidXRUnitySamples.TapeMeasure
         [SerializeField] private GameObject _howToPlayPanelPrefab;
         [SerializeField] private float _howToPlayMinShowDuration;
         [SerializeField] private float _initialMeasuringBlockDuration;
+        [SerializeField] private float _handCastOffset;
 
-        private Vector2 _offset = new Vector2(0.5f, 0.5f);
+        [Tooltip("The max distance to raycast.")]
+        [SerializeField] private float _raycastMaxDistance = 100f;
+
+        [Tooltip("Game objects of the selected layers are raycasted on.")]
+        [SerializeField] private LayerMask _raycastLayerMask;
+
+        [SerializeField] private MeshFilter _sceneMeshPrefab;
+
+        /// <summary>
+        /// Whether the marker position was valid at the previous frame.
+        /// </summary>
+        private bool _markerPositionWasValid = false;
         private Measurement _activeMeasurement;
         private List<GameObject> _measurements;
         private Coroutine _markerScalingRoutine;
@@ -60,8 +70,8 @@ namespace AndroidXRUnitySamples.TapeMeasure
 
         private void Start()
         {
-            Singleton.Instance.OriginManager.EnablePassthrough = true;
-            Singleton.Instance.OriginManager.EnableDepthTexture = true;
+            Singleton.Instance.OriginManager.MeshManagerMeshPrefab = _sceneMeshPrefab;
+            Singleton.Instance.OriginManager.EnableMeshManager = true;
 
             _markerVisual.transform.localScale = Vector3.zero;
             EnableMarker(false);
@@ -105,8 +115,7 @@ namespace AndroidXRUnitySamples.TapeMeasure
                 _howToPlayTimer -= Time.deltaTime;
                 if (_howToPlayTimer <= 0.0f)
                 {
-                    if (_selectActionLeft.action.IsPressed() ||
-                        _selectActionRight.action.IsPressed())
+                    if (_selectActionRight.action.IsPressed())
                     {
                         _howToPlayPanel.GetComponent<ScaleOnEnable>().ScaleDownAndDestroy();
                         _howToPlayPanel = null;
@@ -120,7 +129,8 @@ namespace AndroidXRUnitySamples.TapeMeasure
 
         private void UpdateStandard()
         {
-            Vector3 markerPosition = GetMarkerPosition();
+            // Compute a marker position.
+            bool markerPositionIsValid = GetMarkerPosition(out Vector3 markerPosition);
 
             // Manage visuals when the main menu is active.
             bool menuActive = Singleton.Instance.Menu.Active;
@@ -156,34 +166,62 @@ namespace AndroidXRUnitySamples.TapeMeasure
                 {
                     if (_activeMeasurement == null)
                     {
-                        if (_selectActionLeft.action.IsPressed() ||
-                            _selectActionRight.action.IsPressed())
+                        if (_selectActionRight.action.IsPressed())
                         {
-                            _activeMeasurement = CreateMeasurement();
-                            _activeMeasurement.UpdatePosition(markerPosition);
-                            _activeMeasurement.FixatePosition();
-                            EnableMarker(false);
+                            if (markerPositionIsValid)
+                            {
+                                // Create a new measurement and set the first position.
+                                _activeMeasurement = CreateMeasurement();
+                                _activeMeasurement.UpdatePosition(markerPosition);
+                                _activeMeasurement.FixatePosition();
+                                EnableMarker(false);
+                            }
+                        }
+                        else
+                        {
+                            // Enable the marker when the marker position becomes valid, or
+                            // disable the marker when the marker position becomes invalid.
+                            if (markerPositionIsValid != _markerPositionWasValid)
+                            {
+                                EnableMarker(markerPositionIsValid);
+                                _markerPositionWasValid = markerPositionIsValid;
+                            }
                         }
                     }
                     else
                     {
-                        if (!_selectActionLeft.action.IsPressed() &&
-                            !_selectActionRight.action.IsPressed())
+                        if (!_selectActionRight.action.IsPressed())
                         {
-                            _activeMeasurement.FixatePosition();
-                            _activeMeasurement = null;
-                            EnableMarker(true);
+                            if (markerPositionIsValid)
+                            {
+                                // Set the second position of the active measurement.
+                                _activeMeasurement.FixatePosition();
+                                _activeMeasurement = null;
+                                EnableMarker(true);
+                            }
+                            else
+                            {
+                                // Cannot set the second position of the active measurement.
+                                // Remove and destroy the active measurement.
+                                RemoveMeasurement(_activeMeasurement);
+                                Destroy(_activeMeasurement.gameObject);
+                                _activeMeasurement = null;
+                            }
                         }
                     }
 
-                    if (_activeMeasurement != null)
+                    if (_activeMeasurement != null && markerPositionIsValid)
                     {
                         _activeMeasurement.UpdatePosition(markerPosition);
                     }
                 }
 
-                _markerVisual.transform.position = markerPosition;
-                _markerVisual.transform.forward = GetMarkerForward();
+                if (markerPositionIsValid)
+                {
+                    // Update the position and the forward direction of the marker.
+                    _markerVisual.transform.position = markerPosition;
+                    _markerVisual.transform.forward = GetMarkerForward();
+                }
             }
         }
 
@@ -192,6 +230,11 @@ namespace AndroidXRUnitySamples.TapeMeasure
             var obj = Instantiate(_measurementPrefab);
             _measurements.Add(obj);
             return obj.GetComponent<Measurement>();
+        }
+
+        private void RemoveMeasurement(Measurement measurement)
+        {
+            _measurements.Remove(measurement.gameObject);
         }
 
         private void EnableMarker(bool enable)
@@ -205,28 +248,37 @@ namespace AndroidXRUnitySamples.TapeMeasure
             _markerScalingRoutine = StartCoroutine(SetMarkerTargetScaleRoutine(targetScale));
         }
 
-        private Vector3 GetMarkerPosition()
+        /// <summary>
+        /// Compute a marker position in the world space at the center of the view.
+        /// </summary>
+        /// <param name="markerPosition">The output marker position.</param>
+        /// <returns>Whether the output position is valid.</returns>
+        private bool GetMarkerPosition(out Vector3 markerPosition)
         {
-            if (_depthProvider._depthTexture == null)
+            var handPosition = _handPositionAction.action.ReadValue<Vector3>();
+            var handRotation = _handRotationAction.action.ReadValue<Quaternion>();
+            var handForward = handRotation * Vector3.forward;
+            handPosition += handForward * _handCastOffset;
+
+            // Use the raycasting hit position as the marker position.
+            if (Physics.Raycast(handPosition, handForward, out var raycastHit, _raycastMaxDistance,
+                                _raycastLayerMask))
             {
-                Debug.LogError("Depth provider has no depth texture");
-                return Vector3.zero;
+                // Raycasting hit a collider. Compute the hit position.
+                markerPosition = handPosition + raycastHit.distance * handForward;
+                return true;
             }
-
-            // Compute depth position.
-            var uv = new Vector2(_offset.x, 1f - _offset.y);
-            var depth = _depthProvider._depthTexture.GetPixelBilinear(uv.x, uv.y).r;
-
-            var pos = _headPositionAction.action.ReadValue<Vector3>();
-            var rot = _headRotationAction.action.ReadValue<Quaternion>();
-
-            Vector3 fwd = rot * Vector3.forward;
-            return pos + depth * fwd;
+            else
+            {
+                // Raycasting did not hit any collider.
+                markerPosition = Vector3.zero;
+                return false;
+            }
         }
 
         private Vector3 GetMarkerForward()
         {
-            var rot = _headRotationAction.action.ReadValue<Quaternion>();
+            var rot = _handRotationAction.action.ReadValue<Quaternion>();
             return rot * Vector3.forward;
         }
 

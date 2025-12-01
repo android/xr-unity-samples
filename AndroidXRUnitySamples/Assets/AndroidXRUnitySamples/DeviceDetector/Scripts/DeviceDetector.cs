@@ -48,8 +48,6 @@ namespace AndroidXRUnitySamples.DeviceDetector
 
         private void Start()
         {
-            Singleton.Instance.OriginManager.EnablePassthrough = true;
-
             // Prefab and library have to be set first before enabling the manager.
             Singleton.Instance.OriginManager.ObjectTrackingReferenceLibrary =
                 _objectLibrary;

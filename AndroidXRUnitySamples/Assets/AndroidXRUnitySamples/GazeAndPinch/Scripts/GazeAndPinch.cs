@@ -99,7 +99,6 @@ namespace AndroidXRUnitySamples.GazeAndPinch
 
         void Start()
         {
-            Singleton.Instance.OriginManager.EnablePassthrough = true;
             Singleton.Instance.OriginManager.EnablePlaneDetection = true;
             Singleton.Instance.OriginManager.PlaneDetectionMode =
                 PlaneDetectionMode.Horizontal;

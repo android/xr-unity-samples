@@ -1,0 +1,65 @@
+// <copyright file="DynamicMaterialProps.cs" company="Google LLC">
+//
+// Copyright 2025 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// </copyright>
+// ----------------------------------------------------------------------
+
+using System;
+
+namespace AndroidXRUnitySamples.Gemini
+{
+    /// <summary>
+    /// Class for parsing the dynamic material provided by Gemini.
+    /// </summary>
+    [Serializable]
+    public class DynamicMaterialProps
+    {
+        /// <summary>
+        /// Main color of the material.
+        /// </summary>
+        public byte[] MainColor;
+
+        /// <summary>
+        /// Metallic amount of the material.
+        /// </summary>
+        public float MetallicAmount;
+
+        /// <summary>
+        /// Smoothness amount of the material.
+        /// </summary>
+        public float Smoothness;
+
+        /// <summary>
+        /// Whether material is emissive or not.
+        /// </summary>
+        public bool Emissiveness;
+
+        /// <summary>
+        /// Emissive color of the material.
+        /// </summary>
+        public byte[] EmissiveColor;
+
+        /// <summary>
+        /// 16x16 monochrome byte array texture.
+        /// </summary>
+        public byte[] MainTexture;
+
+        /// <summary>
+        /// Brief summary phrase of texture.
+        /// </summary>
+        public string Summary;
+    }
+}

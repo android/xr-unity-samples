@@ -118,10 +118,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6814562488307427774}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -145,11 +145,10 @@ SpringJoint:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6814562488307427774}
-  serializedVersion: 3
+  serializedVersion: 4
   m_ConnectedBody: {fileID: 4817027339834932520}
   m_ConnectedArticulationBody: {fileID: 0}
   m_Anchor: {x: 0, y: -6, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
   m_Spring: 10
@@ -229,18 +228,25 @@ MonoBehaviour:
   _animator: {fileID: 5565054811613374068}
   _altitudeAccelerationFactor: 4
   _directionAccelerationFactor: 4
-  _yawRotationSpeed: 25
+  _yawRotationSpeed: 180
   _constantUpForce: 0.17
   _nonfracturedDrone: {fileID: 9174378899582758093}
   _fracturedDronePrefab: {fileID: 4926795499340945984, guid: 5be672821c1bf4f6dafe1db1c9a507c1, type: 3}
+  _spawnDronePrefab: {fileID: 4926795499340945984, guid: dcda56c8bd220ec4ab71887fd67fd0f9, type: 3}
   _altitudeControl: {fileID: 4517303919839293668, guid: 4f0c2669b1a254ecfb84a29aa95bd66a, type: 3}
   _directionControl: {fileID: 5529104466889416011, guid: 4f0c2669b1a254ecfb84a29aa95bd66a, type: 3}
   _yawControl: {fileID: 3476301722087645338, guid: 4f0c2669b1a254ecfb84a29aa95bd66a, type: 3}
-  _resetDroneAction: {fileID: -6602279290165415061, guid: 4f0c2669b1a254ecfb84a29aa95bd66a, type: 3}
   _minExplosionForce: 50
   _maxExplosionForce: 100
   _explosionForceRadius: 1
   _explosionForceUpwardsModifier: 0.1
+  _explosionParticleSystems:
+  - {fileID: 6377373135182089642, guid: c10dbabb8e823aa4b9dd5be92a2a068f, type: 3}
+  - {fileID: 7592731788223909466, guid: cee67a47ef70f9a4aa63df299c0f3bf3, type: 3}
+  - {fileID: 335913997590133010, guid: c62e89a769cf4604aa237629edf99023, type: 3}
+  - {fileID: 6532018884916972246, guid: fd7aa09e7115a904b915ce05b01969d9, type: 3}
+  _spawnDistance: 1
+  _showSpawnDroneDelay: 2
 --- !u!54 &4817027339834932520
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -248,10 +254,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8354106690582686712}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 3
-  m_AngularDrag: 6.5
+  m_LinearDamping: 3
+  m_AngularDamping: 6.5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}

@@ -20,4 +20,5 @@ MonoBehaviour:
     interaction modes.
   ScenePath: Assets/AndroidXRUnitySamples/SurfaceCanvas/Scenes/SurfaceCanvas.unity
   SupportedInputModes: 0100000002000000
+  Features: 
   ForceDisable: 0

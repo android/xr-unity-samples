@@ -22,3 +22,5 @@ MonoBehaviour:
 '
   ScenePath: Assets/AndroidXRUnitySamples/TabletopMess/Scenes/TabletopMess.unity
   SupportedInputModes: 0100000002000000
+  Features: 0b000000
+  ForceDisable: 0

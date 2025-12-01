@@ -20,3 +20,5 @@ MonoBehaviour:
     face tracking for humanoid and non-humanoid objects.\r"
   ScenePath: Assets/AndroidXRUnitySamples/TalkingObjects/Scenes/TalkingObjects.unity
   SupportedInputModes: 0100000002000000
+  Features: 01000000
+  ForceDisable: 0

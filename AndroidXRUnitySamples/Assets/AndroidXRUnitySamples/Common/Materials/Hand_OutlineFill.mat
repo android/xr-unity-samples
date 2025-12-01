@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 9
+  version: 10
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -69,7 +69,7 @@ Material:
     - _Culling: 2
     - _DstBlend: 10
     - _DstBlendAlpha: 1
-    - _Offset: 0.001
+    - _Offset: 0.0015
     - _QueueControl: 1
     - _QueueOffset: 0
     - _SrcBlend: 5
@@ -80,6 +80,7 @@ Material:
     - _Surface: 1
     - _UseAlphaClip: 0
     - _VertexColor: 0
+    - _XRMotionVectorsPass: 1
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 1

@@ -25,6 +25,7 @@ namespace AndroidXRUnitySamples.PaintSplash
     /// A class which generates a decal mesh on the object.
     /// </summary>
     [RequireComponent(typeof(MeshFilter))]
+    [RequireComponent(typeof(MeshRenderer))]
     public class DecalMesh : MonoBehaviour
     {
         /// <summary>
@@ -131,7 +132,9 @@ namespace AndroidXRUnitySamples.PaintSplash
             decalMesh.SetUVs(0, uvs);
             decalMesh.SetTriangles(triangles, 0);
             decalMesh.RecalculateNormals();
-            _meshFilter.sharedMesh = decalMesh;
+            decalMesh.RecalculateTangents();  // This step is required for normal maps.
+            Destroy(_meshFilter.mesh);  // Destroy the existing mesh before assigning a new one.
+            _meshFilter.mesh = decalMesh;
 
             _decalCreationTime = Time.time;
         }
@@ -160,6 +163,12 @@ namespace AndroidXRUnitySamples.PaintSplash
                 progress = Mathf.SmoothStep(0.0f, 1.0f, progress);
                 SetOpacity(1.0f - progress);
             }
+        }
+
+        private void OnDestroy()
+        {
+            // Destroy the procedurally generated mesh.
+            Destroy(_meshFilter.mesh);
         }
 
         private void SetOpacity(float opacity)

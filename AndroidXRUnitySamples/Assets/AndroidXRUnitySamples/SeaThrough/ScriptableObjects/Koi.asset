@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a2af86de0c9e4ac6be4842ee36397c3, type: 3}
+  m_Name: Koi
+  m_EditorClassIdentifier: 
+  BodyColor: {r: 1, g: 1, b: 1, a: 1}
+  Pattern: 2
+  PatternColor: {r: 0.95686275, g: 0.2627451, b: 0.21176471, a: 1}
+  BodyLength: 11
+  BodyHeight: 3.5
+  TailSize: 3
+  DorsalFinSize: 3

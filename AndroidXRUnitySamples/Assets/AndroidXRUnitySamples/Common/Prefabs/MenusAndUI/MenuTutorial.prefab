@@ -5169,31 +5169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2575bbc51ba338449e8eca1e24b1425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuSummonInputAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Menu Summon Input
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: dc253ffc-4f5c-4ed5-bf98-eedd2d5f51fe
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 148149583196349968, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  _leftHandPosition:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Left Hand Position
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 602eca95-c606-42e0-a9b1-ea73c3154736
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -2706128282752906596, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  _leftHandOffset: {x: 0, y: 0.075, z: 0}
+  _leftDominantHandVariable: {fileID: 11400000, guid: 50273b2bafec34ffaa69a01aba668121, type: 2}
+  _handOffset: {x: 0, y: 0.075, z: 0}
   _filterBeta: 0.5
   _filterMinCutoff: 0.01
   _canvas: {fileID: 2089549042532963405}

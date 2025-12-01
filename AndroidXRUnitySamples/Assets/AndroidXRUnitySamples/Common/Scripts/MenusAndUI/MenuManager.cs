@@ -20,9 +20,11 @@
 using System;
 using System.Collections.Generic;
 using AndroidXRUnitySamples.Variables;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit.Inputs;
 
 namespace AndroidXRUnitySamples.MenusAndUI
@@ -39,14 +41,13 @@ namespace AndroidXRUnitySamples.MenusAndUI
         [SerializeField] private CanvasGroup _canvas;
         [SerializeField] private GameObject _experiencesMenu;
         [SerializeField] private GameObject _settingsMenu;
-        [SerializeField] private GameObject _developerMenu;
         [SerializeField] private GameObject _inputCapture;
         [SerializeField] private BoolVariable _menuIsOpen;
+        [SerializeField] private InputModeVariable _inputMode;
 
         [Header("Navigation Bar")]
         [SerializeField] private ShadowButton _experiencesButton;
         [SerializeField] private ShadowButton _settingsButton;
-        [SerializeField] private ShadowButton _developerButton;
         [SerializeField] private ShadowButton _closeButton;
 
         [Header("Experience Menu")]
@@ -62,7 +63,24 @@ namespace AndroidXRUnitySamples.MenusAndUI
         [SerializeField] private BoolVariable _debugMode;
         [SerializeField] private Toggle _useHandMeshToggle;
         [SerializeField] private BoolVariable _useHandMesh;
+        [SerializeField] private Toggle _showPerformanceMetricsToggle;
         [SerializeField] private ShadowButton _exitAppButton;
+        [SerializeField] private GameObject _performanceMetricsOverlay;
+        [SerializeField] private ShadowButton _homeButton;
+        [SerializeField] private ExperienceSettings _homeSettings;
+
+        [Header("Settings Status")]
+        [SerializeField] private Image _leftHandTrackingVisual;
+        [SerializeField] private Image _rightHandTrackingVisual;
+        [SerializeField] private Image _eyeTrackingVisual;
+        [SerializeField] private TMP_Text _leftHandTrackingText;
+        [SerializeField] private TMP_Text _rightHandTrackingText;
+        [SerializeField] private TMP_Text _eyeTrackingText;
+        [SerializeField] private Color _trackingOnColor;
+        [SerializeField] private Color _trackingOffColor;
+        [SerializeField] private InputActionProperty _leftHandTrackedAction;
+        [SerializeField] private InputActionProperty _rightHandTrackedAction;
+        [SerializeField] private InputActionProperty _eyeTrackedAction;
 
         [Header("Animation")]
         [SerializeField] private float _showHideSpeed;
@@ -71,7 +89,7 @@ namespace AndroidXRUnitySamples.MenusAndUI
 
         [Header("Behaviour")]
         [SerializeField] private float _spawnDistance;
-        [SerializeField] private InputActionProperty _menuSummonInputAction;
+        [SerializeField] private DominantHandManager _dominantHandManager;
 
         [Header("Popups")]
         [SerializeField] private GameObject _experienceConfirmationPrefab;
@@ -82,8 +100,6 @@ namespace AndroidXRUnitySamples.MenusAndUI
         private MenuState _currentMenuState;
         private GameObject _activeConfirmation;
         private ExperienceSettings _loadExperienceSettings;
-        private ShadowButton _homeExperienceButton;
-        private List<ExperienceButton> _experienceButtons = new List<ExperienceButton>();
 
         /// <summary>State of the menu.</summary>
         public enum MenuState
@@ -92,10 +108,7 @@ namespace AndroidXRUnitySamples.MenusAndUI
             Experiences = 0,
 
             /// <summary>Settings menu.</summary>
-            Settings,
-
-            /// <summary>Developer menu.</summary>
-            Developer,
+            Settings
         }
 
         private enum VisibilityState
@@ -157,6 +170,14 @@ namespace AndroidXRUnitySamples.MenusAndUI
             }
         }
 
+        /// <summary>
+        /// Creates a confirmatin popup for launching the home experience.
+        /// </summary>
+        public void HomePressed()
+        {
+            ExperienceButtonClicked(_homeSettings);
+        }
+
         /// <summary>Handles UI change of debug mode.</summary>
         /// <param name="on">Turn debug mode on.</param>
         public void HandleDebugMode(bool on)
@@ -183,6 +204,7 @@ namespace AndroidXRUnitySamples.MenusAndUI
                 mc.SetTitleText(settings.ExperienceName);
                 mc.SetDescriptionText(settings.Description);
                 mc.SetImage(settings.Sprite);
+                mc.AddFeatures(settings.Features);
                 mc.AddApproveCallback(
                     delegate
                     {
@@ -199,6 +221,11 @@ namespace AndroidXRUnitySamples.MenusAndUI
         private void HandleUseHandMeshVariableChange(bool on)
         {
             _useHandMeshToggle.isOn = on;
+        }
+
+        private void HandPerformanceMetricsToggle(bool on)
+        {
+            _performanceMetricsOverlay.SetActive(on);
         }
 
         private int FoveationLevelToInt(float level)
@@ -250,11 +277,10 @@ namespace AndroidXRUnitySamples.MenusAndUI
                 delegate { SetMenuState(MenuState.Experiences); });
             _settingsButton.OnPress.AddListener(
                 delegate { SetMenuState(MenuState.Settings); });
-            _developerButton.OnPress.AddListener(
-                delegate { SetMenuState(MenuState.Developer); });
 
             _closeButton.OnPress.AddListener(CloseMenu);
             _exitAppButton.OnPress.AddListener(ExitApp);
+            _homeButton.OnPress.AddListener(HomePressed);
 
             // Create a list of groups.
             List<string> groups = new List<string>();
@@ -290,13 +316,6 @@ namespace AndroidXRUnitySamples.MenusAndUI
 
                         ExperienceButton eb = buttonObject.GetComponent<ExperienceButton>();
                         eb.Init(this, exp);
-                        _experienceButtons.Add(eb);
-
-                        // Custom functionality for the home button, so save a reference to it.
-                        if (exp.ExperienceName == "Home")
-                        {
-                            _homeExperienceButton = eb.GetComponent<ShadowButton>();
-                        }
                     }
                 }
             }
@@ -323,6 +342,11 @@ namespace AndroidXRUnitySamples.MenusAndUI
             _useHandMeshToggle.onValueChanged.AddListener(HandleUseHandMesh);
             _useHandMesh.AddListener(HandleUseHandMeshVariableChange);
 
+            // Performance metrics.
+            _showPerformanceMetricsToggle.isOn = false;
+            _showPerformanceMetricsToggle.onValueChanged.AddListener(HandPerformanceMetricsToggle);
+            _performanceMetricsOverlay.SetActive(false);
+
             // Init slider state.
             _foveationLevelSlider.onValueChanged.AddListener(HandleFoveationLevelSliderChange);
             _foveationLevelSlider.value = FoveationLevelToInt(
@@ -331,6 +355,7 @@ namespace AndroidXRUnitySamples.MenusAndUI
 
             // Update available experiences based on input mode.
             XRInputModalityManager.currentInputMode.SubscribeAndUpdate(HandleInputModeChange);
+            HandleInputModeChange(XRInputModalityManager.currentInputMode.Value);
         }
 
         private void OnDestroy()
@@ -339,12 +364,14 @@ namespace AndroidXRUnitySamples.MenusAndUI
             _debugModeToggle.onValueChanged.RemoveListener(HandleDebugMode);
             _useHandMesh.RemoveListener(HandleUseHandMeshVariableChange);
             _useHandMeshToggle.onValueChanged.RemoveListener(HandleUseHandMesh);
+            _showPerformanceMetricsToggle.onValueChanged.RemoveListener(
+                HandleUseHandMeshVariableChange);
         }
 
         private void Update()
         {
             // Poll for summons.
-            if (_menuSummonInputAction.action.WasPressedThisFrame() && !_loadingExperience)
+            if (_dominantHandManager.GetMenuButtonPressedThisFrame() && !_loadingExperience)
             {
                 SetMenuVisible(true);
 
@@ -375,7 +402,25 @@ namespace AndroidXRUnitySamples.MenusAndUI
                         _menuIsOpen.Value = true;
                     }
 
-                    HandleInputModeChange(XRInputModalityManager.currentInputMode.Value);
+                    HandleInputModeChange(_inputMode.Value);
+                }
+
+                break;
+            case VisibilityState.Showing:
+                {
+                    // Update tracking "lights".
+                    bool l = _leftHandTrackedAction.action.IsPressed();
+                    _leftHandTrackingVisual.color = l ? _trackingOnColor : _trackingOffColor;
+                    _leftHandTrackingText.text = $"Left hand {(l ? "" : "not")} tracked";
+
+                    bool r = _rightHandTrackedAction.action.IsPressed();
+                    _rightHandTrackingVisual.color = r ? _trackingOnColor : _trackingOffColor;
+                    _rightHandTrackingText.text = $"Right hand {(r ? "" : "not")} tracked";
+
+                    bool e = (InputTrackingState)_eyeTrackedAction.action.ReadValue<int>() !=
+                        InputTrackingState.None;
+                    _eyeTrackingVisual.color = e ? _trackingOnColor : _trackingOffColor;
+                    _eyeTrackingText.text = $"Eyes {(e ? "" : "not")} tracked";
                 }
 
                 break;
@@ -435,8 +480,7 @@ namespace AndroidXRUnitySamples.MenusAndUI
                     _currentVisibilityState = VisibilityState.TransitionToShowing;
                     _mesh.SetActive(true);
                     _inputCapture.SetActive(false);
-                    _homeExperienceButton.SetButtonDisabled(
-                        Singleton.Instance.SceneManager.IsAtHome);
+                    _homeButton.SetButtonDisabled(Singleton.Instance.SceneManager.IsAtHome);
                 }
             }
             else
@@ -455,7 +499,6 @@ namespace AndroidXRUnitySamples.MenusAndUI
             // Default to everything off.
             _experiencesMenu.SetActive(false);
             _settingsMenu.SetActive(false);
-            _developerMenu.SetActive(false);
 
             switch (_currentMenuState)
             {
@@ -464,9 +507,6 @@ namespace AndroidXRUnitySamples.MenusAndUI
                 break;
             case MenuState.Settings:
                 _settingsMenu.SetActive(true);
-                break;
-            case MenuState.Developer:
-                _developerMenu.SetActive(true);
                 break;
             }
         }
@@ -496,10 +536,13 @@ namespace AndroidXRUnitySamples.MenusAndUI
 
         private void HandleInputModeChange(XRInputModalityManager.InputMode inputMode)
         {
-            foreach (var button in _experienceButtons)
+            if (inputMode == _inputMode.Value)
             {
-                button.HandleInputModeChange(inputMode);
+                return;
             }
+
+            Debug.Log($"Input mode changed to: {inputMode}");
+            _inputMode.Value = inputMode;
         }
     }
 }

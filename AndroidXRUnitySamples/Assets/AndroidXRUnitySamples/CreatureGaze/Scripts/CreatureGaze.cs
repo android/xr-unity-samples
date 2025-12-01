@@ -46,7 +46,6 @@ namespace AndroidXRUnitySamples.CreatureGaze
 
         private void Start()
         {
-            Singleton.Instance.OriginManager.EnablePassthrough = true;
             Singleton.Instance.OriginManager.EnableFaceManager = true;
 
             Vector3 camPos = Singleton.Instance.Camera.transform.position;
@@ -108,6 +107,7 @@ namespace AndroidXRUnitySamples.CreatureGaze
             ARFaceManager faceManager = Singleton.Instance.OriginManager.ARFaceManager;
             foreach (ARFace face in faceManager.trackables)
             {
+#pragma warning disable CS0618 // Temp solution for Unity AXR 1.1.0-pre.1 migration.
                 // FIXME: for now the ARFace trackingState is always None so we use the extension
                 // method. Once it is fixed we can directly check face.trackingState.
                 if (face.TryGetAndroidOpenXRFaceTrackingStates(
@@ -125,7 +125,7 @@ namespace AndroidXRUnitySamples.CreatureGaze
                         rightEyeRotation = eyeWS * invHeadRot;
                     }
                 }
-
+#pragma warning restore CS0618 // Temp solution for Unity AXR 1.1.0-pre.1 migration.
                 break;
             }
 

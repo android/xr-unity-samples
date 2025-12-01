@@ -4674,7 +4674,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: -6131295136447488360, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
   _eyeReticleAnimationControlTimer: {fileID: 855769096}
   _appMenuIsOpen: {fileID: 11400000, guid: bc1247c6cca71490893c55cf13e55747, type: 2}
 --- !u!1 &603475025
@@ -9533,11 +9533,11 @@ PrefabInstance:
     - target: {fileID: 1367274734185110076, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       propertyPath: m_PositionAction.m_Reference
       value: 
-      objectReference: {fileID: 3220680263695665919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+      objectReference: {fileID: 3220680263695665919, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
     - target: {fileID: 1367274734185110076, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       propertyPath: m_RotationAction.m_Reference
       value: 
-      objectReference: {fileID: -5930349909990434036, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+      objectReference: {fileID: -5930349909990434036, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
     - target: {fileID: 1367274734185110076, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       propertyPath: m_IsTrackedAction.m_Reference
       value: 
@@ -9941,19 +9941,19 @@ PrefabInstance:
     - target: {fileID: 9093905163055280865, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       propertyPath: m_SelectInput.m_InputActionReferenceValue
       value: 
-      objectReference: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+      objectReference: {fileID: -6131295136447488360, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
     - target: {fileID: 9093905163055280865, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       propertyPath: m_UIPressInput.m_InputActionReferenceValue
       value: 
-      objectReference: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+      objectReference: {fileID: -6131295136447488360, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
     - target: {fileID: 9093905163055280865, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       propertyPath: m_SelectInput.m_InputActionReferencePerformed
       value: 
-      objectReference: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+      objectReference: {fileID: -6131295136447488360, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
     - target: {fileID: 9093905163055280865, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       propertyPath: m_UIPressInput.m_InputActionReferencePerformed
       value: 
-      objectReference: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+      objectReference: {fileID: -6131295136447488360, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
     - target: {fileID: 9093905163055280865, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       propertyPath: m_HoverExited.m_PersistentCalls.m_Calls.Array.size
       value: 1

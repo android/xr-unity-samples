@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -289,13 +290,8 @@ MonoBehaviour:
   _creatureSpawnY: 0.15
   _creatureRadius: 0.35
   _creatureForceScalar: 10
-  _leftHand: {fileID: 1856951124}
-  _rightHand: {fileID: 1321152640}
---- !u!4 &1321152640 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5490256868885421275, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
-  m_PrefabInstance: {fileID: 1351352843}
-  m_PrefabAsset: {fileID: 0}
+  _leftHand: {fileID: 1351352845}
+  _rightHand: {fileID: 1351352844}
 --- !u!1001 &1351352843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -318,11 +314,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2647564242579457025, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2647564242579457025, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -118
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3092795003726290324, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       propertyPath: m_AnchorMax.y
@@ -397,9 +393,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
---- !u!4 &1856951124 stripped
+--- !u!4 &1351352844 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4589118661617025071, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5385426333005933335, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
+  m_PrefabInstance: {fileID: 1351352843}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1351352845 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6445553082179144447, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
   m_PrefabInstance: {fileID: 1351352843}
   m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807

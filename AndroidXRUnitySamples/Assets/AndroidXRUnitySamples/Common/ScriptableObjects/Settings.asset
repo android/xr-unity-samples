@@ -15,6 +15,7 @@ MonoBehaviour:
   HomeScenePath: Assets/AndroidXRUnitySamples/Home/Scenes/Home.unity
   Experiences:
   - {fileID: 11400000, guid: 5063c639704814447ae763ba0b16e6dd, type: 2}
+  - {fileID: 11400000, guid: f3cf75e83cb3148bfaba62b5bff2337e, type: 2}
   - {fileID: 11400000, guid: bbf7bf5cd383e4246b8dd171ccf2c458, type: 2}
   - {fileID: 11400000, guid: 972e14929babe4ef69c26e3a7c0e1532, type: 2}
   - {fileID: 11400000, guid: 25b45e41db91346aca658e55ffd3f590, type: 2}
@@ -22,8 +23,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d5e97ff283a6ee541aa3337a2bd83788, type: 2}
   - {fileID: 11400000, guid: 325005072c85d462b820c695837ec240, type: 2}
   - {fileID: 11400000, guid: a2652ae60c7eb4e46bc0c6ee23c87b97, type: 2}
-  - {fileID: 11400000, guid: 0111081e11a49451bb1be92f5d7b1487, type: 2}
-  - {fileID: 11400000, guid: 85d8863a2b21b48ee8e3c7be9d79496d, type: 2}
+  - {fileID: 11400000, guid: 28926be7783b24297adfcd218abc859b, type: 2}
+  - {fileID: 11400000, guid: b8f2e1dd6a0d546ecbee25f10485003a, type: 2}
   - {fileID: 11400000, guid: 430ca6766b17e43d882446d1aa5878b1, type: 2}
   - {fileID: 11400000, guid: 1e6be419a726b439e8a8d13caf999dec, type: 2}
-  - {fileID: 11400000, guid: e0389c9b4a838524e8bd1ab9e312782a, type: 2}
+  - {fileID: 11400000, guid: 17e30879c76ca7c44999f15d43d23358, type: 2}
+  - {fileID: 11400000, guid: d65db5ed6e6c04d1e98e9b2fbbcac2e0, type: 2}
+  - {fileID: 11400000, guid: 1a553666ba5e1410e8342f3b5f2674dd, type: 2}

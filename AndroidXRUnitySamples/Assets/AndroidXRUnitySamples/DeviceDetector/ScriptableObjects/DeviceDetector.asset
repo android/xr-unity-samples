@@ -25,3 +25,5 @@ MonoBehaviour:
     desk.'
   ScenePath: Assets/AndroidXRUnitySamples/DeviceDetector/Scenes/DeviceDetector.unity
   SupportedInputModes: 0100000002000000
+  Features: 03000000
+  ForceDisable: 0

@@ -19,7 +19,6 @@
 
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit.Inputs.Composites;
 
 namespace AndroidXRUnitySamples.Drone
 {
@@ -31,31 +30,74 @@ namespace AndroidXRUnitySamples.Drone
     {
         private const string _kCollidedParam = "Collided";
         private static readonly int _collidedParamId = Animator.StringToHash(_kCollidedParam);
+
+        [Header("Objects")]
         [SerializeField] private ConstantForce _force;
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Animator _animator;
 
+        [Header("Controls")]
         [SerializeField] private float _altitudeAccelerationFactor = 1.0f;
         [SerializeField] private float _directionAccelerationFactor = 1.0f;
         [SerializeField] private float _yawRotationSpeed = 1.0f;
         [SerializeField] private float _constantUpForce = 1.0f;
 
+        [Header("Prefabs")]
         [SerializeField] private GameObject _nonfracturedDrone;
-
         [SerializeField] private GameObject _fracturedDronePrefab;
+        [SerializeField] private GameObject _spawnDronePrefab;
 
+        [Header("Input")]
         [SerializeField] private InputActionReference _altitudeControl;
         [SerializeField] private InputActionReference _directionControl;
         [SerializeField] private InputActionReference _yawControl;
-        [SerializeField] private InputActionReference _resetDroneAction;
 
+        [Header("Explosion")]
         [SerializeField] private float _minExplosionForce = 0.0f;
         [SerializeField] private float _maxExplosionForce = 100.0f;
         [SerializeField] private float _explosionForceRadius = 1.0f;
         [SerializeField] private float _explosionForceUpwardsModifier = 0.1f;
+        [SerializeField] private GameObject[] _explosionParticleSystems;
+
+        [Header("Reset")]
+        [SerializeField] private float _spawnDistance;
+        [SerializeField] private float _showSpawnDroneDelay;
 
         private GameObject _fracturedDrone;
         private Rigidbody[] _fracturedDroneRigidbodies;
+        private GameObject _spawnDrone;
+        private float _showSpawnDroneTimer;
+
+        /// <summary>
+        /// Resets the drone to a position in front of the camera.
+        /// </summary>
+        public void ResetDrone()
+        {
+            _animator.SetBool(_collidedParamId, false);
+
+            // Place the drone in front of the camera.
+            transform.position = Camera.main.transform.position +
+                Camera.main.transform.forward * _spawnDistance;
+
+            // Set the yaw to match the camera.
+            transform.rotation = Quaternion.AngleAxis(
+                Camera.main.transform.eulerAngles.y, Vector3.up);
+            _rigidbody.linearVelocity = Vector3.zero;
+            _rigidbody.angularVelocity = Vector3.zero;
+            _force.force = Vector3.zero;
+            _nonfracturedDrone.SetActive(true);
+
+            if (_fracturedDrone != null)
+            {
+                Destroy(_fracturedDrone);
+            }
+
+            _fracturedDrone = Instantiate(_fracturedDronePrefab, transform);
+            _fracturedDroneRigidbodies = _fracturedDrone.GetComponentsInChildren<Rigidbody>();
+            _fracturedDrone.SetActive(false);
+
+            _spawnDrone.SetActive(false);
+        }
 
         private void Start()
         {
@@ -74,7 +116,9 @@ namespace AndroidXRUnitySamples.Drone
                 _animator = GetComponent<Animator>();
             }
 
-            ResetDrone();
+            _nonfracturedDrone.SetActive(false);
+            _spawnDrone = Instantiate(_spawnDronePrefab);
+            _spawnDrone.SetActive(false);
         }
 
         private void UpdateFlyingDrone()
@@ -99,31 +143,6 @@ namespace AndroidXRUnitySamples.Drone
             transform.Rotate(Vector3.up, yawRotationAmount);
         }
 
-        private void ResetDrone()
-        {
-            _animator.SetBool(_collidedParamId, false);
-
-            // Place the drone in front of the camera.
-            transform.position = Camera.main.transform.position + Camera.main.transform.forward;
-
-            // Set the yaw to match the camera.
-            transform.rotation = Quaternion.AngleAxis(
-                Camera.main.transform.eulerAngles.y, Vector3.up);
-            _rigidbody.linearVelocity = Vector3.zero;
-            _rigidbody.angularVelocity = Vector3.zero;
-            _force.force = Vector3.zero;
-            _nonfracturedDrone.SetActive(true);
-
-            if (_fracturedDrone != null)
-            {
-                Destroy(_fracturedDrone);
-            }
-
-            _fracturedDrone = Instantiate(_fracturedDronePrefab, transform);
-            _fracturedDroneRigidbodies = _fracturedDrone.GetComponentsInChildren<Rigidbody>();
-            _fracturedDrone.SetActive(false);
-        }
-
         private void Update()
         {
             if (!_animator.GetBool(_collidedParamId))
@@ -131,14 +150,33 @@ namespace AndroidXRUnitySamples.Drone
                 UpdateFlyingDrone();
             }
 
-            if (_resetDroneAction.action.triggered)
+            if (_showSpawnDroneTimer > 0.0f)
             {
-                ResetDrone();
+                _showSpawnDroneTimer -= Time.deltaTime;
+                if (_showSpawnDroneTimer <= 0.0f)
+                {
+                    _spawnDrone.SetActive(true);
+                }
+            }
+
+            // Keep spawn drone loocked at our spawn point.
+            if (_spawnDrone.activeSelf)
+            {
+                _spawnDrone.transform.position = Camera.main.transform.position +
+                    Camera.main.transform.forward * _spawnDistance;
+                _spawnDrone.transform.rotation = Quaternion.AngleAxis(
+                    Camera.main.transform.eulerAngles.y, Vector3.up);
             }
         }
 
         private void OnCollisionEnter(Collision collision)
         {
+            // Ignore collision callbacks if we're disabled.
+            if (!_nonfracturedDrone.activeSelf)
+            {
+                return;
+            }
+
             Collider firstCollider = collision.GetContact(0).thisCollider;
             if (firstCollider.gameObject == _nonfracturedDrone ||
                 firstCollider.gameObject.transform.parent.gameObject == _nonfracturedDrone)
@@ -148,11 +186,17 @@ namespace AndroidXRUnitySamples.Drone
                 _nonfracturedDrone.SetActive(false);
                 _fracturedDrone.SetActive(true);
                 ExplodeFracturedDrone();
+                _showSpawnDroneTimer = _showSpawnDroneDelay;
             }
         }
 
         private void ExplodeFracturedDrone()
         {
+            for (int i = 0; i < _explosionParticleSystems.Length; ++i)
+            {
+                Instantiate(_explosionParticleSystems[i], transform.position, transform.rotation);
+            }
+
             foreach (Rigidbody rb in _fracturedDroneRigidbodies)
             {
                 float force = Random.Range(_minExplosionForce, _maxExplosionForce);

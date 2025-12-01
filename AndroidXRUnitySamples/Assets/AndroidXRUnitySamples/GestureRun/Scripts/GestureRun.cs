@@ -33,8 +33,6 @@ namespace AndroidXRUnitySamples.GestureRun
 
         void Start()
         {
-            Singleton.Instance.OriginManager.EnablePassthrough = true;
-
 #if !UNITY_EDITOR
             RoomEnvironment.SetActive(false);
 #endif

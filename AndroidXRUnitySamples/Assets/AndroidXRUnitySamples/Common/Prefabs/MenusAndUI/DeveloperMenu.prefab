@@ -101,7 +101,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 840156964685210860, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 840156964685210860, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
   _rightHandTrackedAction:
     m_UseReference: 1
     m_Action:
@@ -113,7 +113,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -7044516463258014562, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: -7044516463258014562, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
   _eyeTrackedAction:
     m_UseReference: 1
     m_Action:
@@ -125,7 +125,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 2069149553511882089, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 2069149553511882089, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
 --- !u!1 &7939179898795682596
 GameObject:
   m_ObjectHideFlags: 0

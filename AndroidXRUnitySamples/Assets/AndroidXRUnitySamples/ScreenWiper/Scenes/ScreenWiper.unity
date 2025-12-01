@@ -577,7 +577,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 9126875591944302883, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 9126875591944302883, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
   _rightHandRayRotation:
     m_UseReference: 1
     m_Action:
@@ -589,7 +589,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -3870559572202308136, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: -3870559572202308136, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
   _leftHandRayPosition:
     m_UseReference: 1
     m_Action:
@@ -601,7 +601,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: -2496076053284925795, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: -2496076053284925795, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
   _leftHandRayRotation:
     m_UseReference: 1
     m_Action:
@@ -613,7 +613,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 7149951272733842039, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 7149951272733842039, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
   _rightHandPainterCursor: {fileID: 5001881053308507033}
   _leftHandPainterCursor: {fileID: 860949775}
   _passthroughSphere: {fileID: 652550802}
@@ -629,7 +629,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 3656432839195514468, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 3656432839195514468, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
   _leftHandPinch:
     m_UseReference: 1
     m_Action:
@@ -641,7 +641,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 6998202797657040653, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    m_Reference: {fileID: 6998202797657040653, guid: 7b120deef8d84122a8d8da7234c1f4c7, type: 3}
   _ambientLoop: {fileID: 1226519283}
   _ambientLoopVolChangeSpeed: 2
   _ambientLoopVolume: {x: 0, y: 1}
