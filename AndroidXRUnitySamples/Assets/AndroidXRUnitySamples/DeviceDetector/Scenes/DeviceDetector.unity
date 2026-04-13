@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -445,7 +446,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 877494197}
+  m_Father: {fileID: 1985394181}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &685049136
 BoxCollider:
@@ -468,11 +469,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.075, y: 0.025, z: 0.15}
   m_Center: {x: 0, y: 0, z: 0.03}
---- !u!4 &877494197 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5455322093069079200, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
-  m_PrefabInstance: {fileID: 1985394180}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1100031069
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +479,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1100031071}
   - component: {fileID: 1100031070}
+  - component: {fileID: 1100031072}
   m_Layer: 0
   m_Name: DeviceDetector
   m_TagString: Untagged
@@ -530,6 +527,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1100031072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100031069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 020be0254b2eb4423832ec90c82d8a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AndroidXRPermissions: 0000000002000000
+  GenernalAndroidPermissions: []
+  PermissionRationale: Required to enable Android XR feature at runtime.
 --- !u!1 &1117481718
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,11 +663,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!4 &1293604097 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5461968411850887254, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
-  m_PrefabInstance: {fileID: 1985394180}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1541116786
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,7 +889,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1293604097}
+  m_Father: {fileID: 1985394181}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1740237167
 BoxCollider:
@@ -1028,14 +1035,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5461968411850887254, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 199922940647785467, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1740237166}
-    - targetCorrespondingSourceObject: {fileID: 5455322093069079200, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 199922940647785467, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       insertIndex: -1
       addedObject: {fileID: 685049135}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
+--- !u!4 &1985394181 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 199922940647785467, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
+  m_PrefabInstance: {fileID: 1985394180}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

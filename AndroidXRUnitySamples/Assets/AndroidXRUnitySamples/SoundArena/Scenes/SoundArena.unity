@@ -297,6 +297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 961413716}
   - component: {fileID: 961413715}
+  - component: {fileID: 961413717}
   m_Layer: 0
   m_Name: SoundArena
   m_TagString: Untagged
@@ -333,6 +334,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &961413717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961413714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 020be0254b2eb4423832ec90c82d8a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AndroidXRPermissions: 02000000
+  GenernalAndroidPermissions: []
+  PermissionRationale: Required to enable Android XR feature at runtime.
 --- !u!114 &1760084591 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5592171909100893850, guid: 1eb07a835dee24f989a535c777567933, type: 3}

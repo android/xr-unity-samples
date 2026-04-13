@@ -135,8 +135,7 @@ MonoBehaviour:
   _objectTrackingStatus: {fileID: 3362746292381191353}
   _depthTextureStatus: {fileID: 3593470473852053631}
   _sceneMeshStatus: {fileID: 6490624679213143110}
-  _faceTrackingFeature: {fileID: -8850710136827651213, guid: 8ec08f4f27e4e1fb1b02318de852624e, type: 2}
-  _faceManager: {fileID: 6569465969474419813}
+  _faceManager: {fileID: 0}
   _planeManager: {fileID: 0}
   _objectManager: {fileID: 0}
   _objectReferenceLibrary: {fileID: 11400000, guid: 55e87514e58af4f459ed69e8c92c868d, type: 2}
@@ -706,6 +705,10 @@ PrefabInstance:
       propertyPath: '_permissions.Array.data[0]'
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8895478738014092881, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
+      propertyPath: m_text
+      value: Uses HAND_TRACKING
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -917,6 +920,10 @@ PrefabInstance:
       propertyPath: '_permissions.Array.data[0]'
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8895478738014092881, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
+      propertyPath: m_text
+      value: Uses HAND_TRACKING
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1058,6 +1065,10 @@ PrefabInstance:
       propertyPath: '_permissions.Array.data[0]'
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8895478738014092881, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
+      propertyPath: m_text
+      value: Uses SCENE_UNDERSTANDING_FINE
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1186,6 +1197,10 @@ PrefabInstance:
     - target: {fileID: 8872259203903232171, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
       propertyPath: _permissions.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895478738014092881, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
+      propertyPath: m_text
+      value: Uses SCENE_UNDERSTANDING_COARSE
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1411,11 +1426,19 @@ PrefabInstance:
       objectReference: {fileID: 5211802245911156915}
     - target: {fileID: 5559499532665021714, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
       propertyPath: _permissions.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5559499532665021714, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
       propertyPath: '_permissions.Array.data[0]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5559499532665021714, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
+      propertyPath: '_permissions.Array.data[1]'
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6846133753421602600, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -17.6
       objectReference: {fileID: 0}
     - target: {fileID: 8225162916730105124, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
       propertyPath: m_text
@@ -1431,11 +1454,19 @@ PrefabInstance:
       objectReference: {fileID: 5211802245911156915}
     - target: {fileID: 8872259203903232171, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
       propertyPath: _permissions.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8872259203903232171, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
       propertyPath: '_permissions.Array.data[0]'
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872259203903232171, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
+      propertyPath: '_permissions.Array.data[1]'
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895478738014092881, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
+      propertyPath: m_text
+      value: Uses EYE_TRACKING_COARSE & FACE_TRACKING
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1548,11 +1579,19 @@ PrefabInstance:
       objectReference: {fileID: 5211802245911156915}
     - target: {fileID: 5559499532665021714, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
       propertyPath: _permissions.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5559499532665021714, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
       propertyPath: '_permissions.Array.data[0]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5559499532665021714, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
+      propertyPath: '_permissions.Array.data[1]'
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6846133753421602600, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -17.6
       objectReference: {fileID: 0}
     - target: {fileID: 8225162916730105124, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
       propertyPath: m_text
@@ -1568,11 +1607,19 @@ PrefabInstance:
       objectReference: {fileID: 5211802245911156915}
     - target: {fileID: 8872259203903232171, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
       propertyPath: _permissions.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8872259203903232171, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
       propertyPath: '_permissions.Array.data[0]'
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872259203903232171, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
+      propertyPath: '_permissions.Array.data[1]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895478738014092881, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
+      propertyPath: m_text
+      value: Uses EYE_TRACKING_COARSE & FACE_TRACKING
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1702,6 +1749,10 @@ PrefabInstance:
     - target: {fileID: 8872259203903232171, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
       propertyPath: _permissions.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895478738014092881, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
+      propertyPath: m_text
+      value: Uses SCENE_UNDERSTANDING_COARSE
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1839,6 +1890,10 @@ PrefabInstance:
     - target: {fileID: 8872259203903232171, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
       propertyPath: '_permissions.Array.data[0]'
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895478738014092881, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
+      propertyPath: m_text
+      value: Uses SCENE_UNDERSTANDING_FINE
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2073,6 +2128,10 @@ PrefabInstance:
     - target: {fileID: 8872259203903232171, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
       propertyPath: '_permissions.Array.data[1]'
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895478738014092881, guid: 35910145dc588445eaaadb1a7ce2c358, type: 3}
+      propertyPath: m_text
+      value: Uses EYE_TRACKING_FINE
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

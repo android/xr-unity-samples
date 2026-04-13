@@ -206,7 +206,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5481252163239370687}
@@ -230,6 +230,9 @@ MonoBehaviour:
   m_TextureCoordinates: 0
   m_Colors: 0
   m_ConcurrentQueueSize: 10000
+  meshInfosChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6834673902520887909
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,6 +510,10 @@ PrefabInstance:
       propertyPath: 'GazeInteractionObjects.Array.data[1]'
       value: 
       objectReference: {fileID: 143225860620821788}
+    - target: {fileID: 8369291577756529519, guid: d59c16cebbfa548bb87bf26f19f9724a, type: 3}
+      propertyPath: ARCameraManager
+      value: 
+      objectReference: {fileID: 9168894824713245808}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1223,7 +1230,6 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
-  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -1231,6 +1237,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!114 &9168894824713245808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1238,7 +1245,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6613033984897386208}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4966719baa26e4b0e8231a24d9bd491a, type: 3}
   m_Name: 

@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc3c0bb30f0948fdb20b98e851c1f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlendController: {fileID: 8369291577756529519}
+  PassthroughController: {fileID: 8369291577756529519}
   ARPlaneManager: {fileID: 0}
   ARTrackedObjectManager: {fileID: 0}
   ARSession: {fileID: 0}
@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3322f949f38864b6d94a52efe2b8b4ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlendFeature: {fileID: 9015062825784140973, guid: 8ec08f4f27e4e1fb1b02318de852624e, type: 2}
+  ARCameraManager: {fileID: 0}
 --- !u!114 &156709168740434814
 MonoBehaviour:
   m_ObjectHideFlags: 0

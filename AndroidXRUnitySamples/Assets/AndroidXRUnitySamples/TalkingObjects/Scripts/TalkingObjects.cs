@@ -81,6 +81,8 @@ namespace AndroidXRUnitySamples.TalkingObjects
             _activePuppetIndex = 0;
             _transitionPuppetIndex = 0;
             SetPuppetActive(_activePuppetIndex);
+
+            Singleton.Instance.OriginManager.EnableFaceManager = true;
         }
 
         private void SetPuppetActive(int index)

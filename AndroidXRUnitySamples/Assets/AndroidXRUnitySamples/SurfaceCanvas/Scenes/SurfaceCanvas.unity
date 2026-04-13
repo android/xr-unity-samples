@@ -4534,11 +4534,6 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!1 &572256604 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2545613283667150978, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
-  m_PrefabInstance: {fileID: 1410685959}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &575998444
 GameObject:
   m_ObjectHideFlags: 0
@@ -8960,6 +8955,7 @@ MonoBehaviour:
   _iconBaseColor: {r: 0.078431375, g: 0.7372549, b: 1, a: 1}
   _iconPressColor: {r: 1, g: 0.34117648, b: 0.078431375, a: 1}
   _iconDisabledColor: {r: 0.4901961, g: 0.6156863, b: 0.6117647, a: 1}
+  _dragThreshold: 10
 --- !u!114 &1304401508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8992,6 +8988,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1322787478}
+  - component: {fileID: 1322787479}
   m_Layer: 0
   m_Name: XRUI
   m_TagString: Untagged
@@ -9016,6 +9013,21 @@ Transform:
   - {fileID: 826013101}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1322787479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322787477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 020be0254b2eb4423832ec90c82d8a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AndroidXRPermissions: 0200000004000000
+  GenernalAndroidPermissions: []
+  PermissionRationale: Required to enable Android XR feature at runtime.
 --- !u!1 &1365847744
 GameObject:
   m_ObjectHideFlags: 0
@@ -9613,11 +9625,11 @@ PrefabInstance:
     - target: {fileID: 2403959486244186850, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       propertyPath: 'HandInteractionObjects.Array.data[0]'
       value: 
-      objectReference: {fileID: 1864478124}
+      objectReference: {fileID: 0}
     - target: {fileID: 2403959486244186850, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       propertyPath: 'HandInteractionObjects.Array.data[1]'
       value: 
-      objectReference: {fileID: 572256604}
+      objectReference: {fileID: 0}
     - target: {fileID: 2403959486244186850, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
       propertyPath: 'HandInteractionObjects.Array.data[2]'
       value: 
@@ -12827,6 +12839,7 @@ MonoBehaviour:
   _iconBaseColor: {r: 0.078431375, g: 0.7372549, b: 1, a: 1}
   _iconPressColor: {r: 1, g: 0.34117648, b: 0.078431375, a: 1}
   _iconDisabledColor: {r: 0.4901961, g: 0.6156863, b: 0.6117647, a: 1}
+  _dragThreshold: 10
 --- !u!1 &1853329024
 GameObject:
   m_ObjectHideFlags: 0
@@ -12902,11 +12915,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853329024}
   m_CullTransparentMesh: 1
---- !u!1 &1864478124 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3103409514042007686, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
-  m_PrefabInstance: {fileID: 1410685959}
-  m_PrefabAsset: {fileID: 0}
 --- !u!20 &1867696124 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 6613033984897386214, guid: 4dd8498898f5d44a2a6d33cefd150557, type: 3}
@@ -14080,6 +14088,7 @@ MonoBehaviour:
   _iconBaseColor: {r: 0.078431375, g: 0.7372549, b: 1, a: 1}
   _iconPressColor: {r: 1, g: 0.34117648, b: 0.078431375, a: 1}
   _iconDisabledColor: {r: 0.4901961, g: 0.6156863, b: 0.6117647, a: 1}
+  _dragThreshold: 10
 --- !u!1 &2066258136
 GameObject:
   m_ObjectHideFlags: 0
@@ -16000,6 +16009,7 @@ MonoBehaviour:
   _iconBaseColor: {r: 0.078431375, g: 0.7372549, b: 1, a: 1}
   _iconPressColor: {r: 1, g: 0.34117648, b: 0.078431375, a: 1}
   _iconDisabledColor: {r: 0.4901961, g: 0.6156863, b: 0.6117647, a: 1}
+  _dragThreshold: 10
 --- !u!1 &745899561845460707
 GameObject:
   m_ObjectHideFlags: 0
@@ -17764,8 +17774,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6183026901562762473}
   m_HandleRect: {fileID: 6183026901831935521}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.81920123
+  m_Value: 1.0000006
+  m_Size: 0.81920135
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -18870,10 +18880,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7403072356426370672}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -18962,6 +18972,8 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
   m_AttachTransform: {fileID: 0}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 1
@@ -18971,6 +18983,7 @@ MonoBehaviour:
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
   m_MovementType: 2
+  m_PredictedVisualsTransform: {fileID: 0}
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -19016,6 +19029,10 @@ MonoBehaviour:
   - {fileID: 0}
   m_AddDefaultGrabTransformers: 0
   m_FarAttachMode: 0
+  m_LimitLinearVelocity: 0
+  m_LimitAngularVelocity: 0
+  m_MaxLinearVelocityDelta: 10
+  m_MaxAngularVelocityDelta: 20
 --- !u!1 &7403072356426370672
 GameObject:
   m_ObjectHideFlags: 0

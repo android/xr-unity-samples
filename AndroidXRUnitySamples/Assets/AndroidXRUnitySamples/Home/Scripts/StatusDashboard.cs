@@ -52,8 +52,7 @@ namespace AndroidXRUnitySamples.Home
         [SerializeField] private StatusItem _depthTextureStatus;
         [SerializeField] private StatusItem _sceneMeshStatus;
 
-        [SerializeField] private XRFaceTrackingFeature _faceTrackingFeature;
-        [SerializeField] private XRFaceTrackingManager _faceManager;
+        [SerializeField] private ARFaceManager _faceManager;
         [SerializeField] private ARPlaneManager _planeManager;
         [SerializeField] private ARTrackedObjectManager _objectManager;
         [SerializeField] private XRReferenceObjectLibrary _objectReferenceLibrary;
@@ -72,6 +71,8 @@ namespace AndroidXRUnitySamples.Home
         private bool _anySceneMeshChangesDetected = false;
         private HashSet<AndroidXRPermission> _grantedPermissions =
             new HashSet<AndroidXRPermission>();
+
+        private bool _faceBlendShapesAvailable = false;
 
         /// <summary>
         /// Requests the specified permissions and then calls CheckForPermissionsUpdate.
@@ -129,11 +130,9 @@ namespace AndroidXRUnitySamples.Home
                 }
             }
 
-#if !UNITY_EDITOR
-            _faceManager.enabled = _grantedPermissions.Contains(AndroidXRPermission.FaceTracking);
-#endif // !UNITY_EDITOR
             Singleton.Instance.OriginManager.EnableFaceManager = _grantedPermissions.Contains(
-                AndroidXRPermission.EyeTrackingCoarse);
+                AndroidXRPermission.EyeTrackingCoarse) && _grantedPermissions.Contains(
+                AndroidXRPermission.FaceTracking);
             Singleton.Instance.OriginManager.EnablePlaneDetection = _grantedPermissions.Contains(
                 AndroidXRPermission.SceneUnderstandingCoarse);
             Singleton.Instance.OriginManager.EnableObjectTracking = _grantedPermissions.Contains(
@@ -142,6 +141,29 @@ namespace AndroidXRUnitySamples.Home
                 AndroidXRPermission.SceneUnderstandingFine);
             Singleton.Instance.OriginManager.EnableMeshManager = _grantedPermissions.Contains(
                 AndroidXRPermission.SceneUnderstandingFine);
+        }
+
+        private void OnFaceChanged(ARTrackablesChangedEventArgs<ARFace> eventArgs)
+        {
+            foreach (ARFace face in eventArgs.added)
+            {
+                face.updated += OnFaceUpdate;
+            }
+        }
+
+        private void OnFaceUpdate(ARFaceUpdatedEventArgs eventArgs)
+        {
+            ARFace face = eventArgs.face;
+            if (face.trackingState != TrackingState.Tracking)
+            {
+                return;
+            }
+
+            Result<NativeArray<XRFaceBlendShape>> result =
+                _faceManager.TryGetBlendShapes(face, Allocator.Temp);
+
+            // TODO: Update this once Unity has an API to check the calibration state.
+            _faceBlendShapesAvailable = result.status.IsSuccess();
         }
 
         private void Start()
@@ -173,17 +195,19 @@ namespace AndroidXRUnitySamples.Home
 
         private void OnEnable()
         {
+            _faceManager.trackablesChanged.AddListener(OnFaceChanged);
             _planeManager.trackablesChanged.AddListener(OnPlaneDetected);
             _objectManager.trackablesChanged.AddListener(OnObjectDetected);
-            _meshManager.meshesChanged += OnMeshesChanged;
+            _meshManager.meshInfosChanged.AddListener(OnMeshesChanged);
             _inputMode.AddListener(UpdateInputModeState);
         }
 
         private void OnDisable()
         {
+            _faceManager.trackablesChanged.RemoveListener(OnFaceChanged);
             _planeManager.trackablesChanged.RemoveListener(OnPlaneDetected);
             _objectManager.trackablesChanged.RemoveListener(OnObjectDetected);
-            _meshManager.meshesChanged -= OnMeshesChanged;
+            _meshManager.meshInfosChanged.RemoveListener(OnMeshesChanged);
             _inputMode.RemoveListener(UpdateInputModeState);
         }
 
@@ -233,8 +257,7 @@ namespace AndroidXRUnitySamples.Home
 
         private void UpdateHandTrackingState()
         {
-            _handTrackingStatus.StartButtonActive =
-                !_grantedPermissions.Contains(AndroidXRPermission.HandTracking);
+            _handTrackingStatus.StartButtonActive = false;
             XRHandSubsystem system = XRGeneralSettings.Instance?.Manager?.activeLoader
                                              ?.GetLoadedSubsystem<XRHandSubsystem>();
 
@@ -262,8 +285,7 @@ namespace AndroidXRUnitySamples.Home
 
         private void UpdateGesturesState()
         {
-            _gesturesStatus.StartButtonActive =
-                !_grantedPermissions.Contains(AndroidXRPermission.HandTracking);
+            _gesturesStatus.StartButtonActive = false;
             _gesturesEverBeenReady = _gesturesEverBeenReady ||
                 (_pinchStateLeft.IsPressed() || _pinchStateRight.IsPressed());
             _gesturesStatus.UpdateStatus(_gesturesEverBeenReady.ToString(), _gesturesEverBeenReady);
@@ -320,28 +342,21 @@ namespace AndroidXRUnitySamples.Home
 
         private void UpdateFaceTrackingState()
         {
-            if (_faceTrackingFeature == null)
-            {
-                _faceTrackingStatus.UpdateStatus("Feature not found", false);
-                return;
-            }
-
-            _faceTrackingStatus.StartButtonActive = !_faceTrackingFeature.enabled;
-            if (!_faceTrackingFeature.enabled)
-            {
-                _faceTrackingStatus.UpdateStatus("Feature not enabled", false);
-                return;
-            }
-
             if (Application.isEditor)
             {
                 _faceTrackingStatus.UpdateStatus("Not supported", false);
+                return;
+            }
+
+            _faceTrackingStatus.StartButtonActive = !_faceManager.enabled;
+
+            if (_faceBlendShapesAvailable)
+            {
+                _faceTrackingStatus.UpdateStatus("Got Blend Shapes", true);
             }
             else
             {
-                XRFaceTrackingStates state = _faceManager.Face.TrackingState;
-                _faceTrackingStatus.UpdateStatus(state.ToString(),
-                    state == XRFaceTrackingStates.Tracking);
+                _faceTrackingStatus.UpdateStatus("No Blend Shapes", false);
             }
         }
 
@@ -441,16 +456,16 @@ namespace AndroidXRUnitySamples.Home
                 _anySceneMeshChangesDetected.ToString(), _anySceneMeshChangesDetected);
         }
 
-        private void OnMeshesChanged(ARMeshesChangedEventArgs eventArgs)
+        private void OnMeshesChanged(ARMeshInfosChangedEventArgs eventArgs)
         {
             XRMeshSubsystem subsystem =
                 Singleton.Instance.OriginManager.ARMeshManager.subsystem;
 
             // Check to see if any meshes were updated which have the Scene Mesh id.
-            foreach (var meshFilter in eventArgs.updated)
+            foreach (MeshUpdateInfo meshUpdateInfo in eventArgs.updated)
             {
                 TrackableId trackableId = HandMeshController.ConvertARMeshNameToTrackableId(
-                    meshFilter);
+                    meshUpdateInfo.meshFilter);
 
                 if (subsystem.IsSceneMeshId(trackableId))
                 {

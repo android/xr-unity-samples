@@ -1030,6 +1030,10 @@ PrefabInstance:
       value: AvatarSystem
       objectReference: {fileID: 0}
     - target: {fileID: 7575093546591395542, guid: bf081946f15c641b2a525c7cb65b609c, type: 3}
+      propertyPath: FaceManager
+      value: 
+      objectReference: {fileID: 310370630}
+    - target: {fileID: 7575093546591395542, guid: bf081946f15c641b2a525c7cb65b609c, type: 3}
       propertyPath: _permissionUtil
       value: 
       objectReference: {fileID: 0}
@@ -1365,7 +1369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020be0254b2eb4423832ec90c82d8a62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AndroidXRPermissions: 090000000500000000000000
+  AndroidXRPermissions: 09000000050000000000000002000000
   GenernalAndroidPermissions: []
   PermissionRationale: Required to enable Android XR feature at runtime.
 --- !u!1 &1433806042

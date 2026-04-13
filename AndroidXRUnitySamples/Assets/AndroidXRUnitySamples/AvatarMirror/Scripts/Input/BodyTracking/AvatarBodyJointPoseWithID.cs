@@ -36,7 +36,8 @@ namespace AndroidXRUnitySamples.AvatarMirror
     {
         /// <summary>The XR Avatar Skeleton Joint Identifier for this bone.</summary>
         [Tooltip("The XR Avatar Skeleton Joint Identifier for this bone.")]
-        [SerializeField] public XRAvatarSkeletonJointID ID;
+        [SerializeField]
+        public XRUpperBodyJointID ID;
 
         /// <summary>The index of this joint's parent in the skeleton hierarchy.</summary>
         [Tooltip("The index of this joint's parent in the skeleton hierarchy.")]

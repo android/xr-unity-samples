@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -138,6 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 287582408}
   - component: {fileID: 287582409}
+  - component: {fileID: 287582410}
   m_Layer: 0
   m_Name: Scene
   m_TagString: Untagged
@@ -174,6 +176,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoomEnvironment: {fileID: 1745652607}
+--- !u!114 &287582410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287582407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 020be0254b2eb4423832ec90c82d8a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AndroidXRPermissions: 02000000
+  GenernalAndroidPermissions: []
+  PermissionRationale: Required to enable Android XR feature at runtime.
 --- !u!1 &1078997791
 GameObject:
   m_ObjectHideFlags: 0

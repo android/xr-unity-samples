@@ -19,24 +19,23 @@
 
 namespace AndroidXRUnitySamples.AvatarMirror
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Google.XR.Extensions;
+    using Unity.Collections;
     using UnityEngine;
-    using UnityEngine.XR.OpenXR;
+    using UnityEngine.XR.ARFoundation;
+    using UnityEngine.XR.ARSubsystems;
 
     /// <summary>
     /// Demonstrates the face tracking feature for avatar facial blendshapes.
     /// </summary>
-    [RequireComponent(typeof(XRFaceTrackingManager))]
     public class AvatarFaceTracking : MonoBehaviour
     {
         /// <summary>List of parameter names from XRFaceParameterIndices.</summary>
         public string[] ParamNames;
 
-        [SerializeField] private XRFaceTrackingManager _faceManager;
+        /// <summary>Face manager from AR Foundation.</summary>
+        public ARFaceManager FaceManager = null;
+
+        private ARFace _face;
 
         /// <summary>The current face data.</summary>
         private AvatarFaceData _avatarFaceData = new AvatarFaceData();
@@ -46,32 +45,62 @@ namespace AndroidXRUnitySamples.AvatarMirror
 
         private void Awake()
         {
-            ParamNames = Enum.GetNames(typeof(XRFaceParameterIndices));
-            _faceManager = GetComponent<XRFaceTrackingManager>();
-
 #if UNITY_EDITOR
             Debug.Log("Class AvatarFaceTracking cannot run in editor. Deactivating.");
-            _faceManager.enabled = false;
             enabled = false;
+#else
+            FaceManager.enabled = true;
+            FaceManager.trackablesChanged.AddListener(OnFaceChanged);
 #endif
         }
 
-        private void Update()
+        private void OnFaceChanged(ARTrackablesChangedEventArgs<ARFace> eventArgs)
         {
-            if (XRFaceTrackingFeature.IsFaceTrackingExtensionEnabled == null)
+            foreach (ARFace face in eventArgs.added)
             {
-                Debug.Log("XrInstance hasn't been initialized.");
-                return;
+                if (_face != face)
+                {
+                    _face = face;
+                    face.updated += OnFaceUpdate;
+                }
             }
 
-            if (!XRFaceTrackingFeature.IsFaceTrackingExtensionEnabled.Value)
+            foreach (ARFace face in eventArgs.updated)
             {
-                Debug.Log("XR_ANDROID_face_tracking is not enabled.");
-                return;
+                if (_face != face)
+                {
+                    _face = face;
+                    face.updated += OnFaceUpdate;
+                }
             }
 
-            // Directly assign the Parameters array from the face manager to avatarFaceData.
-            _avatarFaceData.Parameters = _faceManager.Face.Parameters;
+            foreach (var facePair in eventArgs.removed)
+            {
+                if (_face != null && facePair.Key.Equals(_face.trackableId))
+                {
+                    _face = null;
+                }
+            }
+        }
+
+        private void OnFaceUpdate(ARFaceUpdatedEventArgs eventArgs)
+        {
+            Result<NativeArray<XRFaceBlendShape>> result =
+                FaceManager.TryGetBlendShapes(eventArgs.face, Allocator.Temp);
+            if (result.status.IsSuccess())
+            {
+                for (int i = 0;
+                     i < result.value.Length && i < _avatarFaceData.Parameters.Length;
+                     i++)
+                {
+                    _avatarFaceData.Parameters[i] = result.value[i].weight;
+                }
+            }
+        }
+
+        private void OnDestroy()
+        {
+            FaceManager.trackablesChanged.RemoveListener(OnFaceChanged);
         }
     }
 }

@@ -22,7 +22,6 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using UnityEngine.XR.OpenXR.NativeTypes;
 
 namespace AndroidXRUnitySamples
 {
@@ -32,9 +31,9 @@ namespace AndroidXRUnitySamples
     public class AndroidXROriginManager : MonoBehaviour
     {
         /// <summary>
-        /// Controller for the blend mode.
+        /// Controller for passthrough.
         /// </summary>
-        public BlendModeController BlendController;
+        public PassthroughController PassthroughController;
 
         /// <summary>
         /// ARPlaneManager on the origin.
@@ -114,16 +113,9 @@ namespace AndroidXRUnitySamples
             set
             {
                 _passthroughEnabled = value;
-                if (_passthroughEnabled)
-                {
-                    BlendController.SetBlendMode(XrEnvironmentBlendMode.AlphaBlend);
-                    Singleton.Instance.Camera.clearFlags = CameraClearFlags.SolidColor;
-                }
-                else
-                {
-                    BlendController.SetBlendMode(XrEnvironmentBlendMode.Opaque);
-                    Singleton.Instance.Camera.clearFlags = CameraClearFlags.Skybox;
-                }
+                PassthroughController.SetPassthrough(_passthroughEnabled);
+                Singleton.Instance.Camera.clearFlags =
+                    _passthroughEnabled ? CameraClearFlags.SolidColor : CameraClearFlags.Skybox;
             }
         }
 

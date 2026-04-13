@@ -101,7 +101,7 @@ namespace AndroidXRUnitySamples
             }
 
             // Register a meshes-changed callback.
-            meshManager.meshesChanged += OnMeshesChanged;
+            meshManager.meshInfosChanged.AddListener(OnMeshesChanged);
 
             // Register a debug-mode-changed callback.
             _isDebugMode.AddListener(OnDebugModeChanged);
@@ -134,10 +134,10 @@ namespace AndroidXRUnitySamples
             }
 
             // Unregister the meshes-changed callback.
-            meshManager.meshesChanged -= OnMeshesChanged;
+            meshManager.meshInfosChanged.RemoveListener(OnMeshesChanged);
         }
 
-        private void OnMeshesChanged(ARMeshesChangedEventArgs eventArgs)
+        private void OnMeshesChanged(ARMeshInfosChangedEventArgs eventArgs)
         {
             // Maintain a collection that stores all existing mesh renderers
             // of the meshes created by the ARMeshManager.
@@ -146,9 +146,9 @@ namespace AndroidXRUnitySamples
             _newMeshRenderers.Clear();
 
             // Add mesh renderers of added meshes to the list.
-            foreach (var mesh in eventArgs.added)
+            foreach (MeshUpdateInfo meshUpdateInfo in eventArgs.added)
             {
-                var meshRenderer = mesh.GetComponent<MeshRenderer>();
+                var meshRenderer = meshUpdateInfo.meshFilter.GetComponent<MeshRenderer>();
                 if (_meshRenderers.Add(meshRenderer))
                 {
                     _newMeshRenderers.Add(meshRenderer);
@@ -156,19 +156,19 @@ namespace AndroidXRUnitySamples
             }
 
             // Add mesh renderers of updated meshes to the list.
-            foreach (var mesh in eventArgs.updated)
+            foreach (MeshUpdateInfo meshUpdateInfo in eventArgs.updated)
             {
-                var meshRenderer = mesh.GetComponent<MeshRenderer>();
-                if (_meshRenderers.Add(mesh.GetComponent<MeshRenderer>()))
+                var meshRenderer = meshUpdateInfo.meshFilter.GetComponent<MeshRenderer>();
+                if (_meshRenderers.Add(meshUpdateInfo.meshFilter.GetComponent<MeshRenderer>()))
                 {
                     _newMeshRenderers.Add(meshRenderer);
                 }
             }
 
             // Remove mesh renderers from the list.
-            foreach (var mesh in eventArgs.removed)
+            foreach (MeshUpdateInfo meshUpdateInfo in eventArgs.removed)
             {
-                _meshRenderers.Remove(mesh.GetComponent<MeshRenderer>());
+                _meshRenderers.Remove(meshUpdateInfo.meshFilter.GetComponent<MeshRenderer>());
             }
 
             // Set up the newly collected mesh renderers according to the debug

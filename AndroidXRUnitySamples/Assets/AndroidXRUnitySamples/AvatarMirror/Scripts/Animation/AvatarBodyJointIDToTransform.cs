@@ -32,7 +32,7 @@ namespace AndroidXRUnitySamples.AvatarMirror
     {
         /// <summary>The XR Skeleton Joint Identifier that will drive the Transform.</summary>
         [Tooltip("The XR Skeleton Joint Identifier that will drive the Transform.")]
-        public XRAvatarSkeletonJointID XRSkelJointID;
+        public XRUpperBodyJointID XRSkelJointID;
 
         /// <summary>The Transform that will be driven by the specified XR Joint.</summary>
         [Tooltip("The Transform that will be driven by the specified XR Joint.")]

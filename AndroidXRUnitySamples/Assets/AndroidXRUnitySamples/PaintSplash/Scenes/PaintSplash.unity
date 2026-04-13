@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020be0254b2eb4423832ec90c82d8a62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AndroidXRPermissions: 0000000001000000
+  AndroidXRPermissions: 000000000100000002000000
   GenernalAndroidPermissions: []
   PermissionRationale: Required to enable environment mesh at runtime.
 --- !u!1 &1189326328

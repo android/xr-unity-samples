@@ -38,12 +38,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -575,6 +575,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1213130012}
   - component: {fileID: 1213130013}
+  - component: {fileID: 1213130014}
   m_Layer: 0
   m_Name: GazeAndPinch
   m_TagString: Untagged
@@ -615,7 +616,6 @@ MonoBehaviour:
   SceneContainer: {fileID: 11109415}
   SearchingForPlanePrefab: {fileID: 6013594094182995365, guid: 3208b6e9636afa24bb338ce91b6b9513, type: 3}
   PlaneIdentifiedPrefab: {fileID: 6013594094182995365, guid: 400a2f36c7e8728449cd568f9cb824a1, type: 3}
-  StatusText: {fileID: 0}
   MinSceneScale: 0.2
   MaxSceneScale: 1
   SceneContentsSize: {x: 2.5, y: 3.5}
@@ -625,6 +625,21 @@ MonoBehaviour:
   - {fileID: 1397585483}
   CatapultForceLerpBounds: {x: 0.4, y: 1.1}
   MenuIsOpen: {fileID: 11400000, guid: bc1247c6cca71490893c55cf13e55747, type: 2}
+--- !u!114 &1213130014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213130011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 020be0254b2eb4423832ec90c82d8a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AndroidXRPermissions: 000000000200000004000000
+  GenernalAndroidPermissions: []
+  PermissionRationale: Required to enable Android XR feature at runtime.
 --- !u!114 &1397585483 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9005935018728229675, guid: 7f58adc1ebee644999a717067408f6e9, type: 3}

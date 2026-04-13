@@ -35,7 +35,8 @@ namespace AndroidXRUnitySamples.AvatarMirror
     {
         /// <summary>The total number of OpenXR body bones defined in the skeleton
         /// standard.</summary>
-        public static int OpenXRBodyBoneCount = XRAvatarSkeletonJointIDUtility.JointCount();
+        public static int OpenXRBodyBoneCount =
+            XRBodyJointSetUtility.JointCount(typeof(XRUpperBodyJointID));
 
         /// <summary>
         /// An estimated scale factor representing the height of the tracked body.

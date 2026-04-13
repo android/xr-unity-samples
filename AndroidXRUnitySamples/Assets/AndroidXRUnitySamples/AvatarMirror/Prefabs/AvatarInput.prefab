@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2443205384824586668}
   - component: {fileID: 5415881330798376732}
   - component: {fileID: 2930973863340255074}
-  - component: {fileID: 2761041898663090273}
   - component: {fileID: 5315491874129036910}
   m_Layer: 0
   m_Name: Perception
@@ -119,19 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43431d8aed3d14521bf77f482c34ed5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _faceManager: {fileID: 2761041898663090273}
---- !u!114 &2761041898663090273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4866261669042322573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b01e5663604d4cbaa278ae08499b775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  ParamNames: []
 --- !u!114 &5315491874129036910
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -81,10 +81,13 @@ namespace AndroidXRUnitySamples.AvatarMirror
         [Tooltip("The transform representing the root of the avatar's skeletal rig.")]
         [SerializeField] internal Transform _avatarRig;
 
+        private static readonly Quaternion _bodyTrackingOffsetRot =
+                Quaternion.Euler(0f, 180f, 0f);
+
         /// <summary>A Dictionary mapping <see cref="XRAvatarSkeletonJointID"/> to their <see
         /// cref="Transform"/> for the avatar's body.</summary>
-        private Dictionary<XRAvatarSkeletonJointID, Transform> _avatarBodyJointIDToTransformsDict =
-            new Dictionary<XRAvatarSkeletonJointID, Transform>();
+        private Dictionary<XRUpperBodyJointID, Transform> _avatarBodyJointIDToTransformsDict =
+            new Dictionary<XRUpperBodyJointID, Transform>();
 
         /// <summary>A Dictionary mapping <see cref="XRHandJointID"/> to their <see
         /// cref="Transform"/> for the left hand.</summary>
@@ -283,7 +286,7 @@ namespace AndroidXRUnitySamples.AvatarMirror
                     Transform jointTransform =
                         _avatarBodyJointIDToTransformsDict[bodyJointPoseWithID.ID];
 
-                    if (bodyJointPoseWithID.ID == XRAvatarSkeletonJointID.Hips)
+                    if (bodyJointPoseWithID.ID == XRUpperBodyJointID.Hips)
                     {
                         Vector3 posTarget = bodyJointPoseWithID.AnchorPose
                                                 .GetTransformedBy(_settings.AvatarOrigin.transform)
@@ -308,8 +311,10 @@ namespace AndroidXRUnitySamples.AvatarMirror
                     }
 
                     bodyJointPoseWithID.AnchorPose.rotation =
-                        _settings.AvatarOrigin.transform.rotation * offset *
-                        Quaternion.Euler(0f, 180f, 0f) * bodyJointPoseWithID.AnchorPose.rotation;
+                        bodyJointPoseWithID.AnchorPose.rotation.normalized;
+                    var anchorRotCorrected = _settings.AvatarOrigin.transform.rotation * offset *
+                                             _bodyTrackingOffsetRot *
+                                             bodyJointPoseWithID.AnchorPose.rotation;
 
                     if (!_settings.BodyOnlyRotation)
                     {
@@ -319,11 +324,11 @@ namespace AndroidXRUnitySamples.AvatarMirror
                     if (_settings.FlipBody)
                     {
                         jointTransform.rotation =
-                            Mirror(bodyJointPoseWithID.AnchorPose.rotation, _settings.FlipBodyAxis);
+                            Mirror(anchorRotCorrected, _settings.FlipBodyAxis);
                     }
                     else
                     {
-                        jointTransform.rotation = bodyJointPoseWithID.AnchorPose.rotation;
+                        jointTransform.rotation = anchorRotCorrected;
                     }
                 }
             }

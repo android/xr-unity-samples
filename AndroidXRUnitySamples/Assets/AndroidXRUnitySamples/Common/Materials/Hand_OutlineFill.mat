@@ -65,7 +65,7 @@ Material:
     - _Blend: 0
     - _CastShadows: 0
     - _ColorBlendOp: 0
-    - _Cull: 1
+    - _Cull: 2
     - _Culling: 2
     - _DstBlend: 10
     - _DstBlendAlpha: 1

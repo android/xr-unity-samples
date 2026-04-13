@@ -67,7 +67,9 @@ namespace AndroidXRUnitySamples.AvatarMirror
             {
                 if (body != null)
                 {
-                    for (int i = 0; i < AvatarBodyData.OpenXRBodyBoneCount; i++)
+                    for (int i = 0;
+                         i < AvatarBodyData.OpenXRBodyBoneCount && i < body.joints.Length;
+                         i++)
                     {
                         _avatarBodyData.Joints[i].ParentIndex = body.joints[i].parentIndex;
                         _avatarBodyData.Joints[i].LocalScale = body.joints[i].localScale;
@@ -76,8 +78,8 @@ namespace AndroidXRUnitySamples.AvatarMirror
                         _avatarBodyData.Joints[i].AnchorPose =
                             body.joints[i].anchorPose.InverseTransformedBy(_reference);
                         _avatarBodyData.Joints[i].Tracked = body.joints[i].tracked;
-                        _avatarBodyData.Joints[i].ID =
-                            XRAvatarSkeletonJointIDUtility.FromIndex(body.joints[i].index);
+                        XRBodyJointSetUtility.FromIndex(body.joints[i].index,
+                                                        out _avatarBodyData.Joints[i].ID);
                     }
 
                     _avatarBodyData.EstimatedHeightScaleFactor = body.estimatedHeightScaleFactor;

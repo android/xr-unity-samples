@@ -250,6 +250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1137161067}
   - component: {fileID: 1137161068}
+  - component: {fileID: 1137161069}
   m_Layer: 0
   m_Name: CreatureGaze
   m_TagString: Untagged
@@ -292,6 +293,21 @@ MonoBehaviour:
   _creatureForceScalar: 10
   _leftHand: {fileID: 1351352845}
   _rightHand: {fileID: 1351352844}
+--- !u!114 &1137161069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137161065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 020be0254b2eb4423832ec90c82d8a62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AndroidXRPermissions: 0200000003000000
+  GenernalAndroidPermissions: []
+  PermissionRationale: Required to enable Android XR feature at runtime.
 --- !u!1001 &1351352843
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -33,7 +33,7 @@ namespace AndroidXRUnitySamples.Gemini
     public static class GeminiService
     {
         private const string _geminiUrlFormat =
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp"
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash"
             + ":generateContent?key={0}";
 
         /// <summary>

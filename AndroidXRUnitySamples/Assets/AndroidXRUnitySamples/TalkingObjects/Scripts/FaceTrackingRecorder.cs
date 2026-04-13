@@ -18,10 +18,11 @@
 // ----------------------------------------------------------------------
 
 using System.Collections.Generic;
-using Google.XR.Extensions;
+using Unity.Collections;
 using UnityEngine;
-
-using Face = Google.XR.Extensions.XRFaceParameterIndices;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
+using Face = AndroidXRUnitySamples.TalkingObjects.XRFaceParameterIndices;
 
 namespace AndroidXRUnitySamples.TalkingObjects
 {
@@ -30,7 +31,7 @@ namespace AndroidXRUnitySamples.TalkingObjects
     /// </summary>
     public class FaceTrackingRecorder : MonoBehaviour
     {
-        [SerializeField] private XRFaceTrackingManager _faceManager;
+        [SerializeField] private ARFaceManager _faceManager;
         [SerializeField] private float _recordDuration;
         [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
         [SerializeField] private bool _mirrorBlendShapes;
@@ -44,6 +45,8 @@ namespace AndroidXRUnitySamples.TalkingObjects
         private bool _recording;
         private float _recordingTime;
         private List<FaceSnapshot> _recordedSnapshots;
+        private ARFace _face;
+        private float[] _liveFaceParams;
 
         /// <summary> True if recording.</summary>
         public bool Recording => _recording;
@@ -97,19 +100,50 @@ namespace AndroidXRUnitySamples.TalkingObjects
             SetLiveDataWeight(1.0f);
             _recordedSnapshots = new List<FaceSnapshot>();
             CreateMirrorIndexes();
+            _faceManager.trackablesChanged.AddListener(OnFaceChanged);
+        }
+
+        private void OnDestroy()
+        {
+            _faceManager.trackablesChanged.RemoveListener(OnFaceChanged);
+        }
+
+        private void OnFaceChanged(ARTrackablesChangedEventArgs<ARFace> eventArgs)
+        {
+            // Currently, we assume there is only one ARFace.
+            foreach (ARFace face in eventArgs.added)
+            {
+                _face = face;
+            }
+
+            foreach (ARFace face in eventArgs.updated)
+            {
+                _face = face;
+            }
+
+            foreach (var facePair in eventArgs.removed)
+            {
+                if (_face != null && facePair.Key.Equals(_face.trackableId))
+                {
+                    _face = null;
+                }
+            }
         }
 
         private void Update()
         {
-            if (XRFaceTrackingFeature.IsFaceTrackingExtensionEnabled == null)
+            if (!_face)
             {
-                // XrInstance hasn't been initialized.
+                // Face Tracking hasn't started yet.
                 return;
             }
 
-            if (!XRFaceTrackingFeature.IsFaceTrackingExtensionEnabled.Value)
+            Result<NativeArray<XRFaceBlendShape>> faceBlendShape =
+                _faceManager.TryGetBlendShapes(_face, Allocator.Temp);
+            if (faceBlendShape.status.IsError())
             {
-                // XR_ANDROID_face_tracking is not enabled.
+                Debug.LogError(
+                    "Failed to get face blend shapes: " + faceBlendShape.status.ToString());
                 return;
             }
 
@@ -128,9 +162,9 @@ namespace AndroidXRUnitySamples.TalkingObjects
                     FaceSnapshot newSnapshot = new FaceSnapshot();
                     newSnapshot.TimeStamp = _recordingTime;
                     newSnapshot.Params = new float[(int)Face.TongueDown + 1];
-                    for (int i = 0; i < _faceManager.Face.Parameters.Length; ++i)
+                    for (int i = 0; i < faceBlendShape.value.Length; ++i)
                     {
-                        newSnapshot.Params[i] = _faceManager.Face.Parameters[i];
+                        newSnapshot.Params[i] = faceBlendShape.value[i].weight;
                     }
 
                     _recordedSnapshots.Add(newSnapshot);
@@ -164,12 +198,29 @@ namespace AndroidXRUnitySamples.TalkingObjects
                 _playbackTimer %= _recordDuration;
             }
 
-            float[] data = _useLiveData ? _faceManager.Face.Parameters :
-                GetSnapshotParamsFromTimestamp(_playbackTimer);
+            float[] data;
+            if (_useLiveData)
+            {
+                if (_liveFaceParams == null ||
+                    _liveFaceParams.Length != faceBlendShape.value.Length)
+                {
+                    _liveFaceParams = new float[faceBlendShape.value.Length];
+                }
+
+                data = _liveFaceParams;
+                for (int i = 0; i < faceBlendShape.value.Length; ++i)
+                {
+                    data[i] = faceBlendShape.value[i].weight;
+                }
+            }
+            else
+            {
+                data = GetSnapshotParamsFromTimestamp(_playbackTimer);
+            }
 
             if (_mirrorBlendShapes)
             {
-                for (int i = 0; i < _faceManager.Face.Parameters.Length; ++i)
+                for (int i = 0; i < data.Length; ++i)
                 {
                     if (i < _skinnedMeshRenderer.sharedMesh.blendShapeCount)
                     {
@@ -180,7 +231,7 @@ namespace AndroidXRUnitySamples.TalkingObjects
             }
             else
             {
-                for (int i = 0; i < _faceManager.Face.Parameters.Length; ++i)
+                for (int i = 0; i < data.Length; ++i)
                 {
                     if (i < _skinnedMeshRenderer.sharedMesh.blendShapeCount)
                     {

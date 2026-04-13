@@ -1,4 +1,4 @@
-// <copyright file="BlendModeController.cs" company="Google LLC">
+// <copyright file="PassthroughController.cs" company="Google LLC">
 //
 // Copyright 2025 Google LLC
 //
@@ -18,49 +18,48 @@
 // ----------------------------------------------------------------------
 
 using System.Collections;
-using Google.XR.Extensions;
 using UnityEngine;
-using UnityEngine.XR.OpenXR.NativeTypes;
+using UnityEngine.XR.ARFoundation;
 
 namespace AndroidXRUnitySamples
 {
     /// <summary>
     /// Component used to change passthrough blend mode at run time.
     /// </summary>
-    public class BlendModeController : MonoBehaviour
+    public class PassthroughController : MonoBehaviour
     {
         /// <summary>
-        /// Reference to the blend mode feature.
+        /// Reference to the AR Camera Manager.
         /// </summary>
-        public XREnvironmentBlendModeFeature BlendFeature;
+        public ARCameraManager ARCameraManager;
 
         /// <summary>
-        /// Sets the blend mode.
+        /// Sets passthrough to enabled or disabled.
         /// </summary>
-        /// <param name="mode">Blend mode to use.</param>
-        public void SetBlendMode(XrEnvironmentBlendMode mode)
+        /// <param name="enabled">Whether to enable passthrough.</param>
+        public void SetPassthrough(bool enabled)
         {
 #if !UNITY_EDITOR
-            if (BlendFeature == null)
+            if (ARCameraManager == null)
             {
-                Debug.LogWarning("Trying to set blend mode when blend feature is null");
+                Debug.LogWarning("Trying to set blend mode when ARCameraManager is null");
                 return;
             }
 
-            StartCoroutine(DelayedSetBlendMode(mode));
+            StartCoroutine(DelayedSetBlendMode(enabled));
 #endif
-            Debug.Log($"Blend mode set: {mode}");
+            Debug.Log($"Passthrough set: {enabled}");
         }
 
-        IEnumerator DelayedSetBlendMode(XrEnvironmentBlendMode mode)
+        IEnumerator DelayedSetBlendMode(bool enabled)
         {
             yield return new WaitForSeconds(0.1f);
-            BlendFeature.RequestedEnvironmentBlendMode = mode;
+            ARCameraManager.enabled = enabled;
         }
 
         private void Start()
         {
-            SetBlendMode(XrEnvironmentBlendMode.AlphaBlend);
+            SetPassthrough(true);
             Singleton.Instance.Camera.clearFlags = CameraClearFlags.SolidColor;
         }
     }

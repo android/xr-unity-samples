@@ -19,7 +19,6 @@
 
 using System;
 using System.Linq;
-using Google.XR.Extensions;
 
 namespace AndroidXRUnitySamples.AvatarMirror
 {
@@ -30,8 +29,7 @@ namespace AndroidXRUnitySamples.AvatarMirror
     public class AvatarFaceData : IEquatable<AvatarFaceData>
     {
         /// <summary>The number of OpenXR face blend shapes.</summary>
-        public static int OpenXRFaceBlendshapeCount =
-            Enum.GetNames(typeof(XRFaceParameterIndices)).Count();
+        public static int OpenXRFaceBlendshapeCount = 68;
 
         /// <summary>The array of blend shape parameter values.</summary>
         public float[] Parameters = new float[OpenXRFaceBlendshapeCount];
