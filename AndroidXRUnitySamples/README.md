@@ -6,7 +6,7 @@ show how to implement the experiences. This project uses both the
 
 ## Prerequisites
 
-1. Download [Unity 6000.1.17f1](https://unity.com/releases/editor/whats-new/6000.1.17f1)
+1. Download [Unity 6000.3.6f1](https://unity.com/releases/editor/whats-new/6000.3.6f1)
 2. Select “Android Build Support” module
 3. Install OpenJDK
 4. Install Android SDK & NDK tools

@@ -228,12 +228,12 @@ namespace AndroidXRUnitySamples.Home
 
         private void UpdatePassthroughState()
         {
-            if (XRPassthroughFeature.IsExensionEnabled == null)
+            if (XRPassthroughFeature.IsExtensionEnabled == null)
             {
                 _passthroughStatus.UpdateStatus("Feature not found", false);
                 return;
             }
-            else if (!XRPassthroughFeature.IsExensionEnabled.Value)
+            else if (!XRPassthroughFeature.IsExtensionEnabled.Value)
             {
                 _passthroughStatus.UpdateStatus("Feature not enabled", false);
                 return;
