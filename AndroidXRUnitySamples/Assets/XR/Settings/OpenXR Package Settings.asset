@@ -69,46 +69,6 @@ MonoBehaviour:
   targetOpenXRApiVersion: 
   required: 0
   customRuntimeLoaderName: 
---- !u!114 &-8850710136827651213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa21d2c6e1fcf4c9f847db137e9b39b4, type: 3}
-  m_Name: XRFaceTrackingFeature Android
-  m_EditorClassIdentifier: 
-  m_enabled: 0
-  nameUi: 'Android XR: Face Tracking'
-  version: 1.0.0
-  featureIdInternal: com.google.xr.extensions.face_tracking
-  openxrExtensionStrings: XR_ANDROID_face_tracking
-  company: Google
-  priority: 0
-  required: 0
---- !u!114 &-8800126544595682885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b09190aa5d4d34449ab9deeece7e994, type: 3}
-  m_Name: XRHandMeshFeature Android
-  m_EditorClassIdentifier: 
-  m_enabled: 1
-  nameUi: 'Android XR (Extensions): Hand Mesh'
-  version: 1.0.0
-  featureIdInternal: com.google.xr.extensions.hand_mesh
-  openxrExtensionStrings: XR_ANDROID_hand_mesh
-  company: Google
-  priority: 99
-  required: 0
 --- !u!114 &-8451275387734111979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,6 +270,7 @@ MonoBehaviour:
   forceRemoveInternetPermission: 0
   m_symmetricProjection: 0
   systemSplashScreen: {fileID: 0}
+  enableSystemKeyboard: 0
   m_optimizeBufferDiscards: 1
   lateLatchingMode: 0
   lateLatchingDebug: 0
@@ -330,7 +291,7 @@ MonoBehaviour:
   m_Name: ARAnchorFeature Standalone
   m_EditorClassIdentifier: 
   m_enabled: 0
-  nameUi: 'Android XR: AR Anchor'
+  nameUi: 'Android XR: Anchors'
   version: 0.1.0
   featureIdInternal: com.unity.openxr.feature.arfoundation-androidxr-anchor
   openxrExtensionStrings: XR_ANDROID_trackables XR_ANDROID_device_anchor_persistence
@@ -389,9 +350,34 @@ MonoBehaviour:
   m_symmetricProjection: 0
   m_optimizeMultiviewRenderRegions: 0
   m_multiviewRenderRegionsOptimizationMode: 0
-  m_hasMigratedMultiviewRenderRegionSetting: 0
+  m_hasMigratedMultiviewRenderRegionSetting: 1
   m_foveatedRenderingApi: 0
   m_useOpenXRPredictedTime: 0
+--- !u!114 &-7034021039961624729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b0b4cceab934225b036fb96b1d33bc, type: 3}
+  m_Name: SpatialShareableAnchorFeature Android
+  m_EditorClassIdentifier: Google.XR.Extensions.SpatialEntities::Google.XR.Extensions.SpatialEntities.SpatialShareableAnchorFeature
+  m_enabled: 0
+  nameUi: 'Spatial Entities (Extensions): Shareable Anchors'
+  version: 1.0.0
+  featureIdInternal: com.google.xr.extensions.spatialentities.shareable_anchor
+  openxrExtensionStrings: XR_ANDROID_geospatial XR_ANDROID_geospatial_anchor XR_EXT_future
+    XR_EXT_spatial_entity XR_EXT_spatial_anchor XR_EXT_spatial_persistence XR_EXT_spatial_persistence_operations
+  company: Google
+  priority: 80
+  targetOpenXRApiVersion: 
+  required: 0
+  customRuntimeLoaderName: 
+  _autoLoadPersistedAnchors: 1
+  _enableGeospatialHost: 0
 --- !u!114 &-6783987349680366324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,7 +391,7 @@ MonoBehaviour:
   m_Name: ARAnchorFeature Android
   m_EditorClassIdentifier: 
   m_enabled: 0
-  nameUi: 'Android XR: AR Anchor'
+  nameUi: 'Android XR: Anchors'
   version: 0.1.0
   featureIdInternal: com.unity.openxr.feature.arfoundation-androidxr-anchor
   openxrExtensionStrings: XR_ANDROID_trackables XR_ANDROID_device_anchor_persistence
@@ -436,6 +422,29 @@ MonoBehaviour:
   targetOpenXRApiVersion: 
   required: 0
   customRuntimeLoaderName: 
+--- !u!114 &-6609109616965374192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed80c0b6035e6428196b531320f5c25f, type: 3}
+  m_Name: SpatialBoundingBoxFeature Android
+  m_EditorClassIdentifier: Google.XR.Extensions.SpatialEntities::Google.XR.Extensions.SpatialEntities.SpatialBoundingBoxFeature
+  m_enabled: 0
+  nameUi: 'Spatial Entities (Extensions): Bounding Box'
+  version: 1.0.0
+  featureIdInternal: com.google.xr.extensions.spatialentities.boundingbox
+  openxrExtensionStrings: XR_EXT_future XR_EXT_spatial_entity XR_ANDROID_spatial_object_tracking
+  company: Google
+  priority: 80
+  targetOpenXRApiVersion: 
+  required: 0
+  customRuntimeLoaderName: 
+  _requestedModes: 0
 --- !u!114 &-6569294589984031130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,28 +513,6 @@ MonoBehaviour:
   targetOpenXRApiVersion: 
   required: 0
   customRuntimeLoaderName: 
---- !u!114 &-5955713261437665382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1e48c06af5a44d7fb948aed7fcd91d8, type: 3}
-  m_Name: AndroidXRMouseInteractionProfile Android
-  m_EditorClassIdentifier: 
-  m_enabled: 0
-  nameUi: Android XR Mouse Interaction Profile
-  version: 0.0.1
-  featureIdInternal: com.google.xr.extensions.input.mouse
-  openxrExtensionStrings: XR_ANDROID_mouse_interaction
-  company: Google
-  priority: 0
-  targetOpenXRApiVersion: 
-  required: 0
-  customRuntimeLoaderName: 
 --- !u!114 &-5799541716612229835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,7 +526,7 @@ MonoBehaviour:
   m_Name: ARRaycastFeature Android
   m_EditorClassIdentifier: 
   m_enabled: 0
-  nameUi: 'Android XR: AR Raycast'
+  nameUi: 'Android XR: Raycasts'
   version: 0.1.0
   featureIdInternal: com.unity.openxr.feature.arfoundation-androidxr-raycast
   openxrExtensionStrings: XR_ANDROID_trackables XR_ANDROID_raycast
@@ -594,6 +581,28 @@ MonoBehaviour:
   targetOpenXRApiVersion: 
   required: 0
   customRuntimeLoaderName: 
+--- !u!114 &-5552819749290402303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c4bbbd7900742b3baf1b9a9697774a, type: 3}
+  m_Name: XRBatteryStateDisplayFeature Android
+  m_EditorClassIdentifier: Google.XR.Extensions::Google.XR.Extensions.XRBatteryStateDisplayFeature
+  m_enabled: 0
+  nameUi: Battery State Display
+  version: 1.0.0
+  featureIdInternal: com.google.xr.extensions.battery_state_display
+  openxrExtensionStrings: XR_EXT_interaction_profile_battery_state_display
+  company: Google
+  priority: 0
+  targetOpenXRApiVersion: 
+  required: 0
+  customRuntimeLoaderName: 
 --- !u!114 &-5277782660842407211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -616,7 +625,7 @@ MonoBehaviour:
   targetOpenXRApiVersion: 
   required: 0
   customRuntimeLoaderName: 
---- !u!114 &-5107951767798429774
+--- !u!114 &-5166547433625008360
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -625,17 +634,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59d26242419e2e448915b23cc599a5b6, type: 3}
-  m_Name: XRSpaceWarpFeature Android
-  m_EditorClassIdentifier: 
+  m_Script: {fileID: 11500000, guid: 96c6863ce0f3145d5849c8c0daed182a, type: 3}
+  m_Name: XRGoogleCloudFeature Android
+  m_EditorClassIdentifier: Google.XR.Extensions::Google.XR.Extensions.XRGoogleCloudFeature
   m_enabled: 0
-  nameUi: Space Warp
+  nameUi: 'Android XR: Google Cloud'
   version: 1.0.0
-  featureIdInternal: com.google.xr.extensions.space_warp
-  openxrExtensionStrings: XR_FB_space_warp
+  featureIdInternal: com.google.xr.extensions.google_cloud
+  openxrExtensionStrings: 'XR_EXT_future XR_ANDROID_google_cloud_auth '
   company: Google
-  priority: 99
+  priority: 96
+  targetOpenXRApiVersion: 
   required: 0
+  customRuntimeLoaderName: 
+  _strategy: 1
+  _credential: 
 --- !u!114 &-4707685119097456808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -726,6 +739,28 @@ MonoBehaviour:
   targetOpenXRApiVersion: 
   required: 0
   customRuntimeLoaderName: 
+--- !u!114 &-3673302928638629704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d36036e667eb84eb5a953e28b151a523, type: 3}
+  m_Name: AndroidXRBuildProfileFeature Standalone
+  m_EditorClassIdentifier: Unity.XR.AndroidOpenXR::UnityEngine.XR.OpenXR.Features.Android.AndroidXRBuildProfileFeature
+  m_enabled: 0
+  nameUi: 
+  version: 0.1.0
+  featureIdInternal: com.unity.openxr.feature.androidxr-build-profile
+  openxrExtensionStrings: 
+  company: Unity Technologies
+  priority: 0
+  targetOpenXRApiVersion: 
+  required: 0
+  customRuntimeLoaderName: 
 --- !u!114 &-3309778197040897149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,49 +783,6 @@ MonoBehaviour:
   targetOpenXRApiVersion: 
   required: 0
   customRuntimeLoaderName: 
---- !u!114 &-3138136716872415102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5126dd4aa3f34e8a994c62496315c6f9, type: 3}
-  m_Name: XRImageTrackingFeature Android
-  m_EditorClassIdentifier: Google.XR.Extensions::Google.XR.Extensions.XRImageTrackingFeature
-  m_enabled: 0
-  nameUi: 'Android XR (Extensions): Image Tracking'
-  version: 1.0.0
-  featureIdInternal: com.google.xr.extensions.image_tracking
-  openxrExtensionStrings: XR_ANDROID_trackables XR_ANDROID_trackables_image XR_EXT_future
-  company: Qualcomm
-  priority: 95
-  targetOpenXRApiVersion: 
-  required: 0
-  customRuntimeLoaderName: 
-  _preferSizeEstimation: 0
---- !u!114 &-3099683606060318648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7db8a83b62274b05b74eb6c5e566107, type: 3}
-  m_Name: XRPerformanceMetrics Android
-  m_EditorClassIdentifier: 
-  m_enabled: 1
-  nameUi: 'Android XR: Performance Metrics'
-  version: 1.0.0
-  featureIdInternal: com.google.xr.extensions.performancemetrics
-  openxrExtensionStrings: XR_ANDROID_performance_metrics
-  company: Google
-  priority: 0
-  required: 0
 --- !u!114 &-2753788448879257344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,7 +831,7 @@ MonoBehaviour:
   m_symmetricProjection: 0
   m_optimizeMultiviewRenderRegions: 0
   m_multiviewRenderRegionsOptimizationMode: 0
-  m_hasMigratedMultiviewRenderRegionSetting: 0
+  m_hasMigratedMultiviewRenderRegionSetting: 1
   m_foveatedRenderingApi: 0
   m_useOpenXRPredictedTime: 0
 --- !u!114 &-2328797272488994352
@@ -877,7 +869,7 @@ MonoBehaviour:
   m_Name: ARFaceFeature Android
   m_EditorClassIdentifier: 
   m_enabled: 1
-  nameUi: 'Android XR: AR Face'
+  nameUi: 'Android XR: Faces'
   version: 0.1.0
   featureIdInternal: com.unity.openxr.feature.arfoundation-androidxr-face
   openxrExtensionStrings: XR_ANDROID_eye_tracking XR_ANDROID_face_tracking
@@ -899,7 +891,7 @@ MonoBehaviour:
   m_Name: ARPlaneFeature Android
   m_EditorClassIdentifier: 
   m_enabled: 1
-  nameUi: 'Android XR: AR Plane'
+  nameUi: 'Android XR: Planes'
   version: 0.1.0
   featureIdInternal: com.unity.openxr.feature.arfoundation-androidxr-plane
   openxrExtensionStrings: XR_ANDROID_trackables
@@ -955,6 +947,7 @@ MonoBehaviour:
   required: 0
   customRuntimeLoaderName: 
   enableSubsampledLayout: 0
+  useEyeTracking: 1
 --- !u!114 &-1503714666463552978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -990,10 +983,11 @@ MonoBehaviour:
   m_Name: ARCameraFeature Android
   m_EditorClassIdentifier: 
   m_enabled: 1
-  nameUi: 'Android XR: AR Camera'
+  nameUi: 'Android XR: Camera (Passthrough)'
   version: 0.1.0
   featureIdInternal: com.unity.openxr.feature.arfoundation-androidxr-camera
   openxrExtensionStrings: XR_ANDROID_passthrough_camera_state XR_ANDROID_light_estimation
+    XR_ANDROID_global_passthrough_dimming
   company: Unity Technologies
   priority: 0
   targetOpenXRApiVersion: 
@@ -1147,26 +1141,6 @@ MonoBehaviour:
   targetOpenXRApiVersion: 
   required: 0
   customRuntimeLoaderName: 
---- !u!114 &-437633982543252954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 501655ae2394a4fe980602117b6f0d93, type: 3}
-  m_Name: AndroidXRStylusControllerProfile Android
-  m_EditorClassIdentifier: 
-  m_enabled: 0
-  nameUi: Android XR Stylus Controller Profile
-  version: 0.1.0
-  featureIdInternal: com.unity.openxr.feature.input.androidxr
-  openxrExtensionStrings: XR_ANDROID_proto1_controller
-  company: Unity Technologies
-  priority: 0
-  required: 0
 --- !u!114 &-214013486975500211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1243,7 +1217,7 @@ MonoBehaviour:
   m_Name: ARMeshFeature Android
   m_EditorClassIdentifier: 
   m_enabled: 0
-  nameUi: 'Android XR: AR Scene Meshing'
+  nameUi: 'Android XR: Meshing'
   version: 0.1.0
   featureIdInternal: com.unity.openxr.feature.arfoundation-androidxr-scene-meshing
   openxrExtensionStrings: XR_ANDROID_scene_meshing
@@ -1406,6 +1380,7 @@ MonoBehaviour:
   - {fileID: -8290887660611511631}
   - {fileID: 312396529571593572}
   - {fileID: -8323589398928062355}
+  - {fileID: -3673302928638629704}
   customLoaderName: 
   m_renderMode: 1
   m_latencyOptimization: 0
@@ -1461,7 +1436,7 @@ MonoBehaviour:
   m_Name: AROcclusionFeature Android
   m_EditorClassIdentifier: 
   m_enabled: 1
-  nameUi: 'Android XR: AR Occlusion'
+  nameUi: 'Android XR: Occlusion'
   version: 0.1.0
   featureIdInternal: com.unity.openxr.feature.arfoundation-androidxr-occlusion
   openxrExtensionStrings: XR_ANDROID_depth_texture
@@ -1483,7 +1458,7 @@ MonoBehaviour:
   m_Name: AndroidXRPerformanceMetrics Android
   m_EditorClassIdentifier: 
   m_enabled: 1
-  nameUi: Android XR Performance Metrics
+  nameUi: 'Android XR: Performance Metrics'
   version: 0.1.0
   featureIdInternal: com.unity.openxr.feature.androidxr-performance-metrics
   openxrExtensionStrings: XR_ANDROID_performance_metrics
@@ -1619,7 +1594,7 @@ MonoBehaviour:
   m_symmetricProjection: 0
   m_optimizeMultiviewRenderRegions: 0
   m_multiviewRenderRegionsOptimizationMode: 0
-  m_hasMigratedMultiviewRenderRegionSetting: 0
+  m_hasMigratedMultiviewRenderRegionSetting: 1
   m_foveatedRenderingApi: 0
   m_useOpenXRPredictedTime: 0
 --- !u!114 &1703404590125347122
@@ -1689,7 +1664,7 @@ MonoBehaviour:
   targetOpenXRApiVersion: 
   required: 0
   customRuntimeLoaderName: 
---- !u!114 &2371850012367011244
+--- !u!114 &2157311492498073190
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1698,18 +1673,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88a1ff0258d1c4376b8652c9017edf88, type: 3}
-  m_Name: VkSubsamplingFeature Android
-  m_EditorClassIdentifier: 
+  m_Script: {fileID: 11500000, guid: 003983db5bffa4dd0b53f1011a5e651f, type: 3}
+  m_Name: XRMultimodalFaceFeature Android
+  m_EditorClassIdentifier: Google.XR.Extensions::Google.XR.Extensions.XRMultimodalFaceFeature
   m_enabled: 0
-  nameUi: Vulkan Subsampling
+  nameUi: 'Android XR (Extensions): Multimodal Face'
   version: 1.0.0
-  featureIdInternal: com.google.xr.extensions.vksubsampling
-  openxrExtensionStrings: XR_META_vulkan_swapchain_create_info XR_META_foveation_eye_tracked
-    XR_FB_foveation XR_FB_foveation_configuration XR_FB_swapchain_update_state
+  featureIdInternal: com.google.xr.extensions.face_tracking_data_source
+  openxrExtensionStrings: XR_ANDROID_face_tracking_data_source
   company: Google
-  priority: 0
+  priority: 90
+  targetOpenXRApiVersion: 
   required: 0
+  customRuntimeLoaderName: 
+  _requestedFaceTrackingMode: 3
 --- !u!114 &2499693258934496576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1753,7 +1730,6 @@ MonoBehaviour:
   - {fileID: 7981497463775772086}
   - {fileID: -4615102020679411909}
   - {fileID: -8364444087463368875}
-  - {fileID: -3138136716872415102}
   - {fileID: 1998649328354691880}
   - {fileID: -2109546853050566879}
   - {fileID: -4707685119097456808}
@@ -1783,7 +1759,6 @@ MonoBehaviour:
   - {fileID: -1053684858949333467}
   - {fileID: 7884739844657678977}
   - {fileID: 6496545602324406469}
-  - {fileID: 6223893472521302496}
   - {fileID: -9087593559022494257}
   - {fileID: 1485290146004281157}
   - {fileID: 8442226293906540074}
@@ -1799,6 +1774,15 @@ MonoBehaviour:
   - {fileID: -6569294589984031130}
   - {fileID: -8243947430763617313}
   - {fileID: 5173684479039880368}
+  - {fileID: 5385358193027306281}
+  - {fileID: -6609109616965374192}
+  - {fileID: -7034021039961624729}
+  - {fileID: 8391276356469407231}
+  - {fileID: 8140404920736060909}
+  - {fileID: -5166547433625008360}
+  - {fileID: -5552819749290402303}
+  - {fileID: 8665928006231743128}
+  - {fileID: 2157311492498073190}
   customLoaderName: 
   m_renderMode: 1
   m_latencyOptimization: 0
@@ -1873,7 +1857,7 @@ MonoBehaviour:
   m_Name: ARSessionFeature Android
   m_EditorClassIdentifier: 
   m_enabled: 1
-  nameUi: 'Android XR: AR Session'
+  nameUi: 'Android XR: Session'
   version: 0.1.0
   featureIdInternal: com.unity.openxr.feature.arfoundation-androidxr-session
   openxrExtensionStrings: 
@@ -1904,6 +1888,7 @@ MonoBehaviour:
   targetOpenXRApiVersion: 
   required: 0
   customRuntimeLoaderName: 
+  optionalFeatures: []
   symmetricProjection: 0
   optimizeBufferDiscards: 1
   multiviewRenderRegionsOptimizationMode: 0
@@ -1920,7 +1905,7 @@ MonoBehaviour:
   m_Name: ARBoundingBoxFeature Android
   m_EditorClassIdentifier: 
   m_enabled: 0
-  nameUi: 'Android XR: AR Bounding Box'
+  nameUi: 'Android XR: Bounding Boxes'
   version: 0.1.0
   featureIdInternal: com.unity.openxr.feature.arfoundation-androidxr-bounding-box
   openxrExtensionStrings: XR_ANDROID_trackables XR_ANDROID_trackables_object
@@ -2152,6 +2137,28 @@ MonoBehaviour:
   required: 0
   customRuntimeLoaderName: 
   m_UseRightHandedNDC: 0
+--- !u!114 &5385358193027306281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d36036e667eb84eb5a953e28b151a523, type: 3}
+  m_Name: AndroidXRBuildProfileFeature Android
+  m_EditorClassIdentifier: Unity.XR.AndroidOpenXR::UnityEngine.XR.OpenXR.Features.Android.AndroidXRBuildProfileFeature
+  m_enabled: 0
+  nameUi: 
+  version: 0.1.0
+  featureIdInternal: com.unity.openxr.feature.androidxr-build-profile
+  openxrExtensionStrings: 
+  company: Unity Technologies
+  priority: 0
+  targetOpenXRApiVersion: 
+  required: 0
+  customRuntimeLoaderName: 
 --- !u!114 &6186162037421468035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2172,29 +2179,6 @@ MonoBehaviour:
   company: Google
   priority: 0
   required: 0
---- !u!114 &6223893472521302496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cc559e22cb07402aa42ea702780050b, type: 3}
-  m_Name: XRFoveationFeature Android
-  m_EditorClassIdentifier: 
-  m_enabled: 0
-  nameUi: Foveation (Legacy)
-  version: 1.0.0
-  featureIdInternal: com.google.xr.extensions.foveation
-  openxrExtensionStrings: XR_KHR_android_create_instance XR_FB_foveation XR_FB_foveation_configuration
-    XR_FB_swapchain_update_state XR_FB_foveation_vulkan
-  company: Google
-  priority: 0
-  targetOpenXRApiVersion: 
-  required: 0
-  customRuntimeLoaderName: 
 --- !u!114 &6496545602324406469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2220,6 +2204,7 @@ MonoBehaviour:
   required: 0
   customRuntimeLoaderName: 
   enableSubsampledLayout: 0
+  useEyeTracking: 1
 --- !u!114 &6681977510229697615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2254,7 +2239,7 @@ MonoBehaviour:
   m_Name: AROcclusionFeature Standalone
   m_EditorClassIdentifier: 
   m_enabled: 0
-  nameUi: 'Android XR: AR Occlusion'
+  nameUi: 'Android XR: Occlusion'
   version: 0.1.0
   featureIdInternal: com.unity.openxr.feature.arfoundation-androidxr-occlusion
   openxrExtensionStrings: XR_ANDROID_depth_texture
@@ -2263,26 +2248,6 @@ MonoBehaviour:
   targetOpenXRApiVersion: 
   required: 0
   customRuntimeLoaderName: 
---- !u!114 &7231818765571228508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92592e2fd5616774e82ef0639f712a92, type: 3}
-  m_Name: XRDepthTextureFeature Android
-  m_EditorClassIdentifier: 
-  m_enabled: 1
-  nameUi: 'Android XR (Extensions): Depth Texture'
-  version: 1.0.0
-  featureIdInternal: com.google.xr.extensions.depth_texture
-  openxrExtensionStrings: XR_ANDROID_depth_texture
-  company: Google
-  priority: 99
-  required: 0
 --- !u!114 &7744145012371803232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2422,6 +2387,52 @@ MonoBehaviour:
   targetOpenXRApiVersion: 
   required: 0
   customRuntimeLoaderName: 
+--- !u!114 &8140404920736060909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5445a9efbe6a646378712dfe727cdf26, type: 3}
+  m_Name: XRSpatialContainerFeature Android
+  m_EditorClassIdentifier: Google.XR.Extensions::Google.XR.Extensions.XRSpatialContainerFeature
+  m_enabled: 0
+  nameUi: Spatial Container
+  version: 1.0.0
+  featureIdInternal: com.google.xr.extensions.spatial_container
+  openxrExtensionStrings: XR_EXT_spatial_container XR_EXT_spatial_container_self_rendering
+  company: Google
+  priority: 99
+  targetOpenXRApiVersion: 
+  required: 0
+  customRuntimeLoaderName: 
+  _suggestedBounds: {x: 2, y: 2, z: 2}
+--- !u!114 &8391276356469407231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8611aea2850a4bbc86c172892235ae7, type: 3}
+  m_Name: SpatialLifecycleFeature Android
+  m_EditorClassIdentifier: Google.XR.Extensions.SpatialEntities::Google.XR.Extensions.SpatialEntities.SpatialLifecycleFeature
+  m_enabled: 0
+  nameUi: 'Spatial Entities (Extensions): Lifecycle'
+  version: 1.0.0
+  featureIdInternal: com.google.xr.extensions.spatialentities.lifecycle
+  openxrExtensionStrings: XR_EXT_future XR_EXT_spatial_entity XR_EXT_spatial_persistence
+    XR_EXT_spatial_persistence_operations
+  company: Google
+  priority: 99
+  targetOpenXRApiVersion: 
+  required: 0
+  customRuntimeLoaderName: 
 --- !u!114 &8442226293906540074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2466,6 +2477,28 @@ MonoBehaviour:
   targetOpenXRApiVersion: 
   required: 0
   customRuntimeLoaderName: 
+--- !u!114 &8665928006231743128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d54b7667ddc424165b33ce8c03ab8816, type: 3}
+  m_Name: XRGeospatialFeature Android
+  m_EditorClassIdentifier: Google.XR.Extensions::Google.XR.Extensions.XRGeospatialFeature
+  m_enabled: 0
+  nameUi: 'Android XR: Geospatial'
+  version: 1.0.0
+  featureIdInternal: com.google.xr.extensions.geospatial
+  openxrExtensionStrings: XR_EXT_future XR_ANDROID_geospatial
+  company: Google
+  priority: 95
+  targetOpenXRApiVersion: 
+  required: 0
+  customRuntimeLoaderName: 
 --- !u!114 &8820606675220017187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2490,48 +2523,6 @@ MonoBehaviour:
   customRuntimeLoaderName: 
   m_MinResolutionScalar: 0.05
   m_MaxResolutionScalar: 1
---- !u!114 &8830254190376171493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beea39f7c76a754308eb0a90511de2ae, type: 3}
-  m_Name: XRLightEstimationFeature Android
-  m_EditorClassIdentifier: 
-  m_enabled: 1
-  nameUi: 'Android XR (Extensions): Camera (Light Estimation)'
-  version: 1.0.0
-  featureIdInternal: com.google.xr.extensions.light_estimation
-  openxrExtensionStrings: XR_ANDROID_light_estimation
-  company: Google
-  priority: 0
-  required: 0
---- !u!114 &9015062825784140973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68d6a92064ad944168290448ef9d5ec6, type: 3}
-  m_Name: XREnvironmentBlendModeFeature Android
-  m_EditorClassIdentifier: 
-  m_enabled: 0
-  nameUi: Environment Blend Mode
-  version: 1.0.0
-  featureIdInternal: com.google.xr.extensions.blendmode
-  openxrExtensionStrings: 
-  company: Google
-  priority: 98
-  required: 0
-  SupportedEnvironmentBlendModes: 
-  _requestMode: 1
 --- !u!114 &9018280467073092993
 MonoBehaviour:
   m_ObjectHideFlags: 0
