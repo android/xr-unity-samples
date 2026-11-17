@@ -206,11 +206,23 @@ namespace AndroidXRUnitySamples.InputDevices
 
             // Get head input action binding to be able to get head position.
             _headPositionAction.AddBinding("<XRHMD>/centerEyePosition");
-            _headPositionAction.Enable();
 
             // Get pinch input action binding to be able to get pinch value.
             _pinchValueAction.AddBinding($"<HandInteraction>{{{_handedness}Hand}}/pinchValue");
-            _pinchValueAction.Enable();
+
+            EnsureActionsEnabled();
+        }
+
+        /// <summary>
+        /// Cleans up internal input actions when the device is removed.
+        /// </summary>
+        protected override void OnRemoved()
+        {
+            base.OnRemoved();
+            _headPositionAction.Disable();
+            _headPositionAction.Dispose();
+            _pinchValueAction.Disable();
+            _pinchValueAction.Dispose();
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -222,10 +234,38 @@ namespace AndroidXRUnitySamples.InputDevices
 #endif // ENABLE_INPUT_SYSTEM
         }
 
+        // Input System 1.20+ destroys all InputActionStates in BeforeSceneLoad
+        // (InputActionState.InitializeGlobalActionState). Since this device is created during
+        // BeforeSplashScreen (XR subsystem start), re-enable its actions after scene load.
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void EnableActionsAfterSceneLoad()
+        {
+            LeftHand?.EnsureActionsEnabled();
+            RightHand?.EnsureActionsEnabled();
+        }
+
+        private void EnsureActionsEnabled()
+        {
+            if (!_headPositionAction.enabled)
+            {
+                _headPositionAction.Enable();
+            }
+
+            if (!_pinchValueAction.enabled)
+            {
+                _pinchValueAction.Enable();
+            }
+        }
+
         private void OnUpdatedHands(XRHandSubsystem subsystem,
                                     XRHandSubsystem.UpdateSuccessFlags updateSuccessFlags,
                                     XRHandSubsystem.UpdateType updateType)
         {
+            if (!added)
+            {
+                return;
+            }
+
             XRHand hand;
             bool isValid;
             if (_handedness == Handedness.Left)
@@ -282,6 +322,8 @@ namespace AndroidXRUnitySamples.InputDevices
                               ButtonControl pinchingUserFacing,
                               AxisControl pinchStrength)
         {
+            EnsureActionsEnabled();
+
             bool pinch_pressed = IsIndexPinching();
             float pinch_strength = IndexPinchValue();
 
