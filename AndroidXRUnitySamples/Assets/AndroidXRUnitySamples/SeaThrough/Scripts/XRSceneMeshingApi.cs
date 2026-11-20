@@ -55,12 +55,13 @@ namespace AndroidXRUnitySamples.SeaThrough
                 {
                     // Cache the MethodInfo using the appropriate binding flags
                     _setEnabledMethod = xrSceneMeshingApiType.GetMethod(
-                        "SetEnabled",
+                        "SetProviderAvailable",
                         BindingFlags.Static | BindingFlags.Public);
 
                     if (_setEnabledMethod == null)
                     {
-                        Debug.LogError("XRSceneMeshingApi: Could not find the SetEnabled method.");
+                        Debug.LogError(
+                            "XRSceneMeshingApi: Could not find the SetProviderAvailable method.");
                     }
                 }
                 else
